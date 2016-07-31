@@ -162,7 +162,7 @@ namespace BoardAutoTesting
             foreach (var line in lstLines)
             {
                 dgvLineInfo.Rows.Add(line.CraftId, line.LineIdx, line.RouteName,
-                    line.McuIp, line.AteIp, line.IsRepair, line.IsOut);
+                    line.McuIp, line.AteIp, line.IsRepair, line.IsOut, line.PortId);
             }
         }
 
@@ -173,13 +173,16 @@ namespace BoardAutoTesting
             {
                 McuIp = row.Cells["MCU_IP"].Value.ToString(),
                 AteIp = row.Cells["ATE_IP"].Value.ToString(),
+                LineIdx = row.Cells["Line_Idx"].Value.ToString(),
+                PortId = row.Cells["Port_Id"].Value.ToString(),
                 IsRepair = row.Cells["b_repair"].Value != null &&
-                bool.Parse(row.Cells["b_repair"].Value.ToString()),
+                Convert.ToBoolean(row.Cells["b_repair"].Value),
 
-                IsOut = row.Cells["b_Last"].Value != null && 
-                bool.Parse(row.Cells["b_Last"].Value.ToString()),
+                IsOut = row.Cells["b_Last"].Value != null &&
+                Convert.ToBoolean(row.Cells["b_Last"].Value),
 
-                RouteName = row.Cells["Route_Name"].Value.ToString()
+                RouteName = row.Cells["Route_Name"].Value.ToString(),
+                CraftId = row.Cells["Craft_Idx"].Value.ToString()
             }).Any(line => !LineBll.SureToUpdateModel(line, "Craft_Idx")))
             {
                 MessageUtil.ShowError("无法更新线体信息");
@@ -228,17 +231,20 @@ namespace BoardAutoTesting
                 return;
             }
 
-            LineInfo line = new LineInfo()
+            LineInfo line = new LineInfo
             {
                 McuIp = dgvLineInfo.Rows[e.RowIndex].Cells["MCU_IP"].Value.ToString(),
                 AteIp = dgvLineInfo.Rows[e.RowIndex].Cells["ATE_IP"].Value.ToString(),
-                IsRepair = dgvLineInfo.Rows[e.RowIndex].Cells["b_repair"].Value != null && 
-                bool.Parse(dgvLineInfo.Rows[e.RowIndex].Cells["b_repair"].Value.ToString()),
+                LineIdx = dgvLineInfo.Rows[e.RowIndex].Cells["Line_Idx"].Value.ToString(),
+                PortId = dgvLineInfo.Rows[e.RowIndex].Cells["Port_Id"].Value.ToString(),
+                IsRepair = dgvLineInfo.Rows[e.RowIndex].Cells["b_repair"].Value != null &&
+                Convert.ToBoolean(dgvLineInfo.Rows[e.RowIndex].Cells["b_repair"].Value),
 
-                IsOut = dgvLineInfo.Rows[e.RowIndex].Cells["b_Last"].Value != null && 
-                bool.Parse(dgvLineInfo.Rows[e.RowIndex].Cells["b_Last"].Value.ToString()),
+                IsOut = dgvLineInfo.Rows[e.RowIndex].Cells["b_Last"].Value != null &&
+                Convert.ToBoolean(dgvLineInfo.Rows[e.RowIndex].Cells["b_Last"].Value),
 
-                RouteName = dgvLineInfo.Rows[e.RowIndex].Cells["Route_Name"].Value.ToString()
+                RouteName = dgvLineInfo.Rows[e.RowIndex].Cells["Route_Name"].Value.ToString(),
+                CraftId = dgvLineInfo.Rows[e.RowIndex].Cells["Craft_Idx"].Value.ToString()
             };
             if (!LineBll.SureToUpdateModel(line, "Craft_Idx"))
             {

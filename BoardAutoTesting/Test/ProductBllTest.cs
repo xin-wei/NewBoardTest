@@ -45,8 +45,8 @@ namespace BoardAutoTesting.Test
                 ATEIp = ".11"
             };
 
-            int i = ProductBll.UpdateModel(info);
-            Assert.AreEqual(1, i);
+            bool result = ProductBll.SureToUpdateModel(info);
+            Assert.True(result);
         }
     }
 }

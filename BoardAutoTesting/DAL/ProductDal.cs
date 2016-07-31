@@ -11,7 +11,7 @@ namespace BoardAutoTesting.DAL
     public class ProductDal
     {
         private const string TableName = "centercontrol.tb_product_info";
-        private static IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
+        private static readonly IAdminProvider Dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
 
         private static IDictionary<string, object> GetModelDic(ProductInfo product)
         {
@@ -50,15 +50,15 @@ namespace BoardAutoTesting.DAL
         public static void InsertModel(ProductInfo product)
         {
             IDictionary<string, object> mst = GetModelDic(product);
-            dp.AddData(TableName, mst);
+            Dp.AddData(TableName, mst);
         }
 
         public static ProductInfo GetModelByIpStatus(string ip, ProductAction action)
         {
             string filter = string.Format("Current_IP = '{0}' and Action_Name = '{1}'",
-                ip, (int) action);
+                ip, action);
             int count;
-            DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
+            DataSet ds = Dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
                 return null;
 
@@ -72,7 +72,7 @@ namespace BoardAutoTesting.DAL
         {
             string filter = string.Format("RFID = '{0}'", id);
             int count;
-            DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
+            DataSet ds = Dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
                 return null;
 
@@ -87,7 +87,7 @@ namespace BoardAutoTesting.DAL
             string filter = string.Format("Craft_Idx = '{0}' and Action_Name = '{1}'",
                 id, action);
             int count;
-            DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
+            DataSet ds = Dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
                 return null;
 
@@ -101,7 +101,7 @@ namespace BoardAutoTesting.DAL
         {
             List<ProductInfo> lstInfos = new List<ProductInfo>();
             int count;
-            DataSet ds = dp.GetData(TableName, "*", null, out count);
+            DataSet ds = Dp.GetData(TableName, "*", null, out count);
             if (count <= 0) 
                 return lstInfos;
 
@@ -120,7 +120,7 @@ namespace BoardAutoTesting.DAL
             IDictionary<string, object> mst = new Dictionary<string, object>();
             mst.Add("RFID", product.RFID);
 
-            dp.DeleteData(TableName, mst);
+            Dp.DeleteData(TableName, mst);
         }
 
         public static int UpdateModel(ProductInfo product)

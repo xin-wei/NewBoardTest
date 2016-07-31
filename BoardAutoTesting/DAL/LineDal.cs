@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using BoardAutoTesting.Model;
@@ -10,7 +11,7 @@ namespace BoardAutoTesting.DAL
     public class LineDal
     {
         private const string TableName = "centercontrol.tb_line_info";
-        private static readonly IAdminProvider dp = 
+        private static readonly IAdminProvider Dp = 
             (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
 
         private static IDictionary<string, object> GetModelDic(LineInfo line)
@@ -21,8 +22,8 @@ namespace BoardAutoTesting.DAL
             mst.Add("Line_Idx", line.LineIdx);
             mst.Add("Mcu_Ip", line.McuIp);
             mst.Add("Ate_Ip", line.AteIp);
-            mst.Add("Is_Repair", line.IsRepair);
-            mst.Add("Is_Out", line.IsOut);
+            mst.Add("Is_Repair", Convert.ToInt32(line.IsRepair));
+            mst.Add("Is_Out", Convert.ToInt32(line.IsOut));
             mst.Add("Line_ESN", line.LineEsn);
             mst.Add("Craft_ESN", line.CraftEsn);
             mst.Add("Port_Id", line.PortId);
@@ -52,7 +53,7 @@ namespace BoardAutoTesting.DAL
         public static void InsertModel(LineInfo line)
         {
             IDictionary<string, object> mst = GetModelDic(line);
-            dp.AddData(TableName, mst);
+            Dp.AddData(TableName, mst);
         }
 
         public static List<LineInfo> GetModelByRouteEmptyCraft(string route)
@@ -68,7 +69,7 @@ namespace BoardAutoTesting.DAL
             lstOrder.Add(order);
 
             int count;
-            DataSet ds = dp.GetData(TableName, "*", filter, null, lstOrder, "", out count);
+            DataSet ds = Dp.GetData(TableName, "*", filter, null, lstOrder, "", out count);
             if (count <= 0)
                 return null;
 
@@ -102,7 +103,7 @@ namespace BoardAutoTesting.DAL
             }
 
             int count;
-            DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
+            DataSet ds = Dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
                 return null;
 
@@ -117,7 +118,7 @@ namespace BoardAutoTesting.DAL
             string filter = string.Format("Craft_Idx = '{0}'", id);
 
             int count;
-            DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
+            DataSet ds = Dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
                 return null;
 
@@ -142,7 +143,7 @@ namespace BoardAutoTesting.DAL
         {
             List<LineInfo> lstInfos = new List<LineInfo>();
             int count;
-            DataSet ds = dp.GetData(TableName, "*", null, out count);
+            DataSet ds = Dp.GetData(TableName, "*", null, out count);
             if (count <= 0) return lstInfos;
 
             DataTable dt = ds.Tables[0];
@@ -160,7 +161,7 @@ namespace BoardAutoTesting.DAL
             IDictionary<string, object> mst = new Dictionary<string, object>();
             mst.Add("Craft_Idx", line.CraftId);
 
-            dp.DeleteData(TableName, mst);
+            Dp.DeleteData(TableName, mst);
         }
 
         /// <summary>
@@ -191,7 +192,7 @@ namespace BoardAutoTesting.DAL
         {
             string sql =
                 string.Format(
-                    "update {0} set Line_ESN = '{1}' where Mcu_Ip = (select Mcu_Ip from {0} where Line_ESN = '' and Mcu_Ip = '{2}')",
+                    "update {0} s set Line_ESN = '{1}' where s.Mcu_Ip in (select t.Mcu_Ip from (select Line_ESN, Mcu_Ip from {0}) t where t.Line_ESN = '' and t.Mcu_Ip = '{2}')",
                     TableName, esn, ip);
             return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
                 CommandType.Text, sql, null);
@@ -207,7 +208,7 @@ namespace BoardAutoTesting.DAL
         {
             string sql =
                 string.Format(
-                    "update {0} set Craft_ESN = '{1}' where Mcu_Ip = (select Mcu_Ip from {0} where Route_Name = '{2}' and Is_Repair = 0 and Craft_ESN = '' order by Craft_Idx desc)",
+                    "update {0} s set Craft_ESN = '{1}' where s.Mcu_Ip in (select t.Mcu_Ip from (select Route_Name, Is_Repair, Craft_ESN, Mcu_Ip from {0}) t where t.Route_Name = '{2}' and t.Is_Repair = 0 and t.Craft_ESN = '' order by Craft_Idx desc)",
                     TableName, esn, strRoute);
             return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
                 CommandType.Text, sql, null);

@@ -606,6 +606,7 @@ namespace BoardAutoTesting
             this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.ribbonControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TestFrm";
             this.Text = "板测自动化软件";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TestFrm_FormClosing);

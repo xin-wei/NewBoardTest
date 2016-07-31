@@ -28,7 +28,7 @@ namespace BoardAutoTesting
 {
     public partial class TestFrm : Office2007RibbonForm
     {
-        private SerialPortUtil _serialPort;
+        private SerialPortUtil _serialPort = new SerialPortUtil();
         private string _strLastEsn;
         private string _strComRfid;
         private bool _bCanIn = true;
@@ -157,6 +157,7 @@ namespace BoardAutoTesting
                 string tempRfid = cmd.Replace("*", "").Replace("#", "").Replace(":IN?", "").Trim();
                 _serialPort.WriteData(CmdInfo.GoInGet);
                 if (_strComRfid == tempRfid) return;
+                _strComRfid = tempRfid;
 
                 Thread t = new Thread(() =>
                 {
@@ -172,7 +173,7 @@ namespace BoardAutoTesting
                     ProductInfo product = ProductBll.GetModelByRfid(_strComRfid);
                     if (product == null)
                     {
-                        ProductInfo newProduct = new ProductInfo()
+                        ProductInfo newProduct = new ProductInfo
                         {
                             RFID = _strComRfid,
                             ESN = _strLastEsn,
@@ -196,7 +197,7 @@ namespace BoardAutoTesting
                         product.OldIp = "NA";
                         product.ActionName = ProductAction.OnLine.ToString();
                         product.ATEIp = "NA";
-                        if (ProductBll.UpdateModel(product) == 1) return;
+                        if (!ProductBll.SureToUpdateModel(product)) return;
                         //应该是不可能出现的
                         MessageUtil.ShowError("产品数据更新失败");
                         OperationControl.ShowStatus(lblStatus,
@@ -260,7 +261,7 @@ namespace BoardAutoTesting
                 if (!_serialPort.IsOpen)//判断是否打开
                 {
                     _serialPort = new SerialPortUtil(portName,
-                        (SerialPortBaudRates)int.Parse(cbxPortName.SelectedItem.ToString()),
+                        (SerialPortBaudRates)int.Parse(cbxBaudRate.SelectedItem.ToString()),
                         Parity.None,
                         SerialPortDatabits.EightBits, StopBits.One)
                     {

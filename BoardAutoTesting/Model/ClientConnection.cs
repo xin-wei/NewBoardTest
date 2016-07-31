@@ -58,7 +58,9 @@ namespace BoardAutoTesting.Model
 
         private IAction CommandFactory(string cmd)
         {
-            string command = cmd.Replace("*", "").Replace("#", "").Remove(0, 8);
+            string command = cmd.Replace("*", "").Replace("#", "");
+            if (command.Contains(":IN?"))
+                command = command.Remove(0, 8);
             IAction action;
             switch (command)
             {
@@ -162,8 +164,8 @@ namespace BoardAutoTesting.Model
                 return;
 
             //以下指令属于主动询问式指令，所以需要创建对应的类进行处理
-            if (cmd.Contains(CmdInfo.CanIn) || cmd.Contains(CmdInfo.ProductPass) ||
-                cmd.Contains(CmdInfo.ProductFail) || cmd.Contains(CmdInfo.ResultRetest) ||
+            if (cmd.Contains(CmdInfo.CanIn) || cmd.Contains(CmdInfo.ResultPass) ||
+                cmd.Contains(CmdInfo.ResultFail) || cmd.Contains(CmdInfo.ResultRetest) ||
                 cmd.Contains(CmdInfo.TestMac))
             {
                 _action = CommandFactory(cmd);

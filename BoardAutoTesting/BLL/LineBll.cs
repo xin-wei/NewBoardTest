@@ -40,7 +40,12 @@ namespace BoardAutoTesting.BLL
 
         public static LineInfo GetModelByIpPort(string ip, string port)
         {
+#if _NEW_VERSION
             return LineDal.GetModelByIpPort(ip, port);
+#else
+            return LineDal.GetModelByIpPort(ip, "NA");
+#endif
+            
         }
 
         public static LineInfo GetModelByRouteEmptyCraft(string route)

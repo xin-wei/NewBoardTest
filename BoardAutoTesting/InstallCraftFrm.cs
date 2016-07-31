@@ -92,8 +92,6 @@ namespace BoardAutoTesting
                     foreach (DataRow item in dataTable.Rows)
                         cbxRouteId.Items.Add(item["CRAFTNAME"].ToString());
             }
-            cbxRouteId.SelectedIndex = 0;
-            cbxLineId.SelectedIndex = 0;
             LoadMax();
         }
 
@@ -112,6 +110,7 @@ namespace BoardAutoTesting
 
             cbxLineId.SelectedIndex = 0;
             cbxRouteId.SelectedIndex = 0;
+            cbxPort.SelectedIndex = 0;
             ipMcu.Text = string.Empty;
             ipMcu.Value = string.Empty;
             ipAte.Text = string.Empty;
@@ -138,7 +137,7 @@ namespace BoardAutoTesting
                 IsOut = false,
                 LineEsn = "",
                 CraftEsn = "",
-                PortId = "NA"
+                PortId = cbxPort.SelectedItem.ToString()
             };
             LineBll.InsertModel(line);
             Thread.Sleep(100);

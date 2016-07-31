@@ -47,6 +47,7 @@
             this.ATE_IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.b_Repair = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.b_Last = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Port_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLineInfo)).BeginInit();
             this.LineInfo_Menu.SuspendLayout();
             this.groupPanel2.SuspendLayout();
@@ -93,7 +94,8 @@
             this.MCU_IP,
             this.ATE_IP,
             this.b_Repair,
-            this.b_Last});
+            this.b_Last,
+            this.Port_Id});
             this.dgvLineInfo.ContextMenuStrip = this.LineInfo_Menu;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -108,6 +110,7 @@
             this.dgvLineInfo.Location = new System.Drawing.Point(0, 0);
             this.dgvLineInfo.Margin = new System.Windows.Forms.Padding(4);
             this.dgvLineInfo.Name = "dgvLineInfo";
+            this.dgvLineInfo.RowHeadersVisible = false;
             this.dgvLineInfo.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dgvLineInfo.RowTemplate.Height = 23;
             this.dgvLineInfo.Size = new System.Drawing.Size(1129, 525);
@@ -253,6 +256,11 @@
             this.b_Last.HeaderText = "最后一站";
             this.b_Last.Name = "b_Last";
             // 
+            // Port_Id
+            // 
+            this.Port_Id.HeaderText = "端口号";
+            this.Port_Id.Name = "Port_Id";
+            // 
             // SettingFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -293,5 +301,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ATE_IP;
         private System.Windows.Forms.DataGridViewCheckBoxColumn b_Repair;
         private System.Windows.Forms.DataGridViewCheckBoxColumn b_Last;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Port_Id;
     }
 }

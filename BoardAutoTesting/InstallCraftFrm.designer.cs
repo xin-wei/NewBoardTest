@@ -40,6 +40,11 @@ namespace BoardAutoTesting
             this.btnClear = new DevComponents.DotNetBar.ButtonX();
             this.cbxLineId = new DevComponents.DotNetBar.Controls.ComboBoxEx();
             this.cbxRouteId = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.labelX6 = new DevComponents.DotNetBar.LabelX();
+            this.cbxPort = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.Port0 = new DevComponents.Editors.ComboItem();
+            this.Port1 = new DevComponents.Editors.ComboItem();
+            this.NA = new DevComponents.Editors.ComboItem();
             ((System.ComponentModel.ISupportInitialize)(this.ipMcu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ipAte)).BeginInit();
             this.SuspendLayout();
@@ -158,9 +163,9 @@ namespace BoardAutoTesting
             // 
             this.btnNew.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnNew.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnNew.Location = new System.Drawing.Point(288, 132);
+            this.btnNew.Location = new System.Drawing.Point(295, 85);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(78, 38);
+            this.btnNew.Size = new System.Drawing.Size(99, 42);
             this.btnNew.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnNew.TabIndex = 3;
             this.btnNew.Text = "新增";
@@ -170,9 +175,9 @@ namespace BoardAutoTesting
             // 
             this.btnClear.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnClear.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnClear.Location = new System.Drawing.Point(372, 132);
+            this.btnClear.Location = new System.Drawing.Point(295, 133);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(78, 38);
+            this.btnClear.Size = new System.Drawing.Size(99, 42);
             this.btnClear.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnClear.TabIndex = 3;
             this.btnClear.Text = "清空";
@@ -202,9 +207,51 @@ namespace BoardAutoTesting
             this.cbxRouteId.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cbxRouteId.TabIndex = 4;
             // 
+            // labelX6
+            // 
+            // 
+            // 
+            // 
+            this.labelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX6.Location = new System.Drawing.Point(12, 157);
+            this.labelX6.Name = "labelX6";
+            this.labelX6.Size = new System.Drawing.Size(94, 23);
+            this.labelX6.TabIndex = 0;
+            this.labelX6.Text = "ATE端口号：";
+            this.labelX6.TextAlignment = System.Drawing.StringAlignment.Far;
+            // 
+            // cbxPort
+            // 
+            this.cbxPort.DisplayMember = "Text";
+            this.cbxPort.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbxPort.FormattingEnabled = true;
+            this.cbxPort.ItemHeight = 15;
+            this.cbxPort.Items.AddRange(new object[] {
+            this.Port0,
+            this.Port1,
+            this.NA});
+            this.cbxPort.Location = new System.Drawing.Point(112, 157);
+            this.cbxPort.Name = "cbxPort";
+            this.cbxPort.Size = new System.Drawing.Size(157, 21);
+            this.cbxPort.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.cbxPort.TabIndex = 4;
+            // 
+            // Port0
+            // 
+            this.Port0.Text = "0";
+            // 
+            // Port1
+            // 
+            this.Port1.Text = "1";
+            // 
+            // NA
+            // 
+            this.NA.Text = "NA";
+            // 
             // InstallCraftFrm
             // 
-            this.ClientSize = new System.Drawing.Size(461, 182);
+            this.ClientSize = new System.Drawing.Size(410, 192);
+            this.Controls.Add(this.cbxPort);
             this.Controls.Add(this.cbxRouteId);
             this.Controls.Add(this.cbxLineId);
             this.Controls.Add(this.btnClear);
@@ -212,6 +259,7 @@ namespace BoardAutoTesting
             this.Controls.Add(this.ipAte);
             this.Controls.Add(this.ipMcu);
             this.Controls.Add(this.txtCraftId);
+            this.Controls.Add(this.labelX6);
             this.Controls.Add(this.labelX5);
             this.Controls.Add(this.labelX4);
             this.Controls.Add(this.labelX3);
@@ -245,5 +293,10 @@ namespace BoardAutoTesting
         private DevComponents.DotNetBar.ButtonX btnClear;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cbxLineId;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cbxRouteId;
+        private DevComponents.DotNetBar.LabelX labelX6;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cbxPort;
+        private DevComponents.Editors.ComboItem Port0;
+        private DevComponents.Editors.ComboItem Port1;
+        private DevComponents.Editors.ComboItem NA;
     }
 }

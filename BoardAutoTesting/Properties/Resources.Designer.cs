@@ -176,5 +176,14 @@ namespace BoardAutoTesting.Properties {
                 return ResourceManager.GetString("SystemPromote", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 指令错误 的本地化字符串。
+        /// </summary>
+        internal static string WrongCommand {
+            get {
+                return ResourceManager.GetString("WrongCommand", resourceCulture);
+            }
+        }
     }
 }

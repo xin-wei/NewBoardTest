@@ -85,7 +85,7 @@ namespace BoardAutoTesting.DataExchange
                     ATEIp = "NA"
                 };
 
-                if (ProductBll.UpdateModel(originProductInfo) != 1)//应该是不可能出现的
+                if (!ProductBll.SureToUpdateModel(originProductInfo))//应该是不可能出现的
                     Logger.Glog.Info(Client.ClientIp, "CanIn.UpdateModel",
                         "最后一站更新数据出错");
 
@@ -155,7 +155,7 @@ namespace BoardAutoTesting.DataExchange
             product.CurrentIp = Client.ClientIp;
             product.ActionName = ProductAction.Testing.ToString();
             product.IsPass = ProductStatus.UnKnown.ToString();
-            if (ProductBll.UpdateModel(product) != 1)//应该是不可能发生的
+            if (!ProductBll.SureToUpdateModel(product))//应该是不可能发生的
                 return;
 
             if (!WaitGetResponse(CmdInfo.GoIn, TimeOut, CmdInfo.GoInGet))
@@ -196,7 +196,7 @@ namespace BoardAutoTesting.DataExchange
             product.OldIp = product.CurrentIp;
             product.CurrentIp = Client.ClientIp;
             product.ActionName = ProductAction.OnLine.ToString();
-            if (ProductBll.UpdateModel(product) != 1) //应该是不可能发生的
+            if (!ProductBll.SureToUpdateModel(product)) //应该是不可能发生的
                 return;
 
             if (!WaitGetResponse(CmdInfo.GoNext, TimeOut, CmdInfo.GoNextGet))

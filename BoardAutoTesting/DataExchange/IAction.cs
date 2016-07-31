@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using BoardAutoTesting.Log;
 using BoardAutoTesting.Model;
 using BoardAutoTesting.Status;
 
@@ -39,22 +38,22 @@ namespace BoardAutoTesting.DataExchange
         /// 根据指令获取端口号，用于ATE一拖二
         /// </summary>
         /// <param name="cmd">指令内容</param>
-        /// <param name="result">指令格式是否正确</param>
         /// <param name="port">解析的端口号</param>
-        protected void GetPortResult(string cmd, out bool result, out string port)
+        protected bool GetPortResult(string cmd, out string port)
         {
-            result = false;
-            port = "1";
-
-            if (cmd.Contains("RESULT:PASS") && cmd.Length == 15)
+            port = "NA";
+            if (cmd.Contains("RESULT:PASS") || cmd.Contains("RESULT:FAIL") ||
+                cmd.Contains("RESULT:RETEST") || cmd.Contains("TEST:MAC"))
             {
-                result = true;
-                port = cmd.Substring(14, 1);
-                return;
+#if _NEW_VERSION
+                int index1 = cmd.LastIndexOf(':');
+                port = cmd.Remove(0, index1 + 1);
+#else
+                port = cmd.Substring(cmd.Length - 1, 1);
+#endif
             }
 
-            if (!cmd.Contains("RESULT:FAIL") || cmd.Length != 15) return;
-            port = cmd.Substring(14, 1);
+            return false;
         }
 
         /// <summary>
