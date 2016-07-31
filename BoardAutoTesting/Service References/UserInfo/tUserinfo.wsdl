@@ -1,0 +1,1217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="DeleteUserInfoByUserId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteUserInfoByUserIdResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="InsertUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dicuserinfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertUserInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="获取所有的用户信息">
+        <s:complexType />
+      </s:element>
+      <s:element name="获取所有的用户信息Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="获取所有的用户信息Result" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfo_WinCE">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetUserInfo_WinCEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserInfo_WinCEResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="根据条件获取用户信息">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PWD" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="根据条件获取用户信息Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="根据条件获取用户信息Result" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="根据条件获取用户信息_WINCE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PWD" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="根据条件获取用户信息_WINCEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="根据条件获取用户信息_WINCEResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfoByUserId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfoByUserIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserInfoByUserIdResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EditUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dicuserInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EditUserInfoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CheckUserInfoByUserId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckUserInfoByUserIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckUserInfoByUserIdResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChkUserInfoIdAndPwd">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChkUserInfoIdAndPwdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChkUserInfoIdAndPwdResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllProgFunctionInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllProgFunctionInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllProgFunctionInfoResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllProgFunctionInfo_WinCE">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAllProgFunctionInfo_WinCEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllProgFunctionInfo_WinCEResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddUserJurisdiction">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LsDicstring" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddUserJurisdictionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddUserJurisdictionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserJurisdictionByUserId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserJurisdictionByUserIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserJurisdictionByUserIdResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserJurisdictionByUserId_WinCE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserJurisdictionByUserId_WinCEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserJurisdictionByUserId_WinCEResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserJurisdictionByUserId2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserJurisdictionByUserId2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserJurisdictionByUserId2Result" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserJurisdictionByUserId2_WinCE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserJurisdictionByUserId2_WinCEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserJurisdictionByUserId2_WinCEResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddProgInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="proginfomodel" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddProgInfoResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="AddFunctionList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="lsfunlist" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddFunctionListResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="ChkProgId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="progid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChkProgIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChkProgIdResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChkFunctionList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="progid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="funid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChkFunctionListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChkFunctionListResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dicuserinfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserPasswordResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="Clear_User_Info">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Clear_User_InfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Clear_User_InfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddUserAteEmp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="lsAteEmp" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddUserAteEmpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddUserAteEmpResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAteEmp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserAteEmpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserAteEmpResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChkUserAteEmp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CraftId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChkUserAteEmpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChkUserAteEmpResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckEmp_NEW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EMP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ipaddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="macaddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mygroup" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckEmp_NEWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckEmp_NEWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strIpaddress" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteLoginResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckLineEmployee">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PWD" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckLineEmployeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckLineEmployeeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="DeleteUserInfoByUserIdSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteUserInfoByUserId" />
+  </wsdl:message>
+  <wsdl:message name="DeleteUserInfoByUserIdSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteUserInfoByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="InsertUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="获取所有的用户信息SoapIn">
+    <wsdl:part name="parameters" element="tns:获取所有的用户信息" />
+  </wsdl:message>
+  <wsdl:message name="获取所有的用户信息SoapOut">
+    <wsdl:part name="parameters" element="tns:获取所有的用户信息Response" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfo_WinCESoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserInfo_WinCE" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfo_WinCESoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserInfo_WinCEResponse" />
+  </wsdl:message>
+  <wsdl:message name="根据条件获取用户信息SoapIn">
+    <wsdl:part name="parameters" element="tns:根据条件获取用户信息" />
+  </wsdl:message>
+  <wsdl:message name="根据条件获取用户信息SoapOut">
+    <wsdl:part name="parameters" element="tns:根据条件获取用户信息Response" />
+  </wsdl:message>
+  <wsdl:message name="根据条件获取用户信息_WINCESoapIn">
+    <wsdl:part name="parameters" element="tns:根据条件获取用户信息_WINCE" />
+  </wsdl:message>
+  <wsdl:message name="根据条件获取用户信息_WINCESoapOut">
+    <wsdl:part name="parameters" element="tns:根据条件获取用户信息_WINCEResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByUserIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserInfoByUserId" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByUserIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserInfoByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="EditUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:EditUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="EditUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:EditUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckUserInfoByUserIdSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckUserInfoByUserId" />
+  </wsdl:message>
+  <wsdl:message name="CheckUserInfoByUserIdSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckUserInfoByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChkUserInfoIdAndPwdSoapIn">
+    <wsdl:part name="parameters" element="tns:ChkUserInfoIdAndPwd" />
+  </wsdl:message>
+  <wsdl:message name="ChkUserInfoIdAndPwdSoapOut">
+    <wsdl:part name="parameters" element="tns:ChkUserInfoIdAndPwdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllProgFunctionInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllProgFunctionInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetAllProgFunctionInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllProgFunctionInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllProgFunctionInfo_WinCESoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllProgFunctionInfo_WinCE" />
+  </wsdl:message>
+  <wsdl:message name="GetAllProgFunctionInfo_WinCESoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllProgFunctionInfo_WinCEResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddUserJurisdictionSoapIn">
+    <wsdl:part name="parameters" element="tns:AddUserJurisdiction" />
+  </wsdl:message>
+  <wsdl:message name="AddUserJurisdictionSoapOut">
+    <wsdl:part name="parameters" element="tns:AddUserJurisdictionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserJurisdictionByUserIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserJurisdictionByUserId" />
+  </wsdl:message>
+  <wsdl:message name="GetUserJurisdictionByUserIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserJurisdictionByUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserJurisdictionByUserId_WinCESoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserJurisdictionByUserId_WinCE" />
+  </wsdl:message>
+  <wsdl:message name="GetUserJurisdictionByUserId_WinCESoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserJurisdictionByUserId_WinCEResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserJurisdictionByUserId2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserJurisdictionByUserId2" />
+  </wsdl:message>
+  <wsdl:message name="GetUserJurisdictionByUserId2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserJurisdictionByUserId2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetUserJurisdictionByUserId2_WinCESoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserJurisdictionByUserId2_WinCE" />
+  </wsdl:message>
+  <wsdl:message name="GetUserJurisdictionByUserId2_WinCESoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserJurisdictionByUserId2_WinCEResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddProgInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:AddProgInfo" />
+  </wsdl:message>
+  <wsdl:message name="AddProgInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:AddProgInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddFunctionListSoapIn">
+    <wsdl:part name="parameters" element="tns:AddFunctionList" />
+  </wsdl:message>
+  <wsdl:message name="AddFunctionListSoapOut">
+    <wsdl:part name="parameters" element="tns:AddFunctionListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChkProgIdSoapIn">
+    <wsdl:part name="parameters" element="tns:ChkProgId" />
+  </wsdl:message>
+  <wsdl:message name="ChkProgIdSoapOut">
+    <wsdl:part name="parameters" element="tns:ChkProgIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChkFunctionListSoapIn">
+    <wsdl:part name="parameters" element="tns:ChkFunctionList" />
+  </wsdl:message>
+  <wsdl:message name="ChkFunctionListSoapOut">
+    <wsdl:part name="parameters" element="tns:ChkFunctionListResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserPassword" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="Clear_User_InfoSoapIn">
+    <wsdl:part name="parameters" element="tns:Clear_User_Info" />
+  </wsdl:message>
+  <wsdl:message name="Clear_User_InfoSoapOut">
+    <wsdl:part name="parameters" element="tns:Clear_User_InfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddUserAteEmpSoapIn">
+    <wsdl:part name="parameters" element="tns:AddUserAteEmp" />
+  </wsdl:message>
+  <wsdl:message name="AddUserAteEmpSoapOut">
+    <wsdl:part name="parameters" element="tns:AddUserAteEmpResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAteEmpSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserAteEmp" />
+  </wsdl:message>
+  <wsdl:message name="GetUserAteEmpSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserAteEmpResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChkUserAteEmpSoapIn">
+    <wsdl:part name="parameters" element="tns:ChkUserAteEmp" />
+  </wsdl:message>
+  <wsdl:message name="ChkUserAteEmpSoapOut">
+    <wsdl:part name="parameters" element="tns:ChkUserAteEmpResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckEmp_NEWSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckEmp_NEW" />
+  </wsdl:message>
+  <wsdl:message name="CheckEmp_NEWSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckEmp_NEWResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteLogin" />
+  </wsdl:message>
+  <wsdl:message name="DeleteLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckLineEmployeeSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckLineEmployee" />
+  </wsdl:message>
+  <wsdl:message name="CheckLineEmployeeSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckLineEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="tUserInfoSoap">
+    <wsdl:operation name="DeleteUserInfoByUserId">
+      <wsdl:input message="tns:DeleteUserInfoByUserIdSoapIn" />
+      <wsdl:output message="tns:DeleteUserInfoByUserIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertUserInfo">
+      <wsdl:input message="tns:InsertUserInfoSoapIn" />
+      <wsdl:output message="tns:InsertUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <wsdl:input name="获取所有的用户信息" message="tns:获取所有的用户信息SoapIn" />
+      <wsdl:output name="获取所有的用户信息" message="tns:获取所有的用户信息SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo_WinCE">
+      <wsdl:input message="tns:GetUserInfo_WinCESoapIn" />
+      <wsdl:output message="tns:GetUserInfo_WinCESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <wsdl:input name="根据条件获取用户信息" message="tns:根据条件获取用户信息SoapIn" />
+      <wsdl:output name="根据条件获取用户信息" message="tns:根据条件获取用户信息SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo_WinCE">
+      <wsdl:input name="根据条件获取用户信息_WINCE" message="tns:根据条件获取用户信息_WINCESoapIn" />
+      <wsdl:output name="根据条件获取用户信息_WINCE" message="tns:根据条件获取用户信息_WINCESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUserId">
+      <wsdl:input message="tns:GetUserInfoByUserIdSoapIn" />
+      <wsdl:output message="tns:GetUserInfoByUserIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EditUserInfo">
+      <wsdl:input message="tns:EditUserInfoSoapIn" />
+      <wsdl:output message="tns:EditUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckUserInfoByUserId">
+      <wsdl:input message="tns:CheckUserInfoByUserIdSoapIn" />
+      <wsdl:output message="tns:CheckUserInfoByUserIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChkUserInfoIdAndPwd">
+      <wsdl:input message="tns:ChkUserInfoIdAndPwdSoapIn" />
+      <wsdl:output message="tns:ChkUserInfoIdAndPwdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProgFunctionInfo">
+      <wsdl:input message="tns:GetAllProgFunctionInfoSoapIn" />
+      <wsdl:output message="tns:GetAllProgFunctionInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProgFunctionInfo_WinCE">
+      <wsdl:input message="tns:GetAllProgFunctionInfo_WinCESoapIn" />
+      <wsdl:output message="tns:GetAllProgFunctionInfo_WinCESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddUserJurisdiction">
+      <wsdl:input message="tns:AddUserJurisdictionSoapIn" />
+      <wsdl:output message="tns:AddUserJurisdictionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJurisdictionByUserId">
+      <wsdl:input message="tns:GetUserJurisdictionByUserIdSoapIn" />
+      <wsdl:output message="tns:GetUserJurisdictionByUserIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJurisdictionByUserId_WinCE">
+      <wsdl:input message="tns:GetUserJurisdictionByUserId_WinCESoapIn" />
+      <wsdl:output message="tns:GetUserJurisdictionByUserId_WinCESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJurisdictionByUserId2">
+      <wsdl:input message="tns:GetUserJurisdictionByUserId2SoapIn" />
+      <wsdl:output message="tns:GetUserJurisdictionByUserId2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJurisdictionByUserId2_WinCE">
+      <wsdl:input message="tns:GetUserJurisdictionByUserId2_WinCESoapIn" />
+      <wsdl:output message="tns:GetUserJurisdictionByUserId2_WinCESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddProgInfo">
+      <wsdl:input message="tns:AddProgInfoSoapIn" />
+      <wsdl:output message="tns:AddProgInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddFunctionList">
+      <wsdl:input message="tns:AddFunctionListSoapIn" />
+      <wsdl:output message="tns:AddFunctionListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChkProgId">
+      <wsdl:input message="tns:ChkProgIdSoapIn" />
+      <wsdl:output message="tns:ChkProgIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChkFunctionList">
+      <wsdl:input message="tns:ChkFunctionListSoapIn" />
+      <wsdl:output message="tns:ChkFunctionListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserPassword">
+      <wsdl:input message="tns:UpdateUserPasswordSoapIn" />
+      <wsdl:output message="tns:UpdateUserPasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Clear_User_Info">
+      <wsdl:input message="tns:Clear_User_InfoSoapIn" />
+      <wsdl:output message="tns:Clear_User_InfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddUserAteEmp">
+      <wsdl:input message="tns:AddUserAteEmpSoapIn" />
+      <wsdl:output message="tns:AddUserAteEmpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAteEmp">
+      <wsdl:input message="tns:GetUserAteEmpSoapIn" />
+      <wsdl:output message="tns:GetUserAteEmpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChkUserAteEmp">
+      <wsdl:input message="tns:ChkUserAteEmpSoapIn" />
+      <wsdl:output message="tns:ChkUserAteEmpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckEmp_NEW">
+      <wsdl:input message="tns:CheckEmp_NEWSoapIn" />
+      <wsdl:output message="tns:CheckEmp_NEWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLogin">
+      <wsdl:input message="tns:DeleteLoginSoapIn" />
+      <wsdl:output message="tns:DeleteLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_SET_LINE_EMPLOYEE">
+      <wsdl:input name="CheckLineEmployee" message="tns:CheckLineEmployeeSoapIn" />
+      <wsdl:output name="CheckLineEmployee" message="tns:CheckLineEmployeeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="tUserInfoSoap" type="tns:tUserInfoSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DeleteUserInfoByUserId">
+      <soap:operation soapAction="http://tempuri.org/DeleteUserInfoByUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertUserInfo">
+      <soap:operation soapAction="http://tempuri.org/InsertUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <soap:operation soapAction="http://tempuri.org/获取所有的用户信息" style="document" />
+      <wsdl:input name="获取所有的用户信息">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="获取所有的用户信息">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo_WinCE">
+      <soap:operation soapAction="http://tempuri.org/GetUserInfo_WinCE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <soap:operation soapAction="http://tempuri.org/根据条件获取用户信息" style="document" />
+      <wsdl:input name="根据条件获取用户信息">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="根据条件获取用户信息">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo_WinCE">
+      <soap:operation soapAction="http://tempuri.org/根据条件获取用户信息_WINCE" style="document" />
+      <wsdl:input name="根据条件获取用户信息_WINCE">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="根据条件获取用户信息_WINCE">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUserId">
+      <soap:operation soapAction="http://tempuri.org/GetUserInfoByUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditUserInfo">
+      <soap:operation soapAction="http://tempuri.org/EditUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckUserInfoByUserId">
+      <soap:operation soapAction="http://tempuri.org/CheckUserInfoByUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChkUserInfoIdAndPwd">
+      <soap:operation soapAction="http://tempuri.org/ChkUserInfoIdAndPwd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProgFunctionInfo">
+      <soap:operation soapAction="http://tempuri.org/GetAllProgFunctionInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProgFunctionInfo_WinCE">
+      <soap:operation soapAction="http://tempuri.org/GetAllProgFunctionInfo_WinCE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserJurisdiction">
+      <soap:operation soapAction="http://tempuri.org/AddUserJurisdiction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJurisdictionByUserId">
+      <soap:operation soapAction="http://tempuri.org/GetUserJurisdictionByUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJurisdictionByUserId_WinCE">
+      <soap:operation soapAction="http://tempuri.org/GetUserJurisdictionByUserId_WinCE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJurisdictionByUserId2">
+      <soap:operation soapAction="http://tempuri.org/GetUserJurisdictionByUserId2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJurisdictionByUserId2_WinCE">
+      <soap:operation soapAction="http://tempuri.org/GetUserJurisdictionByUserId2_WinCE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddProgInfo">
+      <soap:operation soapAction="http://tempuri.org/AddProgInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddFunctionList">
+      <soap:operation soapAction="http://tempuri.org/AddFunctionList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChkProgId">
+      <soap:operation soapAction="http://tempuri.org/ChkProgId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChkFunctionList">
+      <soap:operation soapAction="http://tempuri.org/ChkFunctionList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserPassword">
+      <soap:operation soapAction="http://tempuri.org/UpdateUserPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Clear_User_Info">
+      <soap:operation soapAction="http://tempuri.org/Clear_User_Info" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserAteEmp">
+      <soap:operation soapAction="http://tempuri.org/AddUserAteEmp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAteEmp">
+      <soap:operation soapAction="http://tempuri.org/GetUserAteEmp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChkUserAteEmp">
+      <soap:operation soapAction="http://tempuri.org/ChkUserAteEmp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckEmp_NEW">
+      <soap:operation soapAction="http://tempuri.org/CheckEmp_NEW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLogin">
+      <soap:operation soapAction="http://tempuri.org/DeleteLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_SET_LINE_EMPLOYEE">
+      <soap:operation soapAction="http://tempuri.org/CheckLineEmployee" style="document" />
+      <wsdl:input name="CheckLineEmployee">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CheckLineEmployee">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="tUserInfoSoap12" type="tns:tUserInfoSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DeleteUserInfoByUserId">
+      <soap12:operation soapAction="http://tempuri.org/DeleteUserInfoByUserId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/InsertUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/获取所有的用户信息" style="document" />
+      <wsdl:input name="获取所有的用户信息">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="获取所有的用户信息">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo_WinCE">
+      <soap12:operation soapAction="http://tempuri.org/GetUserInfo_WinCE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/根据条件获取用户信息" style="document" />
+      <wsdl:input name="根据条件获取用户信息">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="根据条件获取用户信息">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfo_WinCE">
+      <soap12:operation soapAction="http://tempuri.org/根据条件获取用户信息_WINCE" style="document" />
+      <wsdl:input name="根据条件获取用户信息_WINCE">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="根据条件获取用户信息_WINCE">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUserId">
+      <soap12:operation soapAction="http://tempuri.org/GetUserInfoByUserId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/EditUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckUserInfoByUserId">
+      <soap12:operation soapAction="http://tempuri.org/CheckUserInfoByUserId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChkUserInfoIdAndPwd">
+      <soap12:operation soapAction="http://tempuri.org/ChkUserInfoIdAndPwd" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProgFunctionInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetAllProgFunctionInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProgFunctionInfo_WinCE">
+      <soap12:operation soapAction="http://tempuri.org/GetAllProgFunctionInfo_WinCE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserJurisdiction">
+      <soap12:operation soapAction="http://tempuri.org/AddUserJurisdiction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJurisdictionByUserId">
+      <soap12:operation soapAction="http://tempuri.org/GetUserJurisdictionByUserId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJurisdictionByUserId_WinCE">
+      <soap12:operation soapAction="http://tempuri.org/GetUserJurisdictionByUserId_WinCE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJurisdictionByUserId2">
+      <soap12:operation soapAction="http://tempuri.org/GetUserJurisdictionByUserId2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserJurisdictionByUserId2_WinCE">
+      <soap12:operation soapAction="http://tempuri.org/GetUserJurisdictionByUserId2_WinCE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddProgInfo">
+      <soap12:operation soapAction="http://tempuri.org/AddProgInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddFunctionList">
+      <soap12:operation soapAction="http://tempuri.org/AddFunctionList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChkProgId">
+      <soap12:operation soapAction="http://tempuri.org/ChkProgId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChkFunctionList">
+      <soap12:operation soapAction="http://tempuri.org/ChkFunctionList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserPassword">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUserPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Clear_User_Info">
+      <soap12:operation soapAction="http://tempuri.org/Clear_User_Info" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserAteEmp">
+      <soap12:operation soapAction="http://tempuri.org/AddUserAteEmp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAteEmp">
+      <soap12:operation soapAction="http://tempuri.org/GetUserAteEmp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChkUserAteEmp">
+      <soap12:operation soapAction="http://tempuri.org/ChkUserAteEmp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckEmp_NEW">
+      <soap12:operation soapAction="http://tempuri.org/CheckEmp_NEW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLogin">
+      <soap12:operation soapAction="http://tempuri.org/DeleteLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_SET_LINE_EMPLOYEE">
+      <soap12:operation soapAction="http://tempuri.org/CheckLineEmployee" style="document" />
+      <wsdl:input name="CheckLineEmployee">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CheckLineEmployee">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="tUserInfo">
+    <wsdl:port name="tUserInfoSoap" binding="tns:tUserInfoSoap">
+      <soap:address location="http://sfis.phicomm.com.cn/SFIS_Webser/tUserinfo.asmx" />
+    </wsdl:port>
+    <wsdl:port name="tUserInfoSoap12" binding="tns:tUserInfoSoap12">
+      <soap12:address location="http://sfis.phicomm.com.cn/SFIS_Webser/tUserinfo.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

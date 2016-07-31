@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using BoardAutoTesting.DataExchange;
@@ -18,7 +17,6 @@ namespace BoardAutoTesting.Model
         private Socket _socket;
         private bool _doesClose;
         private IAction _action;
-        private readonly Assembly _assembly = Assembly.GetExecutingAssembly();
         private string _rfid = "NA";
 
         #endregion
@@ -27,7 +25,7 @@ namespace BoardAutoTesting.Model
 
         public string ClientIp
         {
-            get { return ((IPEndPoint)_socket.RemoteEndPoint).Address.ToString(); }
+            get { return ((IPEndPoint) _socket.RemoteEndPoint).Address.ToString(); }
         }
 
         public string Rfid
@@ -42,15 +40,51 @@ namespace BoardAutoTesting.Model
 
         #endregion
 
+        #region Constructor
+
         public ClientConnection(Socket socket)
         {
             _socket = socket;
             _threadClient = new Thread(WatchMsg) {IsBackground = true};
             _threadClient.Start();
+            _doesClose = false;
         }
 
         public ClientConnection()
         {
+        }
+
+        #endregion
+
+        private IAction CommandFactory(string cmd)
+        {
+            string command = cmd.Replace("*", "").Replace("#", "").Remove(0, 8);
+            IAction action;
+            switch (command)
+            {
+                case ":IN?":
+                    action = new CanIn(this);
+                    break;
+
+                case "RESULT:PASS":
+                case "RESULT:FAIL":
+                    action = new ProductPassFail(this);
+                    break;
+
+                case "RESULT:RETEST":
+                    action = new ReTest(this);
+                    break;
+
+                case "TEST:MAC?":
+                    action = new TestMac(this);
+                    break;
+
+                default:
+                    action = null;
+                    break;
+            }
+
+            return action;
         }
 
         public bool Analyse(string msg, out string command)
@@ -79,7 +113,8 @@ namespace BoardAutoTesting.Model
             if (rfid.Length == 8)
                 return true;
 
-            Logger.Glog.Info(ClientIp, cmd, string.Format("Wrong RFID:{0}", rfid));
+            Logger.Glog.Info(ClientIp, "ClientConnection.GetSearchId",
+                string.Format("{0} Wrong RFID:{1}", cmd, rfid));
             return false;
         }
 
@@ -128,13 +163,17 @@ namespace BoardAutoTesting.Model
 
             //以下指令属于主动询问式指令，所以需要创建对应的类进行处理
             if (cmd.Contains(CmdInfo.CanIn) || cmd.Contains(CmdInfo.ProductPass) ||
-                cmd.Contains(CmdInfo.ProductFail) || cmd.Contains(CmdInfo.ResultRetest))
+                cmd.Contains(CmdInfo.ProductFail) || cmd.Contains(CmdInfo.ResultRetest) ||
+                cmd.Contains(CmdInfo.TestMac))
             {
-                /*_action = (IAction)_assembly.CreateInstance("CanIn");
+                _action = CommandFactory(cmd);
                 if (_action != null)
-                    _action.ExecuteCommand(this, cmd);*/
+                    _action.ExecuteCommand(cmd);
+                else
+                    Logger.Glog.Info(ClientIp, "ClientConnection.Response",
+                        "无法解析的命令，工厂创建命令失败");
             }
-            else//其他情况直接给全局变量赋值，相当于对消息进行分发
+            else //其他情况直接给全局变量赋值，相当于对消息进行分发
             {
                 Command = cmd;
             }
@@ -159,7 +198,7 @@ namespace BoardAutoTesting.Model
             }
             catch (Exception e)
             {
-                Logger.Glog.Info("SendMsg(string msg):" + e.Message);
+                Logger.Glog.Info(ClientIp, "ClientConnection.SendMsg", e.Message);
             }
         }
     }

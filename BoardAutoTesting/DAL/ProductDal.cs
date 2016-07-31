@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using BoardAutoTesting.Model;
 using BoardAutoTesting.Status;
 using DataAccess;
 using GenericProvider;
-using Model;
 
 namespace BoardAutoTesting.DAL
 {
     public class ProductDal
     {
-        private const string TableName = "board.tb_product_info";
+        private const string TableName = "centercontrol.tb_product_info";
         private static IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
 
         private static IDictionary<string, object> GetModelDic(ProductInfo product)
@@ -53,10 +53,10 @@ namespace BoardAutoTesting.DAL
             dp.AddData(TableName, mst);
         }
 
-        public static ProductInfo GetModelByIpStatus(string ip, ProductStatus status)
+        public static ProductInfo GetModelByIpStatus(string ip, ProductAction action)
         {
             string filter = string.Format("Current_IP = '{0}' and Action_Name = '{1}'",
-                ip, (int) status);
+                ip, (int) action);
             int count;
             DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
@@ -70,7 +70,7 @@ namespace BoardAutoTesting.DAL
 
         public static ProductInfo GetModelByRfid(string id)
         {
-            string filter = string.Format("RFID = {0}", id);
+            string filter = string.Format("RFID = '{0}'", id);
             int count;
             DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
@@ -82,10 +82,10 @@ namespace BoardAutoTesting.DAL
             return ToModel(dr);
         }
 
-        public static ProductInfo GetModelByCraftStatus(string id, ProductStatus status)
+        public static ProductInfo GetModelByCraftStatus(string id, ProductAction action)
         {
             string filter = string.Format("Craft_Idx = '{0}' and Action_Name = '{1}'",
-                id, (int)status);
+                id, action);
             int count;
             DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
@@ -101,7 +101,6 @@ namespace BoardAutoTesting.DAL
         {
             List<ProductInfo> lstInfos = new List<ProductInfo>();
             int count;
-            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
             DataSet ds = dp.GetData(TableName, "*", null, out count);
             if (count <= 0) 
                 return lstInfos;
@@ -132,10 +131,8 @@ namespace BoardAutoTesting.DAL
             sql = sql.Remove(sql.LastIndexOf(','));
             sql += string.Format(" where ESN = '{0}'", product.ESN);
 
-            int i = MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile, CommandType.Text,
+            return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile, CommandType.Text,
                 sql, null);
-
-            return i;
         }
 
 

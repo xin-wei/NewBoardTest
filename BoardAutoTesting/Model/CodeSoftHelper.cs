@@ -8,9 +8,9 @@ namespace BoardAutoTesting.Model
 {
     public class CodeSoftHelper
     {
-        ApplicationClass _lbl;
-        Document _doc;
-        int _printQty;
+        private ApplicationClass _lbl;
+        private Document _doc;
+        public int PrintQty;
 
         public enum EnumCounterBase
         {
@@ -67,7 +67,8 @@ namespace BoardAutoTesting.Model
             {
                 try
                 {
-                    _doc.Variables.FormVariables.Item(variables.Key).Value = variables.Value.ToString(); //给参数传值
+                    _doc.Variables.FormVariables.Item(variables.Key).Value = 
+                        variables.Value.ToString(); //给参数传值
                     SendLog(string.Format("Fill Variable[{0}]-->{1}", variables.Key, variables.Value));
                 }
                 catch
@@ -94,7 +95,7 @@ namespace BoardAutoTesting.Model
         /// <param name="num"></param>
         public void SetPrintNum(int num)
         {
-            _printQty = num;
+            PrintQty = num;
         }
 
         /// <summary>
@@ -113,8 +114,8 @@ namespace BoardAutoTesting.Model
         /// </summary>
         public void PrintLabel()
         {
-            SendLog("PrintQty-->" + _printQty);
-            _doc.PrintDocument(_printQty);
+            SendLog("PrintQty-->" + PrintQty);
+            _doc.PrintDocument(PrintQty);
         }
 
         /// <summary>
@@ -138,9 +139,9 @@ namespace BoardAutoTesting.Model
             _deleEvent.BeginInvoke(strLog, null, null);
         }
 
-        delegate void RunEvent(string strLog);
+        private delegate void RunEvent(string strLog);
 
-        RunEvent _deleEvent;
+        private RunEvent _deleEvent;
 
         private void SaveLog(string strLog)
         {

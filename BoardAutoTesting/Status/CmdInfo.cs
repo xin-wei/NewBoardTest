@@ -87,17 +87,17 @@
             get { return "*OUT:OK#"; }
         }
 
-        public static string GoRepeat
+        public static string GoRetest
         {
             get { return "*REP#"; }
         }
 
-        public static string GoRepeatGet
+        public static string GoRetestGet
         {
             get { return "*REP:GET#"; }
         }
 
-        public static string GoRepeatOk
+        public static string GoRetestOk
         {
             get { return "*REP:OK#"; }
         }

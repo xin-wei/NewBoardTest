@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using BoardAutoTesting.DAL;
+using BoardAutoTesting.Model;
 using BoardAutoTesting.Status;
-using Model;
 
 namespace BoardAutoTesting.BLL
 {
@@ -12,9 +12,9 @@ namespace BoardAutoTesting.BLL
             ProductDal.InsertModel(product);
         }
 
-        public static ProductInfo GetProductInfoByIpStatus(string ip, ProductStatus status)
+        public static ProductInfo GetProductInfoByIpStatus(string ip, ProductAction action)
         {
-            return ProductDal.GetModelByIpStatus(ip, status);
+            return ProductDal.GetModelByIpStatus(ip, action);
         }
 
         public static ProductInfo GetModelByRfid(string id)
@@ -37,9 +37,9 @@ namespace BoardAutoTesting.BLL
             return ProductDal.UpdateModel(product);
         }
 
-        public static ProductInfo GetModelByCraftStatus(string id, ProductStatus status)
+        public static ProductInfo GetModelByCraftStatus(string id, ProductAction action)
         {
-            return ProductDal.GetModelByCraftStatus(id, status);
+            return ProductDal.GetModelByCraftStatus(id, action);
         }
     }
 }

@@ -22,5 +22,17 @@ namespace BoardAutoTesting.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("_")]
+        public string WorkOrder {
+            get {
+                return ((string)(this["WorkOrder"]));
+            }
+            set {
+                this["WorkOrder"] = value;
+            }
+        }
     }
 }

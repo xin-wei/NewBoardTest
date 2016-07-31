@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using BoardAutoTesting.Model;
-using BoardAutoTesting.Status;
 using DataAccess;
 using GenericProvider;
 
@@ -12,8 +9,9 @@ namespace BoardAutoTesting.DAL
 {
     public class LineDal
     {
-        private const string TableName = "board.tb_line_info";
-        private static IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
+        private const string TableName = "centercontrol.tb_line_info";
+        private static readonly IAdminProvider dp = 
+            (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
 
         private static IDictionary<string, object> GetModelDic(LineInfo line)
         {
@@ -129,11 +127,21 @@ namespace BoardAutoTesting.DAL
             return ToModel(dr);
         }
 
+        public static LineInfo GetMaxModel()
+        {
+            string sql = string.Format("select * from {0} order by Craft_Idx desc", TableName);
+            DataSet ds = MySqlHelper.GetDataSet(DbHelper.ConnectionStringProfile,
+                CommandType.Text, sql, null);
+            DataTable dt = ds.Tables[0];
+            DataRow dr = dt.Rows[0];
+
+            return ToModel(dr);
+        }
+
         public static List<LineInfo> GetModels()
         {
             List<LineInfo> lstInfos = new List<LineInfo>();
             int count;
-            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
             DataSet ds = dp.GetData(TableName, "*", null, out count);
             if (count <= 0) return lstInfos;
 
@@ -185,6 +193,22 @@ namespace BoardAutoTesting.DAL
                 string.Format(
                     "update {0} set Line_ESN = '{1}' where Mcu_Ip = (select Mcu_Ip from {0} where Line_ESN = '' and Mcu_Ip = '{2}')",
                     TableName, esn, ip);
+            return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
+                CommandType.Text, sql, null);
+        }
+
+        /// <summary>
+        /// 使用类似存储过程查询并占用机台，防止多线程抢占资源时冲突
+        /// </summary>
+        /// <param name="esn">占用机台的ESN</param>
+        /// <param name="strRoute">待查询的途程名</param>
+        /// <returns>返回受影响的行数</returns>
+        public static int UpdateCraftStatus(string esn, string strRoute)
+        {
+            string sql =
+                string.Format(
+                    "update {0} set Craft_ESN = '{1}' where Mcu_Ip = (select Mcu_Ip from {0} where Route_Name = '{2}' and Is_Repair = 0 and Craft_ESN = '' order by Craft_Idx desc)",
+                    TableName, esn, strRoute);
             return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
                 CommandType.Text, sql, null);
         }

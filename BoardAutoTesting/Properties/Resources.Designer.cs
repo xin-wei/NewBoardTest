@@ -70,6 +70,33 @@ namespace BoardAutoTesting.Properties {
         }
         
         /// <summary>
+        ///   查找类似 连接 的本地化字符串。
+        /// </summary>
+        internal static string Connect {
+            get {
+                return ResourceManager.GetString("Connect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 断开 的本地化字符串。
+        /// </summary>
+        internal static string Disconnect {
+            get {
+                return ResourceManager.GetString("Disconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Craft00001 的本地化字符串。
+        /// </summary>
+        internal static string InitCraft {
+            get {
+                return ResourceManager.GetString("InitCraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 无效IP 的本地化字符串。
         /// </summary>
         internal static string InvalidIp {
@@ -84,6 +111,51 @@ namespace BoardAutoTesting.Properties {
         internal static string IpPortError {
             get {
                 return ResourceManager.GetString("IpPortError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 串口不存在 的本地化字符串。
+        /// </summary>
+        internal static string NoPort {
+            get {
+                return ResourceManager.GetString("NoPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 7600 的本地化字符串。
+        /// </summary>
+        internal static string Port {
+            get {
+                return ResourceManager.GetString("Port", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 当前机台不存在任何串口，请连接串口！ 的本地化字符串。
+        /// </summary>
+        internal static string PromoteNoPort {
+            get {
+                return ResourceManager.GetString("PromoteNoPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 启动服务器 的本地化字符串。
+        /// </summary>
+        internal static string StartServer {
+            get {
+                return ResourceManager.GetString("StartServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 停止服务器 的本地化字符串。
+        /// </summary>
+        internal static string StopServer {
+            get {
+                return ResourceManager.GetString("StopServer", resourceCulture);
             }
         }
         

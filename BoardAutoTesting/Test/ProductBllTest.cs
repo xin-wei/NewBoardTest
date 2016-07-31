@@ -1,6 +1,6 @@
 ﻿using BoardAutoTesting.BLL;
+using BoardAutoTesting.Model;
 using BoardAutoTesting.Status;
-using Model;
 using NUnit.Framework;
 
 namespace BoardAutoTesting.Test
@@ -11,7 +11,7 @@ namespace BoardAutoTesting.Test
         [Test]
         public void GetProductInfoByIpStatus_Get_ReturnsModel()
         {
-            ProductInfo info  = ProductBll.GetProductInfoByIpStatus(".18", ProductStatus.Testing);
+            ProductInfo info  = ProductBll.GetProductInfoByIpStatus(".18", ProductAction.Testing);
             Assert.NotNull(info);
         }
 
@@ -25,7 +25,7 @@ namespace BoardAutoTesting.Test
         [Test]
         public void GetModelByCraftStatus_Get_ReturnsOne()
         {
-            ProductInfo info = ProductBll.GetModelByCraftStatus("2", ProductStatus.OnCraft);
+            ProductInfo info = ProductBll.GetModelByCraftStatus("2", ProductAction.EndTest);
             Assert.NotNull(info);
         }
 

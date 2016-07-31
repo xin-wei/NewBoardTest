@@ -1,0 +1,2440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CheckEmp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EMP" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckEmpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckEmpResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckEmp_NEW">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EMP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ipaddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="macaddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mygroup" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckEmp_NEWResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckEmp_NEWResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllStation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllStationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllStationResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllStationXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllStationXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllStationXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWOCraftInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Flag" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWOCraftInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWOCraftInfoResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCraftInfoByRouteId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RouteId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Flag" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCraftInfoByRouteIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCraftInfoByRouteIdResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Check_Route_ATE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DATA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Route" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="WO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Check_Route_ATEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Check_Route_ATEResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="INS_ATE_Back">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DATA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Route" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LINE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="INS_ATE_BackResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="INS_ATE_BackResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ATE_Call_Back_First">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DATA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MYGROUP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SECTION_NAME" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="STATION_NAME" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LINE" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ATE_Call_Back_FirstResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ATE_Call_Back_FirstResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLineList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetLineListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLineListResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLineListXML">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetLineListXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLineListXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_Line_List">
+        <s:complexType />
+      </s:element>
+      <s:element name="Get_Line_ListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_Line_ListResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWOSnRule">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWOSnRuleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWOSnRuleResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWOSnRuleXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWOSnRuleXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWOSnRuleXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sn_Rule_XML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Sn_Rule_XMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Sn_Rule_XMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertWipKeyParts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="lswipkeypart" type="tns:ArrayOfTWipKeyPartTable" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTWipKeyPartTable">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="tWipKeyPartTable" nillable="true" type="tns:tWipKeyPartTable" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="tWipKeyPartTable">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="idx" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="esn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="woId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sntype" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="snval" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="station" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KPNO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="recdate" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InsertWipKeyPartsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertWipKeyPartsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEsnDataInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sntype" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="snval" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEsnDataInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEsnDataInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEsnDataInfoXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sntype" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="snval" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEsnDataInfoXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEsnDataInfoXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEsnDataInfoXMLBySntype">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sntype" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="snval" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrSntype" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEsnDataInfoXMLBySntypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEsnDataInfoXMLBySntypeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEsnDataInfoBySntype">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sntype" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="snval" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrSntype" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEsnDataInfoBySntypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEsnDataInfoBySntypeResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSnInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="serial" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSnInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSnInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSnInfoXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="serial" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSnInfoXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSnInfoXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSnWipKeyPartsData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SN" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSnWipKeyPartsDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSnWipKeyPartsDataResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSnWipKeyPartsDataXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SN" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSnWipKeyPartsDataXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSnWipKeyPartsDataXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWoList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetWoListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWoListResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetATEScripts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetATEScriptsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetATEScriptsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAteScriptsStr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAteScriptsStrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAteScriptsStrResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAteScriptsXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAteScriptsXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAteScriptsXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteLogOut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strIpaddress" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteLogOutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteLogOutResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCartonPrintContent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cartonId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Content" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCartonPrintContentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCartonPrintContentResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SP_TEST_INPUT_ALL">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DATA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LINE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MYGROUP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="WOID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMPNO" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SP_TEST_INPUT_ALLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SP_TEST_INPUT_ALLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChkUserAteEmp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CraftId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChkUserAteEmpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChkUserAteEmpResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetErrorCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ec" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetErrorCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetErrorCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetErrorCodeXML">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetErrorCodeXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetErrorCodeXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SP_PRO_SN_INPUT_MOBILE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DATA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MYGROUP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LINE" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="WO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EMP" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SP_PRO_SN_INPUT_MOBILEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SP_PRO_SN_INPUT_MOBILEResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWoInfoByWo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWoInfoByWoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWoInfoByWoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWoInfoByWoXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWoInfoByWoXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWoInfoByWoXmlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductByPartNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PartNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductByPartNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductByPartNumberResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductLableNames">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="partnumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProductLableNamesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProductLableNamesResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSnMacImeiForAte">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Esn" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sntype" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="woId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="snqty" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSnMacImeiForAteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSnMacImeiForAteResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Insert_T_TESTRESULT_INFO">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tti" type="tns:tT_TESTRESULT_INFO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="tT_TESTRESULT_INFO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ESN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WOID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TESTSTATION" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TESTRESULT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EQPID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EQPTYPE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CUSER" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FAILDESC" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PARTNUMBER" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PRODUCTNAME" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RepairFlag" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Insert_T_TESTRESULT_INFOResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Insert_T_TESTRESULT_INFOResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWoVersionInfoXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWoVersionInfoXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWoVersionInfoXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPnMarkBitInfoXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pn" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPnMarkBitInfoXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPnMarkBitInfoXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWoVersionInfoDataSet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="woid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWoVersionInfoDataSetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWoVersionInfoDataSetResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPnMarkBitInfoDataSet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pn" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPnMarkBitInfoDataSetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPnMarkBitInfoDataSetResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CHECK_ROUTE_TOOLS_ATE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DATA" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MYGROUP" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="WO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tools" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CHECK_ROUTE_TOOLS_ATEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CHECK_ROUTE_TOOLS_ATEResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRouteInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SECTION_NAME" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CRAFTNAME" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TEST_FLAG" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CHECK_TOOLS_FLAG" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRouteInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRouteInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckLineEmployee">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PWD" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckLineEmployeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckLineEmployeeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UPDATE_WIP_TRACKING">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Json" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UPDATE_WIP_TRACKINGResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UPDATE_WIP_TRACKINGResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_WIP_TRACKING">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Esn" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fields" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_WIP_TRACKINGResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_WIP_TRACKINGResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_Station_Checkrules">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Json" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fileds" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Get_Station_CheckrulesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Get_Station_CheckrulesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStnRec">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Json" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fields" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStnRecResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStnRecResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExecuteProcedure">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Storedproc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Json" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExecuteProcedureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExecuteProcedureResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CheckEmpSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckEmp" />
+  </wsdl:message>
+  <wsdl:message name="CheckEmpSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckEmpResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckEmp_NEWSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckEmp_NEW" />
+  </wsdl:message>
+  <wsdl:message name="CheckEmp_NEWSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckEmp_NEWResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllStationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllStation" />
+  </wsdl:message>
+  <wsdl:message name="GetAllStationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllStationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllStationXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllStationXML" />
+  </wsdl:message>
+  <wsdl:message name="GetAllStationXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllStationXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWOCraftInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWOCraftInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetWOCraftInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWOCraftInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCraftInfoByRouteIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCraftInfoByRouteId" />
+  </wsdl:message>
+  <wsdl:message name="GetCraftInfoByRouteIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCraftInfoByRouteIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="Check_Route_ATESoapIn">
+    <wsdl:part name="parameters" element="tns:Check_Route_ATE" />
+  </wsdl:message>
+  <wsdl:message name="Check_Route_ATESoapOut">
+    <wsdl:part name="parameters" element="tns:Check_Route_ATEResponse" />
+  </wsdl:message>
+  <wsdl:message name="INS_ATE_BackSoapIn">
+    <wsdl:part name="parameters" element="tns:INS_ATE_Back" />
+  </wsdl:message>
+  <wsdl:message name="INS_ATE_BackSoapOut">
+    <wsdl:part name="parameters" element="tns:INS_ATE_BackResponse" />
+  </wsdl:message>
+  <wsdl:message name="ATE_Call_Back_FirstSoapIn">
+    <wsdl:part name="parameters" element="tns:ATE_Call_Back_First" />
+  </wsdl:message>
+  <wsdl:message name="ATE_Call_Back_FirstSoapOut">
+    <wsdl:part name="parameters" element="tns:ATE_Call_Back_FirstResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLineListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLineList" />
+  </wsdl:message>
+  <wsdl:message name="GetLineListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLineListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLineListXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLineListXML" />
+  </wsdl:message>
+  <wsdl:message name="GetLineListXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLineListXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_Line_ListSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_Line_List" />
+  </wsdl:message>
+  <wsdl:message name="Get_Line_ListSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_Line_ListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWOSnRuleSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWOSnRule" />
+  </wsdl:message>
+  <wsdl:message name="GetWOSnRuleSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWOSnRuleResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWOSnRuleXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWOSnRuleXML" />
+  </wsdl:message>
+  <wsdl:message name="GetWOSnRuleXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWOSnRuleXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="Sn_Rule_XMLSoapIn">
+    <wsdl:part name="parameters" element="tns:Sn_Rule_XML" />
+  </wsdl:message>
+  <wsdl:message name="Sn_Rule_XMLSoapOut">
+    <wsdl:part name="parameters" element="tns:Sn_Rule_XMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertWipKeyPartsSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertWipKeyParts" />
+  </wsdl:message>
+  <wsdl:message name="InsertWipKeyPartsSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertWipKeyPartsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEsnDataInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEsnDataInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetEsnDataInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEsnDataInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEsnDataInfoXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEsnDataInfoXML" />
+  </wsdl:message>
+  <wsdl:message name="GetEsnDataInfoXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEsnDataInfoXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEsnDataInfoXMLBySntypeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEsnDataInfoXMLBySntype" />
+  </wsdl:message>
+  <wsdl:message name="GetEsnDataInfoXMLBySntypeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEsnDataInfoXMLBySntypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEsnDataInfoBySntypeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEsnDataInfoBySntype" />
+  </wsdl:message>
+  <wsdl:message name="GetEsnDataInfoBySntypeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEsnDataInfoBySntypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSnInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSnInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetSnInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSnInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSnInfoXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSnInfoXML" />
+  </wsdl:message>
+  <wsdl:message name="GetSnInfoXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSnInfoXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSnWipKeyPartsDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSnWipKeyPartsData" />
+  </wsdl:message>
+  <wsdl:message name="GetSnWipKeyPartsDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSnWipKeyPartsDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSnWipKeyPartsDataXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSnWipKeyPartsDataXML" />
+  </wsdl:message>
+  <wsdl:message name="GetSnWipKeyPartsDataXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSnWipKeyPartsDataXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWoListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWoList" />
+  </wsdl:message>
+  <wsdl:message name="GetWoListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWoListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetATEScriptsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetATEScripts" />
+  </wsdl:message>
+  <wsdl:message name="GetATEScriptsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetATEScriptsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAteScriptsStrSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAteScriptsStr" />
+  </wsdl:message>
+  <wsdl:message name="GetAteScriptsStrSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAteScriptsStrResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAteScriptsXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAteScriptsXML" />
+  </wsdl:message>
+  <wsdl:message name="GetAteScriptsXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAteScriptsXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteLogOutSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteLogOut" />
+  </wsdl:message>
+  <wsdl:message name="DeleteLogOutSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteLogOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCartonPrintContentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCartonPrintContent" />
+  </wsdl:message>
+  <wsdl:message name="GetCartonPrintContentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCartonPrintContentResponse" />
+  </wsdl:message>
+  <wsdl:message name="SP_TEST_INPUT_ALLSoapIn">
+    <wsdl:part name="parameters" element="tns:SP_TEST_INPUT_ALL" />
+  </wsdl:message>
+  <wsdl:message name="SP_TEST_INPUT_ALLSoapOut">
+    <wsdl:part name="parameters" element="tns:SP_TEST_INPUT_ALLResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChkUserAteEmpSoapIn">
+    <wsdl:part name="parameters" element="tns:ChkUserAteEmp" />
+  </wsdl:message>
+  <wsdl:message name="ChkUserAteEmpSoapOut">
+    <wsdl:part name="parameters" element="tns:ChkUserAteEmpResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetErrorCode" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetErrorCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorCodeXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetErrorCodeXML" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorCodeXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetErrorCodeXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="SP_PRO_SN_INPUT_MOBILESoapIn">
+    <wsdl:part name="parameters" element="tns:SP_PRO_SN_INPUT_MOBILE" />
+  </wsdl:message>
+  <wsdl:message name="SP_PRO_SN_INPUT_MOBILESoapOut">
+    <wsdl:part name="parameters" element="tns:SP_PRO_SN_INPUT_MOBILEResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWoInfoByWoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWoInfoByWo" />
+  </wsdl:message>
+  <wsdl:message name="GetWoInfoByWoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWoInfoByWoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWoInfoByWoXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWoInfoByWoXml" />
+  </wsdl:message>
+  <wsdl:message name="GetWoInfoByWoXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWoInfoByWoXmlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductByPartNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductByPartNumber" />
+  </wsdl:message>
+  <wsdl:message name="GetProductByPartNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductByPartNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProductLableNamesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProductLableNames" />
+  </wsdl:message>
+  <wsdl:message name="GetProductLableNamesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProductLableNamesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSnMacImeiForAteSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSnMacImeiForAte" />
+  </wsdl:message>
+  <wsdl:message name="GetSnMacImeiForAteSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSnMacImeiForAteResponse" />
+  </wsdl:message>
+  <wsdl:message name="Insert_T_TESTRESULT_INFOSoapIn">
+    <wsdl:part name="parameters" element="tns:Insert_T_TESTRESULT_INFO" />
+  </wsdl:message>
+  <wsdl:message name="Insert_T_TESTRESULT_INFOSoapOut">
+    <wsdl:part name="parameters" element="tns:Insert_T_TESTRESULT_INFOResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWoVersionInfoXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWoVersionInfoXML" />
+  </wsdl:message>
+  <wsdl:message name="GetWoVersionInfoXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWoVersionInfoXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPnMarkBitInfoXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPnMarkBitInfoXML" />
+  </wsdl:message>
+  <wsdl:message name="GetPnMarkBitInfoXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPnMarkBitInfoXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWoVersionInfoDataSetSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWoVersionInfoDataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetWoVersionInfoDataSetSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWoVersionInfoDataSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPnMarkBitInfoDataSetSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPnMarkBitInfoDataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetPnMarkBitInfoDataSetSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPnMarkBitInfoDataSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="CHECK_ROUTE_TOOLS_ATESoapIn">
+    <wsdl:part name="parameters" element="tns:CHECK_ROUTE_TOOLS_ATE" />
+  </wsdl:message>
+  <wsdl:message name="CHECK_ROUTE_TOOLS_ATESoapOut">
+    <wsdl:part name="parameters" element="tns:CHECK_ROUTE_TOOLS_ATEResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRouteInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRouteInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetRouteInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRouteInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckLineEmployeeSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckLineEmployee" />
+  </wsdl:message>
+  <wsdl:message name="CheckLineEmployeeSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckLineEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UPDATE_WIP_TRACKINGSoapIn">
+    <wsdl:part name="parameters" element="tns:UPDATE_WIP_TRACKING" />
+  </wsdl:message>
+  <wsdl:message name="UPDATE_WIP_TRACKINGSoapOut">
+    <wsdl:part name="parameters" element="tns:UPDATE_WIP_TRACKINGResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_WIP_TRACKINGSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_WIP_TRACKING" />
+  </wsdl:message>
+  <wsdl:message name="Get_WIP_TRACKINGSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_WIP_TRACKINGResponse" />
+  </wsdl:message>
+  <wsdl:message name="Get_Station_CheckrulesSoapIn">
+    <wsdl:part name="parameters" element="tns:Get_Station_Checkrules" />
+  </wsdl:message>
+  <wsdl:message name="Get_Station_CheckrulesSoapOut">
+    <wsdl:part name="parameters" element="tns:Get_Station_CheckrulesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStnRecSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStnRec" />
+  </wsdl:message>
+  <wsdl:message name="GetStnRecSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStnRecResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteProcedureSoapIn">
+    <wsdl:part name="parameters" element="tns:ExecuteProcedure" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteProcedureSoapOut">
+    <wsdl:part name="parameters" element="tns:ExecuteProcedureResponse" />
+  </wsdl:message>
+  <wsdl:portType name="tCheckDataTestAteSoap">
+    <wsdl:operation name="CheckEmp">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">确认权限,返回一个string类型</wsdl:documentation>
+      <wsdl:input message="tns:CheckEmpSoapIn" />
+      <wsdl:output message="tns:CheckEmpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckEmp_NEW">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">确认权限,返回一个string类型</wsdl:documentation>
+      <wsdl:input message="tns:CheckEmp_NEWSoapIn" />
+      <wsdl:output message="tns:CheckEmp_NEWSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStation">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">传入一个工单,返回该工单的所有途程Dataset</wsdl:documentation>
+      <wsdl:input message="tns:GetAllStationSoapIn" />
+      <wsdl:output message="tns:GetAllStationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStationXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">传入一个工单,返回该工单的所有途程XML</wsdl:documentation>
+      <wsdl:input message="tns:GetAllStationXMLSoapIn" />
+      <wsdl:output message="tns:GetAllStationXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWOCraftInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">传入一个工单,返回该工单的所有测试途程List 0 非测试途程,1 测试途程</wsdl:documentation>
+      <wsdl:input message="tns:GetWOCraftInfoSoapIn" />
+      <wsdl:output message="tns:GetWOCraftInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCraftInfoByRouteId">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">传入一个途程代码,返回该工单的所有测试途程List 0 非测试途程,1 测试途程</wsdl:documentation>
+      <wsdl:input message="tns:GetCraftInfoByRouteIdSoapIn" />
+      <wsdl:output message="tns:GetCraftInfoByRouteIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Check_Route_ATE">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">传入输入参数 DATA(唯一条码ESN),途程 Route,工单 WO,返回一个string类型的参数 </wsdl:documentation>
+      <wsdl:input message="tns:Check_Route_ATESoapIn" />
+      <wsdl:output message="tns:Check_Route_ATESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="INS_ATE_Back">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">传入输入参数 DATA(25位ESN,8位的不良代码,20位的机器代码,20位治具号,5位测试标记(PASS,ERROR),位数不足以空格补足),途程 Route,人员权限 EMP,线别 LINE,返回一个string类型的参数 </wsdl:documentation>
+      <wsdl:input message="tns:INS_ATE_BackSoapIn" />
+      <wsdl:output message="tns:INS_ATE_BackSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PRO_INS_ATE_BACK">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">传入输入参数 DATA(25位ESN,8位的不良代码,20位的机器代码,20位治具号,5位测试标记(PASS,ERROR),位数不足以空格补足),途程 Route,人员权限 EMP,线别 LINE,返回一个string类型的参数 </wsdl:documentation>
+      <wsdl:input name="ATE_Call_Back_First" message="tns:ATE_Call_Back_FirstSoapIn" />
+      <wsdl:output name="ATE_Call_Back_First" message="tns:ATE_Call_Back_FirstSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLineList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">返回所有线体,DataSet</wsdl:documentation>
+      <wsdl:input message="tns:GetLineListSoapIn" />
+      <wsdl:output message="tns:GetLineListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLineListXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">返回所有线体,XML</wsdl:documentation>
+      <wsdl:input message="tns:GetLineListXMLSoapIn" />
+      <wsdl:output message="tns:GetLineListXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Line_List">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">返回所有线体,List</wsdl:documentation>
+      <wsdl:input message="tns:Get_Line_ListSoapIn" />
+      <wsdl:output message="tns:Get_Line_ListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWOSnRule">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">MAC等区间信息,Dataset</wsdl:documentation>
+      <wsdl:input message="tns:GetWOSnRuleSoapIn" />
+      <wsdl:output message="tns:GetWOSnRuleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWOSnRuleXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">MAC等区间信息,XML</wsdl:documentation>
+      <wsdl:input message="tns:GetWOSnRuleXMLSoapIn" />
+      <wsdl:output message="tns:GetWOSnRuleXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_WO_SnRule">
+      <wsdl:input name="Sn_Rule_XML" message="tns:Sn_Rule_XMLSoapIn" />
+      <wsdl:output name="Sn_Rule_XML" message="tns:Sn_Rule_XMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertWipKeyParts">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入wipkeypart数据,产品序列号绑定</wsdl:documentation>
+      <wsdl:input message="tns:InsertWipKeyPartsSoapIn" />
+      <wsdl:output message="tns:InsertWipKeyPartsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEsnDataInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">根据esn获取数据,输入的可以是除密码外类型任何序号类型</wsdl:documentation>
+      <wsdl:input message="tns:GetEsnDataInfoSoapIn" />
+      <wsdl:output message="tns:GetEsnDataInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEsnDataInfoXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">根据esn获取数据,输入的可以是除密码外类型任何序号类型</wsdl:documentation>
+      <wsdl:input message="tns:GetEsnDataInfoXMLSoapIn" />
+      <wsdl:output message="tns:GetEsnDataInfoXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEsnDataInfoXMLBySntype">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">根据esn获取数据,输入的可以是除密码外类型任何序号类型</wsdl:documentation>
+      <wsdl:input message="tns:GetEsnDataInfoXMLBySntypeSoapIn" />
+      <wsdl:output message="tns:GetEsnDataInfoXMLBySntypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEsnDataInfoBySntype">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">根据esn获取数据,输入的可以是除密码外类型任何序号类型</wsdl:documentation>
+      <wsdl:input message="tns:GetEsnDataInfoBySntypeSoapIn" />
+      <wsdl:output message="tns:GetEsnDataInfoBySntypeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSnInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取指定的序列号是否存在</wsdl:documentation>
+      <wsdl:input message="tns:GetSnInfoSoapIn" />
+      <wsdl:output message="tns:GetSnInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSnInfoXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取指定的序列号是否存在</wsdl:documentation>
+      <wsdl:input message="tns:GetSnInfoXMLSoapIn" />
+      <wsdl:output message="tns:GetSnInfoXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSnWipKeyPartsData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">刷入SN,返回连接关系资料</wsdl:documentation>
+      <wsdl:input message="tns:GetSnWipKeyPartsDataSoapIn" />
+      <wsdl:output message="tns:GetSnWipKeyPartsDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSnWipKeyPartsDataXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">刷入SN,返回连接关系资料</wsdl:documentation>
+      <wsdl:input message="tns:GetSnWipKeyPartsDataXMLSoapIn" />
+      <wsdl:output message="tns:GetSnWipKeyPartsDataXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWoList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取工单列表,返回List</wsdl:documentation>
+      <wsdl:input message="tns:GetWoListSoapIn" />
+      <wsdl:output message="tns:GetWoListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetATEScripts">
+      <wsdl:input message="tns:GetATEScriptsSoapIn" />
+      <wsdl:output message="tns:GetATEScriptsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAteScriptsStr">
+      <wsdl:input message="tns:GetAteScriptsStrSoapIn" />
+      <wsdl:output message="tns:GetAteScriptsStrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAteScriptsXML">
+      <wsdl:input message="tns:GetAteScriptsXMLSoapIn" />
+      <wsdl:output message="tns:GetAteScriptsXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLogOut">
+      <wsdl:input message="tns:DeleteLogOutSoapIn" />
+      <wsdl:output message="tns:DeleteLogOutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCartonPrintContent">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取卡通箱需要打印的所有内容</wsdl:documentation>
+      <wsdl:input message="tns:GetCartonPrintContentSoapIn" />
+      <wsdl:output message="tns:GetCartonPrintContentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SP_TEST_INPUT_ALL">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">产品投入,条码一阶到底,DATA:条码序号,LINE:线体,MYGROUP:途程,WO:投入工单,EMP:员工权限</wsdl:documentation>
+      <wsdl:input message="tns:SP_TEST_INPUT_ALLSoapIn" />
+      <wsdl:output message="tns:SP_TEST_INPUT_ALLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChkUserAteEmp">
+      <wsdl:input message="tns:ChkUserAteEmpSoapIn" />
+      <wsdl:output message="tns:ChkUserAteEmpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCode">
+      <wsdl:input message="tns:GetErrorCodeSoapIn" />
+      <wsdl:output message="tns:GetErrorCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCodeXML">
+      <wsdl:input message="tns:GetErrorCodeXMLSoapIn" />
+      <wsdl:output message="tns:GetErrorCodeXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SP_PRO_SN_INPUT_MOBILE">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">手机客户ESN投板使用</wsdl:documentation>
+      <wsdl:input message="tns:SP_PRO_SN_INPUT_MOBILESoapIn" />
+      <wsdl:output message="tns:SP_PRO_SN_INPUT_MOBILESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWoInfoByWo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取工单信息</wsdl:documentation>
+      <wsdl:input message="tns:GetWoInfoByWoSoapIn" />
+      <wsdl:output message="tns:GetWoInfoByWoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWoInfoByWoXml">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取工单信息XML</wsdl:documentation>
+      <wsdl:input message="tns:GetWoInfoByWoXmlSoapIn" />
+      <wsdl:output message="tns:GetWoInfoByWoXmlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductByPartNumber">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取产品信息</wsdl:documentation>
+      <wsdl:input message="tns:GetProductByPartNumberSoapIn" />
+      <wsdl:output message="tns:GetProductByPartNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductLableNames">
+      <wsdl:input message="tns:GetProductLableNamesSoapIn" />
+      <wsdl:output message="tns:GetProductLableNamesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSnMacImeiForAte">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Esn 产品sn,sntype 条码类型,woId 工单,snqty 需要获取几个条码[使用此方法]</wsdl:documentation>
+      <wsdl:input message="tns:GetSnMacImeiForAteSoapIn" />
+      <wsdl:output message="tns:GetSnMacImeiForAteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Insert_T_TESTRESULT_INFO">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">直通率接口</wsdl:documentation>
+      <wsdl:input message="tns:Insert_T_TESTRESULT_INFOSoapIn" />
+      <wsdl:output message="tns:Insert_T_TESTRESULT_INFOSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWoVersionInfoXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取工单QCN版本和TP固定版本---xml格式</wsdl:documentation>
+      <wsdl:input message="tns:GetWoVersionInfoXMLSoapIn" />
+      <wsdl:output message="tns:GetWoVersionInfoXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPnMarkBitInfoXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取产品料号的标示位---xml格式</wsdl:documentation>
+      <wsdl:input message="tns:GetPnMarkBitInfoXMLSoapIn" />
+      <wsdl:output message="tns:GetPnMarkBitInfoXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWoVersionInfoDataSet">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取工单QCN版本和TP固定版本--dataset格式</wsdl:documentation>
+      <wsdl:input message="tns:GetWoVersionInfoDataSetSoapIn" />
+      <wsdl:output message="tns:GetWoVersionInfoDataSetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPnMarkBitInfoDataSet">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取产品料号的标示位--dataset格式</wsdl:documentation>
+      <wsdl:input message="tns:GetPnMarkBitInfoDataSetSoapIn" />
+      <wsdl:output message="tns:GetPnMarkBitInfoDataSetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_ROUTE_TOOLS_ATE">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">传入输入参数 DATA(唯一条码ESN),途程 Route,工单 WO,治具 Tools,返回一个string类型的参数 </wsdl:documentation>
+      <wsdl:input message="tns:CHECK_ROUTE_TOOLS_ATESoapIn" />
+      <wsdl:output message="tns:CHECK_ROUTE_TOOLS_ATESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Route_Info">
+      <wsdl:input name="GetRouteInfo" message="tns:GetRouteInfoSoapIn" />
+      <wsdl:output name="GetRouteInfo" message="tns:GetRouteInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_SET_LINE_EMPLOYEE">
+      <wsdl:input name="CheckLineEmployee" message="tns:CheckLineEmployeeSoapIn" />
+      <wsdl:output name="CheckLineEmployee" message="tns:CheckLineEmployeeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UPDATE_WIP_TRACKING">
+      <wsdl:input message="tns:UPDATE_WIP_TRACKINGSoapIn" />
+      <wsdl:output message="tns:UPDATE_WIP_TRACKINGSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_WIP_TRACKING_XML">
+      <wsdl:input name="Get_WIP_TRACKING" message="tns:Get_WIP_TRACKINGSoapIn" />
+      <wsdl:output name="Get_WIP_TRACKING" message="tns:Get_WIP_TRACKINGSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_b_station_checkrules">
+      <wsdl:input name="Get_Station_Checkrules" message="tns:Get_Station_CheckrulesSoapIn" />
+      <wsdl:output name="Get_Station_Checkrules" message="tns:Get_Station_CheckrulesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Get_Stn_Rec">
+      <wsdl:input name="GetStnRec" message="tns:GetStnRecSoapIn" />
+      <wsdl:output name="GetStnRec" message="tns:GetStnRecSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteProcedure">
+      <wsdl:input message="tns:ExecuteProcedureSoapIn" />
+      <wsdl:output message="tns:ExecuteProcedureSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="tCheckDataTestAteSoap" type="tns:tCheckDataTestAteSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckEmp">
+      <soap:operation soapAction="http://tempuri.org/CheckEmp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckEmp_NEW">
+      <soap:operation soapAction="http://tempuri.org/CheckEmp_NEW" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStation">
+      <soap:operation soapAction="http://tempuri.org/GetAllStation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStationXML">
+      <soap:operation soapAction="http://tempuri.org/GetAllStationXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWOCraftInfo">
+      <soap:operation soapAction="http://tempuri.org/GetWOCraftInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCraftInfoByRouteId">
+      <soap:operation soapAction="http://tempuri.org/GetCraftInfoByRouteId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Check_Route_ATE">
+      <soap:operation soapAction="http://tempuri.org/Check_Route_ATE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="INS_ATE_Back">
+      <soap:operation soapAction="http://tempuri.org/INS_ATE_Back" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PRO_INS_ATE_BACK">
+      <soap:operation soapAction="http://tempuri.org/ATE_Call_Back_First" style="document" />
+      <wsdl:input name="ATE_Call_Back_First">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ATE_Call_Back_First">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLineList">
+      <soap:operation soapAction="http://tempuri.org/GetLineList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLineListXML">
+      <soap:operation soapAction="http://tempuri.org/GetLineListXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Line_List">
+      <soap:operation soapAction="http://tempuri.org/Get_Line_List" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWOSnRule">
+      <soap:operation soapAction="http://tempuri.org/GetWOSnRule" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWOSnRuleXML">
+      <soap:operation soapAction="http://tempuri.org/GetWOSnRuleXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_WO_SnRule">
+      <soap:operation soapAction="http://tempuri.org/Sn_Rule_XML" style="document" />
+      <wsdl:input name="Sn_Rule_XML">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Sn_Rule_XML">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertWipKeyParts">
+      <soap:operation soapAction="http://tempuri.org/InsertWipKeyParts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEsnDataInfo">
+      <soap:operation soapAction="http://tempuri.org/GetEsnDataInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEsnDataInfoXML">
+      <soap:operation soapAction="http://tempuri.org/GetEsnDataInfoXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEsnDataInfoXMLBySntype">
+      <soap:operation soapAction="http://tempuri.org/GetEsnDataInfoXMLBySntype" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEsnDataInfoBySntype">
+      <soap:operation soapAction="http://tempuri.org/GetEsnDataInfoBySntype" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSnInfo">
+      <soap:operation soapAction="http://tempuri.org/GetSnInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSnInfoXML">
+      <soap:operation soapAction="http://tempuri.org/GetSnInfoXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSnWipKeyPartsData">
+      <soap:operation soapAction="http://tempuri.org/GetSnWipKeyPartsData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSnWipKeyPartsDataXML">
+      <soap:operation soapAction="http://tempuri.org/GetSnWipKeyPartsDataXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWoList">
+      <soap:operation soapAction="http://tempuri.org/GetWoList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetATEScripts">
+      <soap:operation soapAction="http://tempuri.org/GetATEScripts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAteScriptsStr">
+      <soap:operation soapAction="http://tempuri.org/GetAteScriptsStr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAteScriptsXML">
+      <soap:operation soapAction="http://tempuri.org/GetAteScriptsXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLogOut">
+      <soap:operation soapAction="http://tempuri.org/DeleteLogOut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCartonPrintContent">
+      <soap:operation soapAction="http://tempuri.org/GetCartonPrintContent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SP_TEST_INPUT_ALL">
+      <soap:operation soapAction="http://tempuri.org/SP_TEST_INPUT_ALL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChkUserAteEmp">
+      <soap:operation soapAction="http://tempuri.org/ChkUserAteEmp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCode">
+      <soap:operation soapAction="http://tempuri.org/GetErrorCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCodeXML">
+      <soap:operation soapAction="http://tempuri.org/GetErrorCodeXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SP_PRO_SN_INPUT_MOBILE">
+      <soap:operation soapAction="http://tempuri.org/SP_PRO_SN_INPUT_MOBILE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWoInfoByWo">
+      <soap:operation soapAction="http://tempuri.org/GetWoInfoByWo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWoInfoByWoXml">
+      <soap:operation soapAction="http://tempuri.org/GetWoInfoByWoXml" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductByPartNumber">
+      <soap:operation soapAction="http://tempuri.org/GetProductByPartNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductLableNames">
+      <soap:operation soapAction="http://tempuri.org/GetProductLableNames" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSnMacImeiForAte">
+      <soap:operation soapAction="http://tempuri.org/GetSnMacImeiForAte" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Insert_T_TESTRESULT_INFO">
+      <soap:operation soapAction="http://tempuri.org/Insert_T_TESTRESULT_INFO" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWoVersionInfoXML">
+      <soap:operation soapAction="http://tempuri.org/GetWoVersionInfoXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPnMarkBitInfoXML">
+      <soap:operation soapAction="http://tempuri.org/GetPnMarkBitInfoXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWoVersionInfoDataSet">
+      <soap:operation soapAction="http://tempuri.org/GetWoVersionInfoDataSet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPnMarkBitInfoDataSet">
+      <soap:operation soapAction="http://tempuri.org/GetPnMarkBitInfoDataSet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_ROUTE_TOOLS_ATE">
+      <soap:operation soapAction="http://tempuri.org/CHECK_ROUTE_TOOLS_ATE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Route_Info">
+      <soap:operation soapAction="http://tempuri.org/GetRouteInfo" style="document" />
+      <wsdl:input name="GetRouteInfo">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetRouteInfo">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_SET_LINE_EMPLOYEE">
+      <soap:operation soapAction="http://tempuri.org/CheckLineEmployee" style="document" />
+      <wsdl:input name="CheckLineEmployee">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CheckLineEmployee">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UPDATE_WIP_TRACKING">
+      <soap:operation soapAction="http://tempuri.org/UPDATE_WIP_TRACKING" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_WIP_TRACKING_XML">
+      <soap:operation soapAction="http://tempuri.org/Get_WIP_TRACKING" style="document" />
+      <wsdl:input name="Get_WIP_TRACKING">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Get_WIP_TRACKING">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_b_station_checkrules">
+      <soap:operation soapAction="http://tempuri.org/Get_Station_Checkrules" style="document" />
+      <wsdl:input name="Get_Station_Checkrules">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Get_Station_Checkrules">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Stn_Rec">
+      <soap:operation soapAction="http://tempuri.org/GetStnRec" style="document" />
+      <wsdl:input name="GetStnRec">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetStnRec">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteProcedure">
+      <soap:operation soapAction="http://tempuri.org/ExecuteProcedure" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="tCheckDataTestAteSoap12" type="tns:tCheckDataTestAteSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckEmp">
+      <soap12:operation soapAction="http://tempuri.org/CheckEmp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckEmp_NEW">
+      <soap12:operation soapAction="http://tempuri.org/CheckEmp_NEW" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStation">
+      <soap12:operation soapAction="http://tempuri.org/GetAllStation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStationXML">
+      <soap12:operation soapAction="http://tempuri.org/GetAllStationXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWOCraftInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetWOCraftInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCraftInfoByRouteId">
+      <soap12:operation soapAction="http://tempuri.org/GetCraftInfoByRouteId" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Check_Route_ATE">
+      <soap12:operation soapAction="http://tempuri.org/Check_Route_ATE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="INS_ATE_Back">
+      <soap12:operation soapAction="http://tempuri.org/INS_ATE_Back" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PRO_INS_ATE_BACK">
+      <soap12:operation soapAction="http://tempuri.org/ATE_Call_Back_First" style="document" />
+      <wsdl:input name="ATE_Call_Back_First">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ATE_Call_Back_First">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLineList">
+      <soap12:operation soapAction="http://tempuri.org/GetLineList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLineListXML">
+      <soap12:operation soapAction="http://tempuri.org/GetLineListXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Line_List">
+      <soap12:operation soapAction="http://tempuri.org/Get_Line_List" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWOSnRule">
+      <soap12:operation soapAction="http://tempuri.org/GetWOSnRule" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWOSnRuleXML">
+      <soap12:operation soapAction="http://tempuri.org/GetWOSnRuleXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_WO_SnRule">
+      <soap12:operation soapAction="http://tempuri.org/Sn_Rule_XML" style="document" />
+      <wsdl:input name="Sn_Rule_XML">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Sn_Rule_XML">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertWipKeyParts">
+      <soap12:operation soapAction="http://tempuri.org/InsertWipKeyParts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEsnDataInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetEsnDataInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEsnDataInfoXML">
+      <soap12:operation soapAction="http://tempuri.org/GetEsnDataInfoXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEsnDataInfoXMLBySntype">
+      <soap12:operation soapAction="http://tempuri.org/GetEsnDataInfoXMLBySntype" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEsnDataInfoBySntype">
+      <soap12:operation soapAction="http://tempuri.org/GetEsnDataInfoBySntype" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSnInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetSnInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSnInfoXML">
+      <soap12:operation soapAction="http://tempuri.org/GetSnInfoXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSnWipKeyPartsData">
+      <soap12:operation soapAction="http://tempuri.org/GetSnWipKeyPartsData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSnWipKeyPartsDataXML">
+      <soap12:operation soapAction="http://tempuri.org/GetSnWipKeyPartsDataXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWoList">
+      <soap12:operation soapAction="http://tempuri.org/GetWoList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetATEScripts">
+      <soap12:operation soapAction="http://tempuri.org/GetATEScripts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAteScriptsStr">
+      <soap12:operation soapAction="http://tempuri.org/GetAteScriptsStr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAteScriptsXML">
+      <soap12:operation soapAction="http://tempuri.org/GetAteScriptsXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLogOut">
+      <soap12:operation soapAction="http://tempuri.org/DeleteLogOut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCartonPrintContent">
+      <soap12:operation soapAction="http://tempuri.org/GetCartonPrintContent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SP_TEST_INPUT_ALL">
+      <soap12:operation soapAction="http://tempuri.org/SP_TEST_INPUT_ALL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChkUserAteEmp">
+      <soap12:operation soapAction="http://tempuri.org/ChkUserAteEmp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCode">
+      <soap12:operation soapAction="http://tempuri.org/GetErrorCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCodeXML">
+      <soap12:operation soapAction="http://tempuri.org/GetErrorCodeXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SP_PRO_SN_INPUT_MOBILE">
+      <soap12:operation soapAction="http://tempuri.org/SP_PRO_SN_INPUT_MOBILE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWoInfoByWo">
+      <soap12:operation soapAction="http://tempuri.org/GetWoInfoByWo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWoInfoByWoXml">
+      <soap12:operation soapAction="http://tempuri.org/GetWoInfoByWoXml" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductByPartNumber">
+      <soap12:operation soapAction="http://tempuri.org/GetProductByPartNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductLableNames">
+      <soap12:operation soapAction="http://tempuri.org/GetProductLableNames" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSnMacImeiForAte">
+      <soap12:operation soapAction="http://tempuri.org/GetSnMacImeiForAte" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Insert_T_TESTRESULT_INFO">
+      <soap12:operation soapAction="http://tempuri.org/Insert_T_TESTRESULT_INFO" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWoVersionInfoXML">
+      <soap12:operation soapAction="http://tempuri.org/GetWoVersionInfoXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPnMarkBitInfoXML">
+      <soap12:operation soapAction="http://tempuri.org/GetPnMarkBitInfoXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWoVersionInfoDataSet">
+      <soap12:operation soapAction="http://tempuri.org/GetWoVersionInfoDataSet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPnMarkBitInfoDataSet">
+      <soap12:operation soapAction="http://tempuri.org/GetPnMarkBitInfoDataSet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_ROUTE_TOOLS_ATE">
+      <soap12:operation soapAction="http://tempuri.org/CHECK_ROUTE_TOOLS_ATE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Route_Info">
+      <soap12:operation soapAction="http://tempuri.org/GetRouteInfo" style="document" />
+      <wsdl:input name="GetRouteInfo">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetRouteInfo">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CHECK_SET_LINE_EMPLOYEE">
+      <soap12:operation soapAction="http://tempuri.org/CheckLineEmployee" style="document" />
+      <wsdl:input name="CheckLineEmployee">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CheckLineEmployee">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UPDATE_WIP_TRACKING">
+      <soap12:operation soapAction="http://tempuri.org/UPDATE_WIP_TRACKING" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_WIP_TRACKING_XML">
+      <soap12:operation soapAction="http://tempuri.org/Get_WIP_TRACKING" style="document" />
+      <wsdl:input name="Get_WIP_TRACKING">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Get_WIP_TRACKING">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_b_station_checkrules">
+      <soap12:operation soapAction="http://tempuri.org/Get_Station_Checkrules" style="document" />
+      <wsdl:input name="Get_Station_Checkrules">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Get_Station_Checkrules">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Get_Stn_Rec">
+      <soap12:operation soapAction="http://tempuri.org/GetStnRec" style="document" />
+      <wsdl:input name="GetStnRec">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetStnRec">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuteProcedure">
+      <soap12:operation soapAction="http://tempuri.org/ExecuteProcedure" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="tCheckDataTestAte">
+    <wsdl:port name="tCheckDataTestAteSoap" binding="tns:tCheckDataTestAteSoap">
+      <soap:address location="http://sfis.phicomm.com.cn/SFIS_WEBSER/tCheckDataTestAte.asmx" />
+    </wsdl:port>
+    <wsdl:port name="tCheckDataTestAteSoap12" binding="tns:tCheckDataTestAteSoap12">
+      <soap12:address location="http://sfis.phicomm.com.cn/SFIS_WEBSER/tCheckDataTestAte.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

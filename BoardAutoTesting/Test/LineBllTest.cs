@@ -30,8 +30,8 @@ namespace BoardAutoTesting.Test
                 CraftEsn = "d",
                 PortId = "NA",
             };
-            int i = LineBll.UpdateModel(line, "Mcu_Ip");
-            Assert.AreEqual(1, i);
+            bool result = LineBll.SureToUpdateModel(line, "Mcu_Ip");
+            Assert.True(result);
         }
 
         [Test]

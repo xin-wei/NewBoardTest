@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Collections.Generic;
 using BoardAutoTesting.BLL;
 using BoardAutoTesting.Log;
 using BoardAutoTesting.Model;
 using BoardAutoTesting.Status;
-using Model;
 
 namespace BoardAutoTesting.DataExchange
 {
@@ -16,104 +13,10 @@ namespace BoardAutoTesting.DataExchange
         {
         }
 
-        private bool ExecuteAteResult(ProductInfo product, int timeout)
-        {
-            int startTick = Environment.TickCount;
-            int endTick = Environment.TickCount;
-            while (endTick - startTick < timeout)
-            {
-                try
-                {
-                    Client.SendMsg(product.IsPass == Pass
-                        ? CmdInfo.ProductPass
-                        : CmdInfo.ProductFail);
-                }
-                catch (Exception e)
-                {
-                    Logger.Glog.Info(Client.ClientIp + ":" + e.Message);
-                }
-
-                Thread.Sleep(SendInterval);
-                if (Client.Command == CmdInfo.ProductGet ||
-                    Client.IsOpenDoor)
-                    break;
-
-                endTick = Environment.TickCount;
-            }
-
-            return Client.Command == CmdInfo.ProductGet;
-        }
-
-        private bool ExecuteInOrNext(bool isIn, int timeout)
-        {
-            int startTick = Environment.TickCount;
-            int endTick = Environment.TickCount;
-            while (endTick - startTick < timeout)
-            {
-                try
-                {
-                    Client.SendMsg(isIn ? CmdInfo.GoIn : CmdInfo.GoNext);
-                }
-                catch (Exception e)
-                {
-                    Logger.Glog.Info(Client.ClientIp + ":" + e.Message);     
-                }
-                Thread.Sleep(SendInterval);
-                if (Client.IsOpenDoor)
-                    break;
-
-                if (isIn && Client.Command == CmdInfo.GoInGet)
-                    return true;
-
-                if (!isIn && Client.Command == CmdInfo.GoNextGet)
-                    return true;
-
-                endTick = Environment.TickCount;
-            }
-
-            return false;
-        }
-
-        private bool ExecuteInOrNextOk(bool isIn, int timeout)
-        {
-            int startTick = Environment.TickCount;
-            int endTick = Environment.TickCount;
-            while (endTick - startTick < timeout)
-            {
-                try
-                {
-                    Client.SendMsg(isIn ? CmdInfo.GoInOk : CmdInfo.GoNextOk);
-                }
-                catch (Exception e)
-                {
-                    Logger.Glog.Info(Client.ClientIp + ":" + e.Message);
-                }
-                Thread.Sleep(SendInterval);
-                if (Client.IsOpenDoor)
-                    break;
-
-                if (isIn && Client.Command == CmdInfo.GoInOk)
-                {
-                    Client.SendMsg(CmdInfo.GoInOk);
-                    return true;
-                }
-
-                if (!isIn && Client.Command == CmdInfo.GoNextOk)
-                {
-                    Client.SendMsg(CmdInfo.GoNextOk);
-                    return true;
-                }
-
-                endTick = Environment.TickCount;
-            }
-
-            return false;
-        }
-
         public void ExecuteCommand(string cmd)
         {
             string rfid;
-            bool result = Client.GetSearchId(cmd, CmdInfo.CanIn, out rfid);
+            bool result = Client.GetSearchId(cmd, ":IN?", out rfid);
             if (!result)
                 return;
 
@@ -122,23 +25,23 @@ namespace BoardAutoTesting.DataExchange
             ProductInfo product = ProductBll.GetModelByRfid(rfid);
             if (product == null)
             {
-                Logger.Glog.Info(Client.ClientIp, cmd,
-                    "未查找到指定rfid的产品信息");
+                Logger.Glog.Info(Client.ClientIp, "CanIn.GetModelByRfid",
+                    string.Format("{0}:未查找到指定rfid的产品信息", cmd));
+                return;
+            }
+
+            if (product.ESN == "NA" || string.IsNullOrEmpty(product.ESN))
+            {
+                Logger.Glog.Info(Client.ClientIp, "CanIn.GetModelByRfid",
+                    string.Format("{0}:ESN不存在", cmd));
                 return;
             }
 
             LineInfo line = LineBll.GetModelByIpPort(Client.ClientIp, "NA");
             if (line == null)
             {
-                Logger.Glog.Info(Client.ClientIp, cmd,
-                    "未查找到指定ip的线体信息");
-                return;
-            }
-
-            if (product.ESN == "NA" || string.IsNullOrEmpty(product.ESN))
-            {
-                Logger.Glog.Info(Client.ClientIp, cmd,
-                    "ESN不存在");
+                Logger.Glog.Info(Client.ClientIp, "CanIn.GetModelByIpPort",
+                    string.Format("{0}:未查找到指定ip的线体信息", cmd));
                 return;
             }
 
@@ -146,16 +49,18 @@ namespace BoardAutoTesting.DataExchange
             string strResult = "OK";
             //if ()
 
+            #region 最后一站特殊处理
+
             if (line.IsOut)
             {
-                if (product.IsPass == Pass
+                if (product.IsPass == ProductStatus.Pass.ToString()
                     && strResult == "OK")
                 {
-                    ExecuteAteResult(product, 15000);
+                    WaitGetResponse(CmdInfo.ProductPass, TimeOut, CmdInfo.ProductGet);
                 }
                 else
                 {
-                    ExecuteAteResult(product, 15000);
+                    WaitGetResponse(CmdInfo.ProductFail, TimeOut, CmdInfo.ProductGet);
                     ClientConnection.CsHelper.ClearVariables();
                     Dictionary<string, object> dicVariables = new Dictionary<string, object>
                     {
@@ -166,54 +71,81 @@ namespace BoardAutoTesting.DataExchange
                     ClientConnection.CsHelper.Fill_Label_Variables(dicVariables);
                     ClientConnection.CsHelper.PrintLabel();
                 }
+
+                ProductInfo originProductInfo = new ProductInfo()
+                {
+                    RFID = product.RFID,
+                    ESN = "NA",
+                    RouteName = "NA",
+                    CraftID = "NA",
+                    IsPass = ProductStatus.UnKnown.ToString(),
+                    CurrentIp = "NA",
+                    OldIp = "NA",
+                    ActionName = ProductAction.OnLine.ToString(),
+                    ATEIp = "NA"
+                };
+
+                if (ProductBll.UpdateModel(originProductInfo) != 1)//应该是不可能出现的
+                    Logger.Glog.Info(Client.ClientIp, "CanIn.UpdateModel",
+                        "最后一站更新数据出错");
+
+                return;
             }
+
+            #endregion
 
             if (Client.Rfid == product.RFID)
                 return;
-
             Client.Rfid = product.RFID;
 
-            if (product.IsPass == Fail || strResult != "OK")
+            if (product.IsPass == ProductStatus.Fail.ToString() || strResult != "OK")
                 return;
 
             if (line.RouteName != product.RouteName)
             {
                 product.RouteName = line.RouteName;
                 product.CraftID = "NA";
-                product.ActionName = ProductStatus.OnLine.ToString();
+                product.ActionName = ProductAction.OnLine.ToString();
             }
 
-            if (product.ActionName == ProductStatus.EndTest.ToString())
+            if (product.ActionName == ProductAction.EndTest.ToString())
             {
-                NextOrInStation(product, false);
+                NextStation(product);
+                return;
             }
 
-            string assignedCraft = "NA";
             if (product.CraftID == "NA") //产品机台状态为空，分配机台
             {
-                assignedCraft = LineBll.GetEmptyCraft(line.RouteName);
+                string assignedCraft;
+                LineBll.WaitAndOccupyCraft(Client, line.RouteName,
+                    product.ESN, out assignedCraft);
+
+                if (assignedCraft == "")
+                {
+                    //出现异常的概率很小，即使出现了造成卡板，板子拿掉就行
+                    Logger.Glog.Info(Client.ClientIp, "CanIn.WaitAndOccupyCraft", 
+                        "没有分配到机台怎么可能进来，估计抛异常了");
+                    return;
+                }
+
+                product.CraftID = assignedCraft;
             }
 
             if (Client.IsOpenDoor)
                 return;
 
-            if (line.CraftId == assignedCraft && !line.IsRepair)
+            if (line.CraftId == product.CraftID && !line.IsRepair)
             {
-                NextOrInStation(product, true);
+                InStation(product);
             }
             else
             {
-                NextOrInStation(product, false);
+                NextStation(product);
             }
 
         }
 
-        /// <summary>
-        /// 执行过站或进站动作动作
-        /// </summary>
-        /// <param name="product">产品实例</param>
-        /// <param name="isIn">进站为true</param>
-        private void NextOrInStation(ProductInfo product, bool isIn)
+        private void InStation(ProductInfo product)
         {
             LineBll.WaitAndOccupyLine(Client, product.ESN);
             if (Client.IsOpenDoor)
@@ -221,21 +153,78 @@ namespace BoardAutoTesting.DataExchange
 
             product.OldIp = product.CurrentIp;
             product.CurrentIp = Client.ClientIp;
-            int count = ProductBll.UpdateModel(product);
-            if (count != 1)//应该是不可能发生的
+            product.ActionName = ProductAction.Testing.ToString();
+            product.IsPass = ProductStatus.UnKnown.ToString();
+            if (ProductBll.UpdateModel(product) != 1)//应该是不可能发生的
                 return;
 
-            if (!ExecuteInOrNext(isIn, 15000))
+            if (!WaitGetResponse(CmdInfo.GoIn, TimeOut, CmdInfo.GoInGet))
             {
-                Logger.Glog.Info(Client.ClientIp, "NextOrInStation", "未收到应答");
-                LightRedLed();
+                Logger.Glog.Info(Client.ClientIp, "CanIn.WaitGetResponse", "未收到进站应答");
+                RedLedOnOrOff(true);
                 return;
             }
 
-            if (ExecuteInOrNextOk(isIn, 15000)) return;
+            if (!WaitOkResponse(TimeOut, CmdInfo.GoInOk))
+            {
+                Logger.Glog.Info(Client.ClientIp, "CanIn.WaitOkResponse", "未收到IN:OK反馈");
+                RedLedOnOrOff(true);
+                return;
+            }
+            Client.SendMsg(CmdInfo.GoInOk);
 
-            Logger.Glog.Info(Client.ClientIp, "NextOrInStation", "未收到到位反馈");
-            LightRedLed();
+            LineInfo line = LineBll.GetModelByIpPort(Client.ClientIp, "NA");
+            if (line.LineEsn == "")
+                return;
+
+            line.LineEsn = "";
+            if (!LineBll.SureToUpdateModel(line, "Mcu_Ip"))
+                Logger.Glog.Info(Client.ClientIp, "CanIn.SureToUpdateModel",
+                    "进站数据没更新成功");
+
+            RedLedOnOrOff(false);
+            Logger.Glog.Info(Client.ClientIp, "CanIn.SureToUpdateModel",
+                    "进站完成");
+        }
+
+        private void NextStation(ProductInfo product)
+        {
+            LineBll.WaitAndOccupyLine(Client, product.ESN);
+            if (Client.IsOpenDoor)
+                return;
+
+            product.OldIp = product.CurrentIp;
+            product.CurrentIp = Client.ClientIp;
+            product.ActionName = ProductAction.OnLine.ToString();
+            if (ProductBll.UpdateModel(product) != 1) //应该是不可能发生的
+                return;
+
+            if (!WaitGetResponse(CmdInfo.GoNext, TimeOut, CmdInfo.GoNextGet))
+            {
+                Logger.Glog.Info(Client.ClientIp, "CanIn.WaitGetResponse", "未收到过站应答");
+                RedLedOnOrOff(true);
+                return;
+            }
+
+            if (!WaitOkResponse(int.MaxValue, CmdInfo.GoNextOk))
+            {
+                Logger.Glog.Info(Client.ClientIp, "CanIn.WaitOkResponse", "未收到过站反馈");
+                RedLedOnOrOff(true);
+                return;
+            }
+            Client.SendMsg(CmdInfo.GoNextOk);
+
+            LineInfo line = LineBll.GetModelByIpPort(Client.ClientIp, "NA");
+            if (line.LineEsn == "")
+                return;
+
+            line.LineEsn = "";
+            if (!LineBll.SureToUpdateModel(line, "Mcu_Ip"))
+                Logger.Glog.Info(Client.ClientIp, "CanIn.SureToUpdateModel",
+                    "过站数据没更新成功");
+
+            Logger.Glog.Info(Client.ClientIp, "CanIn.SureToUpdateModel",
+                    "过站完成");
         }
 
     }

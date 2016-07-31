@@ -129,4 +129,28 @@
   <data name="SystemPromote" xml:space="preserve">
     <value>系统提示</value>
   </data>
+  <data name="StopServer" xml:space="preserve">
+    <value>停止服务器</value>
+  </data>
+  <data name="StartServer" xml:space="preserve">
+    <value>启动服务器</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="PromoteNoPort" xml:space="preserve">
+    <value>当前机台不存在任何串口，请连接串口！</value>
+  </data>
+  <data name="NoPort" xml:space="preserve">
+    <value>串口不存在</value>
+  </data>
+  <data name="Disconnect" xml:space="preserve">
+    <value>断开</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>7600</value>
+  </data>
+  <data name="InitCraft" xml:space="preserve">
+    <value>Craft00001</value>
+  </data>
 </root>

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
-
-namespace Model
+﻿// ReSharper disable InconsistentNaming
+namespace BoardAutoTesting.Model
 {
     public class ProductInfo
     {
+        // ReSharper disable once InconsistentNaming
         public string RFID { get; set; }
         public string ESN { get; set; }
         public string IsPass { get; set; }

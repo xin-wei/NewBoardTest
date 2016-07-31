@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRepairSnInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ESN" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRepairSnInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRepairSnInfoResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRepairMaterialInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ESN" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRepairMaterialInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRepairMaterialInfoResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRepairSnStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sStatus" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ROWID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRepairSnStatusResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFailErrListCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ESN" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFailErrListCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFailErrListCountResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWipAndRouteData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ESN" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWipAndRouteDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetWipAndRouteDataResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRepairInformation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListDic_Repair" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRepairInformationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateRepairInformationResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRepairToWip">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CraftId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ESN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sStatus" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="rowid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRepairToWipResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateRepairToWipResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DowloadRepairInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dicstring" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Flag" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DowloadRepairInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DowloadRepairInfoResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryRepairStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryRepairStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryRepairStatusResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryRepairStatusByDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryRepairStatusByDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryRepairStatusByDateResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRepairReport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Class" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRepairReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRepairReportResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDutyInfo">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetDutyInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDutyInfoResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertDutyInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Duty" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DutyDesc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertDutyInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertDutyInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDutyInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Duty" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDutyInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteDutyInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertRepairMaterialInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="dicListReMaterial" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertRepairMaterialInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertRepairMaterialInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRepairSnInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRepairSnInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetRepairSnInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRepairSnInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRepairMaterialInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRepairMaterialInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetRepairMaterialInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRepairMaterialInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRepairSnStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateRepairSnStatus" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRepairSnStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateRepairSnStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFailErrListCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFailErrListCount" />
+  </wsdl:message>
+  <wsdl:message name="GetFailErrListCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFailErrListCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWipAndRouteDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWipAndRouteData" />
+  </wsdl:message>
+  <wsdl:message name="GetWipAndRouteDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWipAndRouteDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRepairInformationSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateRepairInformation" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRepairInformationSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateRepairInformationResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRepairToWipSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateRepairToWip" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRepairToWipSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateRepairToWipResponse" />
+  </wsdl:message>
+  <wsdl:message name="DowloadRepairInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:DowloadRepairInfo" />
+  </wsdl:message>
+  <wsdl:message name="DowloadRepairInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:DowloadRepairInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryRepairStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryRepairStatus" />
+  </wsdl:message>
+  <wsdl:message name="QueryRepairStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryRepairStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryRepairStatusByDateSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryRepairStatusByDate" />
+  </wsdl:message>
+  <wsdl:message name="QueryRepairStatusByDateSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryRepairStatusByDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRepairReportSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRepairReport" />
+  </wsdl:message>
+  <wsdl:message name="GetRepairReportSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRepairReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDutyInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDutyInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetDutyInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDutyInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertDutyInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertDutyInfo" />
+  </wsdl:message>
+  <wsdl:message name="InsertDutyInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertDutyInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDutyInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteDutyInfo" />
+  </wsdl:message>
+  <wsdl:message name="DeleteDutyInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteDutyInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertRepairMaterialInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertRepairMaterialInfo" />
+  </wsdl:message>
+  <wsdl:message name="InsertRepairMaterialInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertRepairMaterialInfoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="tRepairInfoSoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRepairSnInfo">
+      <wsdl:input message="tns:GetRepairSnInfoSoapIn" />
+      <wsdl:output message="tns:GetRepairSnInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRepairMaterialInfo">
+      <wsdl:input message="tns:GetRepairMaterialInfoSoapIn" />
+      <wsdl:output message="tns:GetRepairMaterialInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRepairSnStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">修改需要维修产品的状态</wsdl:documentation>
+      <wsdl:input message="tns:UpdateRepairSnStatusSoapIn" />
+      <wsdl:output message="tns:UpdateRepairSnStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFailErrListCount">
+      <wsdl:input message="tns:GetFailErrListCountSoapIn" />
+      <wsdl:output message="tns:GetFailErrListCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWipAndRouteData">
+      <wsdl:input message="tns:GetWipAndRouteDataSoapIn" />
+      <wsdl:output message="tns:GetWipAndRouteDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRepairInformation">
+      <wsdl:input message="tns:UpdateRepairInformationSoapIn" />
+      <wsdl:output message="tns:UpdateRepairInformationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRepairToWip">
+      <wsdl:input message="tns:UpdateRepairToWipSoapIn" />
+      <wsdl:output message="tns:UpdateRepairToWipSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DowloadRepairInfo">
+      <wsdl:input message="tns:DowloadRepairInfoSoapIn" />
+      <wsdl:output message="tns:DowloadRepairInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryRepairStatus">
+      <wsdl:input message="tns:QueryRepairStatusSoapIn" />
+      <wsdl:output message="tns:QueryRepairStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryRepairStatus">
+      <wsdl:input name="QueryRepairStatusByDate" message="tns:QueryRepairStatusByDateSoapIn" />
+      <wsdl:output name="QueryRepairStatusByDate" message="tns:QueryRepairStatusByDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRepairReport">
+      <wsdl:input message="tns:GetRepairReportSoapIn" />
+      <wsdl:output message="tns:GetRepairReportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDutyInfo">
+      <wsdl:input message="tns:GetDutyInfoSoapIn" />
+      <wsdl:output message="tns:GetDutyInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertDutyInfo">
+      <wsdl:input message="tns:InsertDutyInfoSoapIn" />
+      <wsdl:output message="tns:InsertDutyInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDutyInfo">
+      <wsdl:input message="tns:DeleteDutyInfoSoapIn" />
+      <wsdl:output message="tns:DeleteDutyInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertRepairMaterialInfo">
+      <wsdl:input message="tns:InsertRepairMaterialInfoSoapIn" />
+      <wsdl:output message="tns:InsertRepairMaterialInfoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="tRepairInfoSoap" type="tns:tRepairInfoSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRepairSnInfo">
+      <soap:operation soapAction="http://tempuri.org/GetRepairSnInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRepairMaterialInfo">
+      <soap:operation soapAction="http://tempuri.org/GetRepairMaterialInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRepairSnStatus">
+      <soap:operation soapAction="http://tempuri.org/UpdateRepairSnStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFailErrListCount">
+      <soap:operation soapAction="http://tempuri.org/GetFailErrListCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWipAndRouteData">
+      <soap:operation soapAction="http://tempuri.org/GetWipAndRouteData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRepairInformation">
+      <soap:operation soapAction="http://tempuri.org/UpdateRepairInformation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRepairToWip">
+      <soap:operation soapAction="http://tempuri.org/UpdateRepairToWip" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DowloadRepairInfo">
+      <soap:operation soapAction="http://tempuri.org/DowloadRepairInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryRepairStatus">
+      <soap:operation soapAction="http://tempuri.org/QueryRepairStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryRepairStatus">
+      <soap:operation soapAction="http://tempuri.org/QueryRepairStatusByDate" style="document" />
+      <wsdl:input name="QueryRepairStatusByDate">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="QueryRepairStatusByDate">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRepairReport">
+      <soap:operation soapAction="http://tempuri.org/GetRepairReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDutyInfo">
+      <soap:operation soapAction="http://tempuri.org/GetDutyInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertDutyInfo">
+      <soap:operation soapAction="http://tempuri.org/InsertDutyInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDutyInfo">
+      <soap:operation soapAction="http://tempuri.org/DeleteDutyInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertRepairMaterialInfo">
+      <soap:operation soapAction="http://tempuri.org/InsertRepairMaterialInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="tRepairInfoSoap12" type="tns:tRepairInfoSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRepairSnInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetRepairSnInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRepairMaterialInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetRepairMaterialInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRepairSnStatus">
+      <soap12:operation soapAction="http://tempuri.org/UpdateRepairSnStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFailErrListCount">
+      <soap12:operation soapAction="http://tempuri.org/GetFailErrListCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWipAndRouteData">
+      <soap12:operation soapAction="http://tempuri.org/GetWipAndRouteData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRepairInformation">
+      <soap12:operation soapAction="http://tempuri.org/UpdateRepairInformation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRepairToWip">
+      <soap12:operation soapAction="http://tempuri.org/UpdateRepairToWip" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DowloadRepairInfo">
+      <soap12:operation soapAction="http://tempuri.org/DowloadRepairInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryRepairStatus">
+      <soap12:operation soapAction="http://tempuri.org/QueryRepairStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryRepairStatus">
+      <soap12:operation soapAction="http://tempuri.org/QueryRepairStatusByDate" style="document" />
+      <wsdl:input name="QueryRepairStatusByDate">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="QueryRepairStatusByDate">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRepairReport">
+      <soap12:operation soapAction="http://tempuri.org/GetRepairReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDutyInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetDutyInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertDutyInfo">
+      <soap12:operation soapAction="http://tempuri.org/InsertDutyInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDutyInfo">
+      <soap12:operation soapAction="http://tempuri.org/DeleteDutyInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertRepairMaterialInfo">
+      <soap12:operation soapAction="http://tempuri.org/InsertRepairMaterialInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="tRepairInfo">
+    <wsdl:port name="tRepairInfoSoap" binding="tns:tRepairInfoSoap">
+      <soap:address location="http://sfis.phicomm.com.cn/SFIS_Webser/tRepairInfo.asmx" />
+    </wsdl:port>
+    <wsdl:port name="tRepairInfoSoap12" binding="tns:tRepairInfoSoap12">
+      <soap12:address location="http://sfis.phicomm.com.cn/SFIS_Webser/tRepairInfo.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

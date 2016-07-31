@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using BoardAutoTesting.Log;
 using BoardAutoTesting.Model;
 using BoardAutoTesting.Status;
@@ -13,29 +14,101 @@ namespace BoardAutoTesting.DataExchange
     public class BaseCommand
     {
         protected const int SendInterval = 3000;
+        protected const int ResendTimes = 5;
+        protected readonly int TimeOut = SendInterval*ResendTimes;
         protected ClientConnection Client;
-
-        protected const string Pass = "Pass";
-        protected const string Fail = "Fail";
 
         public BaseCommand(ClientConnection client)
         {
             Client = client;
         }
 
-        protected void LightRedLed()
+        /// <summary>
+        /// 传入true打开LED，反之关闭
+        /// </summary>
+        /// <param name="cmd"></param>
+        protected void RedLedOnOrOff(bool cmd)
         {
             for (int i = 0; i < 3; i++)
             {
-                try
-                {
-                    Client.SendMsg(CmdInfo.RLightOn);
-                }
-                catch (Exception e)
-                {
-                    Logger.Glog.Info(Client.ClientIp + ":" + e.Message);
-                }
+                Client.SendMsg(cmd ? CmdInfo.RLightOn : CmdInfo.RLightOff);
             }
         }
+
+        /// <summary>
+        /// 根据指令获取端口号，用于ATE一拖二
+        /// </summary>
+        /// <param name="cmd">指令内容</param>
+        /// <param name="result">指令格式是否正确</param>
+        /// <param name="port">解析的端口号</param>
+        protected void GetPortResult(string cmd, out bool result, out string port)
+        {
+            result = false;
+            port = "1";
+
+            if (cmd.Contains("RESULT:PASS") && cmd.Length == 15)
+            {
+                result = true;
+                port = cmd.Substring(14, 1);
+                return;
+            }
+
+            if (!cmd.Contains("RESULT:FAIL") || cmd.Length != 15) return;
+            port = cmd.Substring(14, 1);
+        }
+
+        /// <summary>
+        /// 等待单片机回复收到应答指令
+        /// </summary>
+        /// <param name="sendCmd">中控发送的指令</param>
+        /// <param name="timeout">应答超时时间</param>
+        /// <param name="expectedCmd">期待收到的指令</param>
+        /// <returns>是否收到应答</returns>
+        protected bool WaitGetResponse(string sendCmd, int timeout, string expectedCmd)
+        {
+            int startTick = Environment.TickCount;
+            int endTick = Environment.TickCount;
+            while (endTick - startTick < timeout)
+            {
+                Client.SendMsg(sendCmd);
+
+                Thread.Sleep(SendInterval);
+                if (Client.IsOpenDoor)
+                    break;
+
+                if (Client.Command == expectedCmd)
+                    return true;
+
+                endTick = Environment.TickCount;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 等待单片机回复动作Ok指令，一般nextok需要等待很久，所以传入无限等待时间
+        /// </summary>
+        /// <param name="timeout">超时时间</param>
+        /// <param name="expectedCmd">中控期待收到的指令</param>
+        /// <returns>是否在指定时间收到指令</returns>
+        protected bool WaitOkResponse(int timeout, string expectedCmd)
+        {
+            int startTick = Environment.TickCount;
+            int endTick = Environment.TickCount;
+            while (endTick - startTick < timeout)
+            {
+                Thread.Sleep(SendInterval);
+                if (Client.IsOpenDoor)
+                    break;
+
+                if (Client.Command == expectedCmd)
+                    return true;
+
+                endTick = Environment.TickCount;
+            }
+
+            return false;
+        }
+
     }
 }

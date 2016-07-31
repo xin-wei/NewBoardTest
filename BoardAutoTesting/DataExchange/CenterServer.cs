@@ -20,6 +20,11 @@ namespace BoardAutoTesting.DataExchange
 
         private const int MaxWatchPort = 20;
 
+        public Dictionary<string, ClientConnection> DictConnections
+        {
+            get { return _dictConnections; }
+        }
+
         public void WatchConnection(string ip, int port)
         {
             try
@@ -77,8 +82,12 @@ namespace BoardAutoTesting.DataExchange
 
         public void DoCleaning()
         {
-            _sockWatchPort.Close();
-            _threadWatchPort.Abort();
+            if (_sockWatchPort != null)
+                _sockWatchPort.Close();
+
+            if (_threadWatchPort != null)
+                _threadWatchPort.Abort();
+
             ClearConnection();
         }
     }

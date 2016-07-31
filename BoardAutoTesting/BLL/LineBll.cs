@@ -10,6 +10,21 @@ namespace BoardAutoTesting.BLL
 {
     public class LineBll
     {
+        public static void InsertModel(LineInfo line)
+        {
+            LineDal.InsertModel(line);
+        }
+
+        public static LineInfo GetMaxModel()
+        {
+            return LineDal.GetMaxModel();
+        }
+
+        public static List<LineInfo> GetModels()
+        {
+            return LineDal.GetModels();
+        }
+
         public static string GetRouteIpById(string id)
         {
             LineInfo info = LineDal.GetModelById(id);
@@ -34,9 +49,26 @@ namespace BoardAutoTesting.BLL
             return lstInfos == null ? null : lstInfos[0];
         }
 
-        public static int UpdateModel(LineInfo line, string condition)
+        private static int UpdateModel(LineInfo line, string condition)
         {
             return LineDal.UpdateModel(line, condition);
+        }
+
+        public static bool SureToUpdateModel(LineInfo line, string condition)
+        {
+            int startTick = Environment.TickCount;
+            int endTick = Environment.TickCount;
+
+            while (endTick - startTick < 3000)
+            {
+                if (UpdateModel(line, condition) == 1)
+                    return true;
+
+                Thread.Sleep(300);
+                endTick = Environment.TickCount;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -44,7 +76,7 @@ namespace BoardAutoTesting.BLL
         /// </summary>
         /// <param name="route">指定途程</param>
         /// <returns>分配的机台Id</returns>
-        public static string GetEmptyCraft(string route)
+        private static string GetEmptyCraft(string route)
         {
             try
             {
@@ -57,6 +89,37 @@ namespace BoardAutoTesting.BLL
             {
                 Logger.Glog.Info(e.Message);
                 return "";
+            }
+        }
+
+        public static void WaitAndOccupyCraft(ClientConnection client, 
+            string strRoute, string occupationEsn, out string givenCraft)
+        {
+            givenCraft = "";
+            Logger.Glog.Info(client.ClientIp, "WaitAndOccupyCraft" + occupationEsn,
+                "开始抢夺机台");
+            try
+            {
+                while (true)
+                {
+                    if (client.IsOpenDoor)
+                        break;
+
+                    givenCraft = GetEmptyCraft(strRoute);
+                    if (givenCraft == "")
+                        continue;
+
+                    if (LineDal.UpdateCraftStatus(occupationEsn, strRoute) == 1)
+                        break;
+
+                    Thread.Sleep(300);
+                }
+
+                Logger.Glog.Info(client.ClientIp, "LineBll.WaitAndOccupyCraft", givenCraft);
+            }
+            catch (Exception e)
+            {
+                Logger.Glog.Info(client.ClientIp, "LineBll.WaitAndOccupyCraft", e.Message);
             }
         }
 
@@ -79,15 +142,20 @@ namespace BoardAutoTesting.BLL
                     if (LineDal.UpdateLineStatus(client.ClientIp, occupationEsn) == 1)
                         break;
 
-                    Thread.Sleep(100);
+                    Thread.Sleep(300);
                 }
 
                 Logger.Glog.Info(client.ClientIp, "WaitAndOccupyLine:" + occupationEsn, "OK");
             }
             catch (Exception e)
             {
-                Logger.Glog.Info(e.Message);
+                Logger.Glog.Info(client.ClientIp, "LineBll.WaitAndOccupyLine", e.Message);
             }
+        }
+
+        public static void DeleteModel(LineInfo line)
+        {
+            LineDal.DeleteModel(line);
         }
     }
 }
