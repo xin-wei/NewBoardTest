@@ -41,19 +41,15 @@ namespace BoardAutoTesting.DataExchange
         /// <param name="port">解析的端口号</param>
         protected bool GetPortResult(string cmd, out string port)
         {
+            cmd = cmd.Replace("*", "").Replace("#", "");
             port = "NA";
-            if (cmd.Contains("RESULT:PASS") || cmd.Contains("RESULT:FAIL") ||
-                cmd.Contains("RESULT:RETEST") || cmd.Contains("TEST:MAC"))
-            {
-#if _NEW_VERSION
-                int index1 = cmd.LastIndexOf(':');
-                port = cmd.Remove(0, index1 + 1);
-#else
-                port = cmd.Substring(cmd.Length - 1, 1);
-#endif
-            }
 
-            return false;
+#if _NEW_VERSION
+            port = cmd.Substring(cmd.Length - 1, 1);
+#endif
+
+            return cmd.Contains("RESULT:PASS") || cmd.Contains("RESULT:FAIL") 
+                || cmd.Contains("RESULT:RETEST") || cmd.Contains("TEST:MAC");
         }
 
         /// <summary>
