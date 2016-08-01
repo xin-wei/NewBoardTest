@@ -2,6 +2,7 @@
 using BoardAutoTesting.BLL;
 using BoardAutoTesting.Log;
 using BoardAutoTesting.Model;
+using BoardAutoTesting.Properties;
 using BoardAutoTesting.Status;
 
 namespace BoardAutoTesting.DataExchange
@@ -25,14 +26,14 @@ namespace BoardAutoTesting.DataExchange
             ProductInfo product = ProductBll.GetModelByRfid(rfid);
             if (product == null)
             {
-                Logger.Glog.Info(Client.ClientIp, "CanIn.GetModelByRfid",
+                Logger.Glog.Info(Client.ClientIp, "CanIn.ExecuteCommand.GetModelByRfid",
                     string.Format("{0}:未查找到指定rfid的产品信息", cmd));
                 return;
             }
 
             if (product.ESN == "NA" || string.IsNullOrEmpty(product.ESN))
             {
-                Logger.Glog.Info(Client.ClientIp, "CanIn.GetModelByRfid",
+                Logger.Glog.Info(Client.ClientIp, "CanIn.ExecuteCommand.GetModelByRfid",
                     string.Format("{0}:ESN不存在", cmd));
                 return;
             }
@@ -40,14 +41,19 @@ namespace BoardAutoTesting.DataExchange
             LineInfo line = LineBll.GetModelByIpPort(Client.ClientIp, "NA");
             if (line == null)
             {
-                Logger.Glog.Info(Client.ClientIp, "CanIn.GetModelByIpPort",
-                    string.Format("{0}:未查找到指定ip的线体信息", cmd));
+                Logger.Glog.Info(Client.ClientIp,
+                    "CanIn.ExecuteCommand.GetModelByIpPort",
+                    Resources.UnconfigedCraft);
                 return;
             }
 
             //检测途程
             string strResult = "OK";
-            //if ()
+            if (ClientConnection.SysModel.IsLogin)
+            {
+                strResult = ClientConnection.Ate.Check_Route_ATE(product.ESN,
+                    product.RouteName, ClientConnection.SysModel.WoId);
+            }
 
             #region 最后一站特殊处理
 
@@ -85,9 +91,12 @@ namespace BoardAutoTesting.DataExchange
                     ATEIp = "NA"
                 };
 
-                if (!ProductBll.SureToUpdateModel(originProductInfo))//应该是不可能出现的
+                if (!ProductBll.SureToUpdateModel(originProductInfo))
+                {
+                    //应该是不可能出现的
                     Logger.Glog.Info(Client.ClientIp, "CanIn.UpdateModel",
-                        "最后一站更新数据出错");
+                        Resources.UpdateError);
+                }
 
                 return;
             }
@@ -123,7 +132,8 @@ namespace BoardAutoTesting.DataExchange
                 if (assignedCraft == "")
                 {
                     //出现异常的概率很小，即使出现了造成卡板，板子拿掉就行
-                    Logger.Glog.Info(Client.ClientIp, "CanIn.WaitAndOccupyCraft", 
+                    Logger.Glog.Info(Client.ClientIp,
+                        "CanIn.ExecuteCommand.WaitAndOccupyCraft", 
                         "没有分配到机台怎么可能进来，估计抛异常了");
                     return;
                 }
@@ -155,36 +165,56 @@ namespace BoardAutoTesting.DataExchange
             product.CurrentIp = Client.ClientIp;
             product.ActionName = ProductAction.Testing.ToString();
             product.IsPass = ProductStatus.UnKnown.ToString();
-            if (!ProductBll.SureToUpdateModel(product))//应该是不可能发生的
+            if (!ProductBll.SureToUpdateModel(product))
+            {
+                //应该是不可能发生的
+                Logger.Glog.Info(Client.ClientIp,
+                    "CanIn.InStation.SureToUpdateModel",
+                    Resources.UpdateError);
                 return;
+            }
 
             if (!WaitGetResponse(CmdInfo.GoIn, TimeOut, CmdInfo.GoInGet))
             {
-                Logger.Glog.Info(Client.ClientIp, "CanIn.WaitGetResponse", "未收到进站应答");
+                Logger.Glog.Info(Client.ClientIp,
+                    "CanIn.InStation.WaitGetResponse",
+                    Resources.NoResponse);
                 RedLedOnOrOff(true);
                 return;
             }
 
             if (!WaitOkResponse(TimeOut, CmdInfo.GoInOk))
             {
-                Logger.Glog.Info(Client.ClientIp, "CanIn.WaitOkResponse", "未收到IN:OK反馈");
+                Logger.Glog.Info(Client.ClientIp,
+                    "CanIn.InStation.WaitOkResponse",
+                    Resources.NoResponse);
                 RedLedOnOrOff(true);
                 return;
             }
             Client.SendMsg(CmdInfo.GoInOk);
 
             LineInfo line = LineBll.GetModelByIpPort(Client.ClientIp, "NA");
+            if (line == null)
+            {
+                //应该是不可能出现的问题
+                Logger.Glog.Info(Client.ClientIp,
+                    "CanIn.InStation.GetModelByIpPort",
+                    Resources.UnconfigedCraft);
+                return;
+            }
             if (line.LineEsn == "")
                 return;
 
             line.LineEsn = "";
             if (!LineBll.SureToUpdateModel(line, "Mcu_Ip"))
-                Logger.Glog.Info(Client.ClientIp, "CanIn.SureToUpdateModel",
-                    "进站数据没更新成功");
+            {
+                Logger.Glog.Info(Client.ClientIp, "CanIn.InStation.SureToUpdateModel",
+                    Resources.UpdateError);
+            }
 
             RedLedOnOrOff(false);
-            Logger.Glog.Info(Client.ClientIp, "CanIn.SureToUpdateModel",
-                    "进站完成");
+            Logger.Glog.Info(Client.ClientIp,
+                "CanIn.InStation.SureToUpdateModel", "进站完成");
         }
 
         private void NextStation(ProductInfo product)
@@ -197,34 +227,56 @@ namespace BoardAutoTesting.DataExchange
             product.CurrentIp = Client.ClientIp;
             product.ActionName = ProductAction.OnLine.ToString();
             if (!ProductBll.SureToUpdateModel(product)) //应该是不可能发生的
+            {
+                //应该是不可能发生的
+                Logger.Glog.Info(Client.ClientIp,
+                    "CanIn.NextStation.SureToUpdateModel",
+                    Resources.UpdateError);
                 return;
+            }
 
             if (!WaitGetResponse(CmdInfo.GoNext, TimeOut, CmdInfo.GoNextGet))
             {
-                Logger.Glog.Info(Client.ClientIp, "CanIn.WaitGetResponse", "未收到过站应答");
+                Logger.Glog.Info(Client.ClientIp,
+                    "CanIn.NextStation.WaitGetResponse",
+                    Resources.NoResponse);
                 RedLedOnOrOff(true);
                 return;
             }
 
             if (!WaitOkResponse(int.MaxValue, CmdInfo.GoNextOk))
             {
-                Logger.Glog.Info(Client.ClientIp, "CanIn.WaitOkResponse", "未收到过站反馈");
+                Logger.Glog.Info(Client.ClientIp,
+                    "CanIn.NextStation.WaitOkResponse",
+                    Resources.NoResponse);
                 RedLedOnOrOff(true);
                 return;
             }
             Client.SendMsg(CmdInfo.GoNextOk);
 
             LineInfo line = LineBll.GetModelByIpPort(Client.ClientIp, "NA");
+            if (line == null)
+            {
+                //应该是不可能出现的问题
+                Logger.Glog.Info(Client.ClientIp,
+                    "CanIn.NextStation.GetModelByIpPort",
+                    Resources.UnconfigedCraft);
+                return;
+            }
             if (line.LineEsn == "")
                 return;
 
             line.LineEsn = "";
             if (!LineBll.SureToUpdateModel(line, "Mcu_Ip"))
-                Logger.Glog.Info(Client.ClientIp, "CanIn.SureToUpdateModel",
-                    "过站数据没更新成功");
+            {
+                //应该是不可能发生的
+                Logger.Glog.Info(Client.ClientIp,
+                    "CanIn.NextStation.SureToUpdateModel",
+                    Resources.UpdateError);
+            }
 
-            Logger.Glog.Info(Client.ClientIp, "CanIn.SureToUpdateModel",
-                    "过站完成");
+            Logger.Glog.Info(Client.ClientIp,
+                "CanIn.NextStation.SureToUpdateModel", "过站完成");
         }
 
     }

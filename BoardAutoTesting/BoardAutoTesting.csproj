@@ -103,6 +103,8 @@
     <Compile Include="DAL\LineDal.cs" />
     <Compile Include="DataExchange\CanIn.cs" />
     <Compile Include="DataExchange\CenterServer.cs" />
+    <Compile Include="DataExchange\DoorClose.cs" />
+    <Compile Include="DataExchange\DoorOpen.cs" />
     <Compile Include="DataExchange\IAction.cs" />
     <Compile Include="DataExchange\ProductPassFail.cs" />
     <Compile Include="DataExchange\ReTest.cs" />

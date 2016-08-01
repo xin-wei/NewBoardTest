@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Windows.Forms;
 using BoardAutoTesting.BLL;
 using BoardAutoTesting.Model;
+using BoardAutoTesting.Properties;
 using BoardAutoTesting.Service;
 using Commons;
 
@@ -185,7 +186,7 @@ namespace BoardAutoTesting
                 CraftId = row.Cells["Craft_Idx"].Value.ToString()
             }).Any(line => !LineBll.SureToUpdateModel(line, "Craft_Idx")))
             {
-                MessageUtil.ShowError("无法更新线体信息");
+                MessageUtil.ShowError(Resources.UpdateError);
             }
 
             DialogResult = DialogResult.OK;
@@ -248,7 +249,7 @@ namespace BoardAutoTesting
             };
             if (!LineBll.SureToUpdateModel(line, "Craft_Idx"))
             {
-                MessageUtil.ShowError("更新数据出错");
+                MessageUtil.ShowError(Resources.UpdateError);
             }
         }
 

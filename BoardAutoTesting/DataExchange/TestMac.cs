@@ -18,7 +18,8 @@ namespace BoardAutoTesting.DataExchange
             string port;
             if (!GetPortResult(command, out port))
             {
-                Logger.Glog.Info(Client.ClientIp, "TestMac.GetPortResult",
+                Logger.Glog.Info(Client.ClientIp,
+                    "TestMac.ExecuteCommand.GetPortResult",
                     Resources.WrongCommand);
                 return;
             }
@@ -27,8 +28,9 @@ namespace BoardAutoTesting.DataExchange
             if (info1 == null)
             {
                 Client.SendMsg(Client.ClientIp);
-                Logger.Glog.Info(Client.ClientIp, "TestMac.GetModelByIpPort", 
-                    "看到我说明连接有问题");
+                Logger.Glog.Info(Client.ClientIp,
+                    "TestMac.ExecuteCommand.GetModelByIpPort", 
+                    Resources.UnconfigedCraft);
                 return;
             }
 
@@ -43,8 +45,9 @@ namespace BoardAutoTesting.DataExchange
             if (info2 == null)
             {
                 Client.SendMsg(Client.ClientIp);
-                Logger.Glog.Info(Client.ClientIp, "TestMac.GetModelByIpPort",
-                    "睡过400ms后看到我说明连接有问题");
+                Logger.Glog.Info(Client.ClientIp,
+                    "TestMac.ExecuteCommand.GetModelByIpPort",
+                    Resources.UnconfigedCraft);
                 return;
             }
 
@@ -55,8 +58,9 @@ namespace BoardAutoTesting.DataExchange
             }
 
             Client.SendMsg(info2.CraftEsn);
-            Logger.Glog.Info(Client.ClientIp, "TestMac.ExecuteCommand",
-                    "本站ESN为：" + info2.CraftEsn);
+            Logger.Glog.Info(Client.ClientIp,
+                "TestMac.ExecuteCommand",
+                Resources.CommandExecuted + ":" + info2.CraftEsn);
         }
     }
 }

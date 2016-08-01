@@ -61,6 +61,15 @@ namespace BoardAutoTesting.Properties {
         }
         
         /// <summary>
+        ///   查找类似 指令执行完成 的本地化字符串。
+        /// </summary>
+        internal static string CommandExecuted {
+            get {
+                return ResourceManager.GetString("CommandExecuted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 配置错误 的本地化字符串。
         /// </summary>
         internal static string ConfigError {
@@ -124,6 +133,24 @@ namespace BoardAutoTesting.Properties {
         }
         
         /// <summary>
+        ///   查找类似 应答超时 的本地化字符串。
+        /// </summary>
+        internal static string NoResponse {
+            get {
+                return ResourceManager.GetString("NoResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 没有测试中的产品 的本地化字符串。
+        /// </summary>
+        internal static string NoTestingProduct {
+            get {
+                return ResourceManager.GetString("NoTestingProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 7600 的本地化字符串。
         /// </summary>
         internal static string Port {
@@ -174,6 +201,24 @@ namespace BoardAutoTesting.Properties {
         internal static string SystemPromote {
             get {
                 return ResourceManager.GetString("SystemPromote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 机台未配置 的本地化字符串。
+        /// </summary>
+        internal static string UnconfigedCraft {
+            get {
+                return ResourceManager.GetString("UnconfigedCraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 更新数据超时 的本地化字符串。
+        /// </summary>
+        internal static string UpdateError {
+            get {
+                return ResourceManager.GetString("UpdateError", resourceCulture);
             }
         }
         

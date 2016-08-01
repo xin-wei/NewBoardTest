@@ -150,6 +150,21 @@
   <data name="WrongCommand" xml:space="preserve">
     <value>指令错误</value>
   </data>
+  <data name="UpdateError" xml:space="preserve">
+    <value>更新数据超时</value>
+  </data>
+  <data name="NoTestingProduct" xml:space="preserve">
+    <value>没有测试中的产品</value>
+  </data>
+  <data name="NoResponse" xml:space="preserve">
+    <value>应答超时</value>
+  </data>
+  <data name="UnconfigedCraft" xml:space="preserve">
+    <value>机台未配置</value>
+  </data>
+  <data name="CommandExecuted" xml:space="preserve">
+    <value>指令执行完成</value>
+  </data>
   <data name="Port" xml:space="preserve">
     <value>7600</value>
   </data>

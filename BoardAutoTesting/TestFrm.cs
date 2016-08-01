@@ -65,6 +65,9 @@ namespace BoardAutoTesting
 
             txtIp.Text = HardwareInfoHelper.GetIPAddress();
             txtPort.Text = Resources.Port;
+
+            ClientConnection.Ate = _ate;
+            ClientConnection.SysModel = _model;
         }
 
         private void InitSerialPort()
@@ -371,7 +374,7 @@ namespace BoardAutoTesting
                     {
                         //应该是不可能出现的情况
                         Logger.Glog.Info("", "TestFrm.btnReset_Click",
-                            "线体数据更新失败");
+                            Resources.UpdateError);
                         return;
                     }
                     Thread.Sleep(500);

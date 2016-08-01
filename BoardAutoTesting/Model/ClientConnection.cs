@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using BoardAutoTesting.DataExchange;
 using BoardAutoTesting.Log;
+using BoardAutoTesting.Service;
 using BoardAutoTesting.Status;
 
 namespace BoardAutoTesting.Model
@@ -37,6 +38,8 @@ namespace BoardAutoTesting.Model
         public string Command { get; set; }
         public bool IsOpenDoor { get; set; }
         public static CodeSoftHelper CsHelper { get; set; }
+        public static tCheckDataTestAteSoapClient Ate { get; set; }
+        public static SystemInfo SysModel { get; set; }
 
         #endregion
 
@@ -79,6 +82,14 @@ namespace BoardAutoTesting.Model
 
                 case "TEST:MAC?":
                     action = new TestMac(this);
+                    break;
+
+                case "Door:Open":
+                    action = new DoorOpen(this);
+                    break;
+
+                case "Door:Close":
+                    action = new DoorClose(this);
                     break;
 
                 default:
@@ -166,7 +177,8 @@ namespace BoardAutoTesting.Model
             //以下指令属于主动询问式指令，所以需要创建对应的类进行处理
             if (cmd.Contains(CmdInfo.CanIn) || cmd.Contains(CmdInfo.ResultPass) ||
                 cmd.Contains(CmdInfo.ResultFail) || cmd.Contains(CmdInfo.ResultRetest) ||
-                cmd.Contains(CmdInfo.TestMac))
+                cmd.Contains(CmdInfo.TestMac) || cmd.Contains(CmdInfo.DoorOpen) || 
+                cmd.Contains(CmdInfo.DoorClose))
             {
                 _action = CommandFactory(cmd);
                 if (_action != null)

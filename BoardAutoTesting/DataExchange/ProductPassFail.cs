@@ -23,7 +23,8 @@ namespace BoardAutoTesting.DataExchange
             string port;
             if (!GetPortResult(cmd, out port))
             {
-                Logger.Glog.Info(Client.ClientIp, "ProductPassFail.GetPortResult",
+                Logger.Glog.Info(Client.ClientIp,
+                    "ProductPassFail.ExecuteCommand.GetPortResult",
                     Resources.WrongCommand);
                 return;
             }
@@ -35,6 +36,11 @@ namespace BoardAutoTesting.DataExchange
             if (OutExecuting(product, port, out line)) return;
 
             OutFinished(line);
+
+            Logger.Glog.Info(Client.ClientIp,
+                "ProductPassFail.OutFinished.SureToUpdateModel",
+                Resources.CommandExecuted);
+            RedLedOnOrOff(false);
         }
 
         /// <summary>
@@ -45,8 +51,9 @@ namespace BoardAutoTesting.DataExchange
         {
             if (!WaitOkResponse(int.MaxValue, CmdInfo.GoNextOk))
             {
-                Logger.Glog.Info(Client.ClientIp, "ProductPassFail.WaitOkResponse",
-                    "未收到NextOk，卡死了");
+                Logger.Glog.Info(Client.ClientIp,
+                    "ProductPassFail.OutFinished.WaitOkResponse",
+                    Resources.NoResponse);
                 RedLedOnOrOff(true);
                 return;
             }
@@ -61,12 +68,12 @@ namespace BoardAutoTesting.DataExchange
             }
             line.LineEsn = "";
             if (!LineBll.SureToUpdateModel(line, "Mcu_Ip"))
-                Logger.Glog.Info(Client.ClientIp, "CanIn.SureToUpdateModel",
-                    "过站数据没更新成功");
-
-            Logger.Glog.Info(Client.ClientIp, "CanIn.SureToUpdateModel",
-                "过站完成");
-            RedLedOnOrOff(false);
+            {
+                Logger.Glog.Info(Client.ClientIp, 
+                    "ProductPassFail.OutFinished.SureToUpdateModel",
+                    Resources.UpdateError);
+            }
+            
         }
 
         /// <summary>
@@ -86,8 +93,9 @@ namespace BoardAutoTesting.DataExchange
 
             if (!WaitGetResponse(CmdInfo.GoOut, TimeOut, CmdInfo.GoOutGet))
             {
-                Logger.Glog.Info(Client.ClientIp, "ProductPassFail.WaitGetResponse",
-                    "没收到OutGet，单片机傻了");
+                Logger.Glog.Info(Client.ClientIp,
+                    "ProductPassFail.OutExecuting.WaitGetResponse",
+                    Resources.NoResponse);
                 return true;
             }
 
@@ -96,26 +104,37 @@ namespace BoardAutoTesting.DataExchange
                 if (Client.IsOpenDoor)
                     return true;
 
-                Logger.Glog.Info(Client.ClientIp, "ProductPassFail.WaitOkResponse",
-                    "没收到OutOk，传感器傻了");
+                Logger.Glog.Info(Client.ClientIp,
+                    "ProductPassFail.OutExecuting.WaitOkResponse",
+                    Resources.NoResponse);
                 RedLedOnOrOff(true);
                 return true;
             }
             Client.SendMsg(CmdInfo.GoOutOk); //应答单片机
 
             line = LineBll.GetModelByIpPort(Client.ClientIp, port);
+            if (line == null)
+            {
+                //应该是不可能出现的问题
+                Logger.Glog.Info(Client.ClientIp,
+                    "ProductPassFail.OutExecuting.GetModelByIpPort",
+                    Resources.UnconfigedCraft);
+                return true;
+            }
             if (line.CraftEsn == "")
             {
                 //应该是不可能出现的问题
-                Logger.Glog.Info(Client.ClientIp, "ProductPassFail.GetModelByIpPort",
+                Logger.Glog.Info(Client.ClientIp,
+                    "ProductPassFail.OutExecuting.GetModelByIpPort",
                     "我都没更新你怎么就清空机台了，是个问题");
             }
             line.CraftEsn = "";
             if (!LineBll.SureToUpdateModel(line, "Mcu_Ip"))
             {
                 //除非网络太差，否则不可能出现
-                Logger.Glog.Info(Client.ClientIp, "CanIn.SureToUpdateModel",
-                    "出站数据没更新成功--机台未释放");
+                Logger.Glog.Info(Client.ClientIp,
+                    "ProductPassFail.OutExecuting.SureToUpdateModel",
+                    Resources.UpdateError);
             }
             return false;
         }
@@ -134,14 +153,16 @@ namespace BoardAutoTesting.DataExchange
             if (product == null)
             {
                 //应该是不可能发生的
-                Logger.Glog.Info(Client.ClientIp, "ProductPassFail.GetProductInfoByIpStatus",
-                    "怎么可能查不到！");
+                Logger.Glog.Info(Client.ClientIp,
+                    "ProductPassFail.OutPrepare.GetProductInfoByIpStatus",
+                    Resources.UnconfigedCraft);
                 return true;
             }
 
             if (product.IsPass != ProductStatus.UnKnown.ToString())
             {
-                Logger.Glog.Info(Client.ClientIp, "ProductPassFail.GetProductInfoByIpStatus",
+                Logger.Glog.Info(Client.ClientIp,
+                    "ProductPassFail.OutPrepare.GetProductInfoByIpStatus",
                     "测过了，别害我了！");
                 Client.SendMsg(CmdInfo.OutPut);
                 return true;
@@ -155,8 +176,9 @@ namespace BoardAutoTesting.DataExchange
             if (!ProductBll.SureToUpdateModel(product))
             {
                 //应该是不可能发生的
-                Logger.Glog.Info(Client.ClientIp, "ProductPassFail.SureToUpdateModel",
-                    "并发访问不行啊，都更新不了！");
+                Logger.Glog.Info(Client.ClientIp,
+                    "ProductPassFail.OutPrepare.SureToUpdateModel",
+                    Resources.UpdateError);
                 return true;
             }
 
