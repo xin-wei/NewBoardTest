@@ -150,6 +150,9 @@
   <data name="WrongCommand" xml:space="preserve">
     <value>指令错误</value>
   </data>
+  <data name="Finish" xml:space="preserve">
+    <value>最后一站更新完成</value>
+  </data>
   <data name="UpdateError" xml:space="preserve">
     <value>更新数据超时</value>
   </data>

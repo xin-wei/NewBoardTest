@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using BoardAutoTesting.Model;
 using BoardAutoTesting.Status;
@@ -15,11 +16,43 @@ namespace BoardAutoTesting.DataExchange
         protected const int SendInterval = 3000;
         protected const int ResendTimes = 5;
         protected readonly int TimeOut = SendInterval*ResendTimes;
-        protected ClientConnection Client;
+        protected ClientConnection AteClient;
+        protected ClientConnection McuClient;
 
-        public BaseCommand(ClientConnection client)
+        /// <summary>
+        /// 对象构造的时候调用这个方法实现ate客户端的注入
+        /// </summary>
+        /// <param name="client"></param>
+        protected void SetAteClient(ClientConnection client)
         {
-            Client = client;
+            AteClient = client;
+        }
+
+        /// <summary>
+        /// 对象构造的时候调用这个方法实现mcu客户端的注入
+        /// </summary>
+        /// <param name="client"></param>
+        protected void SetMcuClient(ClientConnection client)
+        {
+            McuClient = client;
+        }
+
+        /// <summary>
+        /// 根据mcu的ip注入mcu对应的client
+        /// </summary>
+        /// <param name="ip">mcu的ip</param>
+        protected bool SetMcuClient(string ip)
+        {
+            Dictionary<string, ClientConnection> dictClients =
+                CenterServer.DictConnections;
+
+            if (!dictClients.ContainsKey(ip))
+            {
+                return false;
+            }
+
+            McuClient = dictClients[ip];
+            return true;
         }
 
         /// <summary>
@@ -30,7 +63,7 @@ namespace BoardAutoTesting.DataExchange
         {
             for (int i = 0; i < 3; i++)
             {
-                Client.SendMsg(cmd ? CmdInfo.RLightOn : CmdInfo.RLightOff);
+                McuClient.SendMsg(cmd ? CmdInfo.RLightOn : CmdInfo.RLightOff);
             }
         }
 
@@ -65,15 +98,16 @@ namespace BoardAutoTesting.DataExchange
             int endTick = Environment.TickCount;
             while (endTick - startTick < timeout)
             {
-                Client.SendMsg(sendCmd);
+                McuClient.SendMsg(sendCmd);
 
-                Thread.Sleep(SendInterval);
-                if (Client.IsOpenDoor)
+                Thread.Sleep(100);
+                if (McuClient.IsOpenDoor)
                     break;
 
-                if (Client.Command == expectedCmd)
+                if (McuClient.FirstCommand == expectedCmd)
                     return true;
 
+                Thread.Sleep(SendInterval);
                 endTick = Environment.TickCount;
             }
 
@@ -92,13 +126,13 @@ namespace BoardAutoTesting.DataExchange
             int endTick = Environment.TickCount;
             while (endTick - startTick < timeout)
             {
-                Thread.Sleep(SendInterval);
-                if (Client.IsOpenDoor)
+                if (McuClient.IsOpenDoor)
                     break;
 
-                if (Client.Command == expectedCmd)
+                if (McuClient.SecondCommand == expectedCmd)
                     return true;
 
+                Thread.Sleep(20);
                 endTick = Environment.TickCount;
             }
 

@@ -94,7 +94,7 @@ namespace BoardAutoTesting.DAL
             string filter;
             if (port == "NA")
             {
-                filter = string.Format("Mcu_Ip = '{0}'", ip);
+                filter = string.Format("Mcu_Ip = '{0}' or Ate_Ip = '{0}'", ip);
             }
             else
             {
@@ -197,6 +197,16 @@ namespace BoardAutoTesting.DAL
             return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
                 CommandType.Text, sql, null);
         }
+
+        /*public static int AteUpdateLineStatus(string ip, string esn)
+        {
+            string sql =
+                string.Format(
+                    "update {0} s set Line_ESN = '{1}' where s.Ate_Ip in (select t.Ate_Ip from (select Line_ESN, Ate_Ip from {0}) t where t.Line_ESN = '' and t.Ate_Ip = '{2}')",
+                    TableName, esn, ip);
+            return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
+                CommandType.Text, sql, null);
+        }*/
 
         /// <summary>
         /// 使用类似存储过程查询并占用机台，防止多线程抢占资源时冲突

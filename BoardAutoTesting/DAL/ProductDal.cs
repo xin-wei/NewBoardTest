@@ -129,7 +129,7 @@ namespace BoardAutoTesting.DAL
             string sql = mst.Keys.Aggregate("update " + TableName + " set ", 
                 (current, key) => current + (key + " = '" + mst[key] + "',"));
             sql = sql.Remove(sql.LastIndexOf(','));
-            sql += string.Format(" where ESN = '{0}'", product.ESN);
+            sql += string.Format(" where RFID = '{0}'", product.RFID);
 
             return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile, CommandType.Text,
                 sql, null);

@@ -74,24 +74,32 @@ namespace BoardAutoTesting
         {
             SerialPortUtil.SetPortNameValues(cbxPortName);
             SerialPortUtil.SetBauRateValues(cbxBaudRate);
-            if (cbxPortName.Items.Count > 0)
+            try
             {
-                string portName = RegistryHelper.GetValue(
+                if (cbxPortName.Items.Count > 0)
+                {
+                    string portName = RegistryHelper.GetValue(
                         @"Software\TS\PTester\Tester\Port", "PortName");
-                if (string.IsNullOrEmpty(portName))
-                    cbxPortName.SelectedIndex = 0;
-                else
-                    cbxPortName.SelectedItem = portName;
-            }
+                    if (string.IsNullOrEmpty(portName))
+                        cbxPortName.SelectedIndex = 0;
+                    else
+                        cbxPortName.SelectedItem = portName;
+                }
 
-            if (cbxBaudRate.Items.Count > 0)
-            {
-                string baudRate = RegistryHelper.GetValue(
+                if (cbxBaudRate.Items.Count > 0)
+                {
+                    string baudRate = RegistryHelper.GetValue(
                         @"Software\TS\PTester\Tester\Port", "BauRate");
-                if (string.IsNullOrEmpty(baudRate))
-                    cbxBaudRate.SelectedIndex = 0;
-                else
-                    cbxBaudRate.SelectedItem = baudRate;
+                    if (string.IsNullOrEmpty(baudRate))
+                        cbxBaudRate.SelectedIndex = 0;
+                    else
+                        cbxBaudRate.SelectedItem = baudRate;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageUtil.ShowError("请重新选择串口！");
+                Logger.Glog.Info(e.Message);
             }
 
         }
@@ -113,7 +121,7 @@ namespace BoardAutoTesting
         private void InitCodeSoft()
         {
             _csHelper.OpenCodeSoft();
-            if (_csHelper.CheckFileExist(
+            if (!_csHelper.CheckFileExist(
                 string.Format("{0}\\LAB\\Print.LAB", Application.StartupPath)))
             {
                 MessageBox.Show(string.Format("未找到打印模板：{0}\\LAB\\Print.LAB",
@@ -214,6 +222,9 @@ namespace BoardAutoTesting
 
                     _serialPort.WriteData(CmdInfo.GoNext);
                     _bCanIn = false;
+
+                    NextEnd(_strLastEsn);
+
                 }) {IsBackground = true};
                 t.Start();
             }
@@ -363,17 +374,17 @@ namespace BoardAutoTesting
             {
                 List<LineInfo> lstLineInfos = LineBll.GetModels();
                 foreach (var line in lstLineInfos.Where(
-                    line => _server.DictConnections.ContainsKey(line.McuIp)))
+                    line => CenterServer.DictConnections.ContainsKey(line.McuIp)))
                 {
-                    _server.DictConnections[line.McuIp].IsOpenDoor = true;
-                    _server.DictConnections[line.McuIp].Rfid = "";
+                    CenterServer.DictConnections[line.McuIp].IsOpenDoor = true;
+                    CenterServer.DictConnections[line.McuIp].Rfid = "";
                     line.CraftEsn = "";
                     line.LineEsn = "";
 
                     if (!LineBll.SureToUpdateModel(line, "Mcu_Ip"))
                     {
                         //应该是不可能出现的情况
-                        Logger.Glog.Info("", "TestFrm.btnReset_Click",
+                        Logger.Glog.Info("", "TestFrm.btnReset_Click.SureToUpdateModel",
                             Resources.UpdateError);
                         return;
                     }

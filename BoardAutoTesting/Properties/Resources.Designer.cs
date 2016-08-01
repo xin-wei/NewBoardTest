@@ -97,6 +97,15 @@ namespace BoardAutoTesting.Properties {
         }
         
         /// <summary>
+        ///   查找类似 最后一站更新完成 的本地化字符串。
+        /// </summary>
+        internal static string Finish {
+            get {
+                return ResourceManager.GetString("Finish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Craft00001 的本地化字符串。
         /// </summary>
         internal static string InitCraft {

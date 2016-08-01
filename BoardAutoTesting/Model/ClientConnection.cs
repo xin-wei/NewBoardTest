@@ -35,7 +35,8 @@ namespace BoardAutoTesting.Model
             set { _rfid = value; }
         }
 
-        public string Command { get; set; }
+        public string SecondCommand { get; set; }
+        public string FirstCommand { get; set; }
         public bool IsOpenDoor { get; set; }
         public static CodeSoftHelper CsHelper { get; set; }
         public static tCheckDataTestAteSoapClient Ate { get; set; }
@@ -177,7 +178,7 @@ namespace BoardAutoTesting.Model
             //以下指令属于主动询问式指令，所以需要创建对应的类进行处理
             if (cmd.Contains(CmdInfo.CanIn) || cmd.Contains(CmdInfo.ResultPass) ||
                 cmd.Contains(CmdInfo.ResultFail) || cmd.Contains(CmdInfo.ResultRetest) ||
-                cmd.Contains(CmdInfo.TestMac) || cmd.Contains(CmdInfo.DoorOpen) || 
+                cmd.Contains(CmdInfo.TestMac) || cmd.Contains(CmdInfo.DoorOpen) ||
                 cmd.Contains(CmdInfo.DoorClose))
             {
                 _action = CommandFactory(cmd);
@@ -189,7 +190,10 @@ namespace BoardAutoTesting.Model
             }
             else //其他情况直接给全局变量赋值，相当于对消息进行分发
             {
-                Command = cmd;
+                if (cmd.Contains("GET"))
+                    FirstCommand = cmd;
+                else
+                    SecondCommand = cmd;
             }
 
         }

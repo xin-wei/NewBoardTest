@@ -8,20 +8,20 @@ namespace BoardAutoTesting.DataExchange
 {
     public class DoorOpen : BaseCommand, IAction
     {
-        public DoorOpen(ClientConnection client) :
-            base(client)
+        public DoorOpen(ClientConnection client)
         {
+            SetMcuClient(client);
         }
 
         public void ExecuteCommand(string command)
         {
-            Client.IsOpenDoor = true;
-            Client.SendMsg(CmdInfo.OpenGet);
+            McuClient.IsOpenDoor = true;
+            McuClient.SendMsg(CmdInfo.OpenGet);
             string craft;
             if (!UpdateLine(out craft))
             {
                 //应该是不可能出现的情况
-                Logger.Glog.Info(Client.ClientIp,
+                Logger.Glog.Info(McuClient.ClientIp,
                 "DoorOpen.ExecuteCommand.UpdateLine",
                 Resources.UpdateError);
                 return;
@@ -30,7 +30,7 @@ namespace BoardAutoTesting.DataExchange
             if (!UpdateOnLineProduct(craft))
             {
                 //应该是不可能出现的情况
-                Logger.Glog.Info(Client.ClientIp,
+                Logger.Glog.Info(McuClient.ClientIp,
                 "DoorOpen.ExecuteCommand.UpdateOnLineProduct",
                 Resources.UpdateError);
                 return;
@@ -39,13 +39,13 @@ namespace BoardAutoTesting.DataExchange
             if (!UpdateTestingProduct())
             {
                 //应该是不可能出现的情况
-                Logger.Glog.Info(Client.ClientIp,
+                Logger.Glog.Info(McuClient.ClientIp,
                 "DoorOpen.ExecuteCommand.UpdateTestingProduct",
                 Resources.UpdateError);
                 return;
             }
 
-            Logger.Glog.Info(Client.ClientIp,
+            Logger.Glog.Info(McuClient.ClientIp,
                 "DoorOpen.ExecuteCommand", Resources.CommandExecuted);
         }
 
@@ -56,7 +56,7 @@ namespace BoardAutoTesting.DataExchange
             if (product == null)
             {
                 //应该是不可能出现的情况
-                Logger.Glog.Info(Client.ClientIp,
+                Logger.Glog.Info(McuClient.ClientIp,
                     "DoorOpen.UpdateOnLineProduct.GetProductInfoByIpStatus",
                     Resources.NoTestingProduct);
                 return true;
@@ -70,11 +70,11 @@ namespace BoardAutoTesting.DataExchange
         private bool UpdateTestingProduct()
         {
             ProductInfo product = ProductBll.GetProductInfoByIpStatus(
-                Client.ClientIp, ProductAction.Testing);
+                McuClient.ClientIp, ProductAction.Testing);
             if (product == null)
             {
                 //应该是不可能出现的情况
-                Logger.Glog.Info(Client.ClientIp,
+                Logger.Glog.Info(McuClient.ClientIp,
                     "DoorOpen.UpdateTestingProduct.GetProductInfoByIpStatus",
                     Resources.NoTestingProduct);
                 return true;
@@ -87,12 +87,12 @@ namespace BoardAutoTesting.DataExchange
 
         private bool UpdateLine(out string craft)
         {
-            LineInfo line = LineBll.GetModelByIpPort(Client.ClientIp, "NA");
+            LineInfo line = LineBll.GetModelByIpPort(McuClient.ClientIp, "NA");
             craft = "";
             if (line == null)
             {
                 //应该是不可能出现的情况
-                Logger.Glog.Info(Client.ClientIp,
+                Logger.Glog.Info(McuClient.ClientIp,
                     "DoorOpen.UpdateLine.GetModelByIpPort",
                     Resources.UnconfigedCraft);
                 return false;

@@ -136,7 +136,7 @@ namespace BoardAutoTesting.BLL
         public static void WaitAndOccupyLine(ClientConnection client, string occupationEsn)
         {
             Logger.Glog.Info(client.ClientIp, "WaitAndOccupyLine:" + occupationEsn, 
-                "开始抢夺线体");
+                "单片机开始抢夺线体");
             try
             {
                 while (true)

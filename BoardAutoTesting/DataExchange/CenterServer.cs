@@ -15,15 +15,11 @@ namespace BoardAutoTesting.DataExchange
 
         private Thread _threadWatchPort;
         private Socket _sockWatchPort;
-        private readonly Dictionary<string, ClientConnection> _dictConnections = 
+
+        public static readonly Dictionary<string, ClientConnection> DictConnections = 
             new Dictionary<string, ClientConnection>();
 
         private const int MaxWatchPort = 20;
-
-        public Dictionary<string, ClientConnection> DictConnections
-        {
-            get { return _dictConnections; }
-        }
 
         public void WatchConnection(string ip, int port)
         {
@@ -61,7 +57,8 @@ namespace BoardAutoTesting.DataExchange
                     string msg = string.Format("客户端：{0}连接成功...",
                         ((IPEndPoint)cSocket.RemoteEndPoint).Address);
                     Logger.Glog.Info(msg);
-                    _dictConnections.Add(cSocket.RemoteEndPoint.ToString(), conn);
+                    DictConnections.Add(
+                        ((IPEndPoint)cSocket.RemoteEndPoint).Address.ToString(), conn);
                 }
                 catch (Exception e)
                 {
@@ -73,11 +70,11 @@ namespace BoardAutoTesting.DataExchange
 
         private void ClearConnection()
         {
-            foreach (string key in new List<string>(_dictConnections.Keys))
+            foreach (string key in new List<string>(DictConnections.Keys))
             {
-                _dictConnections[key].Close();
+                DictConnections[key].Close();
             }
-            _dictConnections.Clear();
+            DictConnections.Clear();
         }
 
         public void DoCleaning()

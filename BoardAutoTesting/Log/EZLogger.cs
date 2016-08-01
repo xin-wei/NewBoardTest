@@ -312,7 +312,7 @@ namespace BoardAutoTesting.Log
         {
             _infoMsgs++;
             string temp = string.Format("DEBUG:{0}-{1}-Ex-{2}", ip, cmd, msg);
-            return WriteLogMsg(Level.Info, msg);
+            return WriteLogMsg(Level.Info, temp);
         }
 
         /// <summary>
