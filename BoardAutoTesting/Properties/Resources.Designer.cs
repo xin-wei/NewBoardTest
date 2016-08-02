@@ -61,6 +61,33 @@ namespace BoardAutoTesting.Properties {
         }
         
         /// <summary>
+        ///   查找类似 2.4 G 的本地化字符串。
+        /// </summary>
+        internal static string _2_4G {
+            get {
+                return ResourceManager.GetString("2_4G", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 5.8 G 的本地化字符串。
+        /// </summary>
+        internal static string _5_8G {
+            get {
+                return ResourceManager.GetString("_5_8G", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 流量 的本地化字符串。
+        /// </summary>
+        internal static string _Liu {
+            get {
+                return ResourceManager.GetString("_Liu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 指令执行完成 的本地化字符串。
         /// </summary>
         internal static string CommandExecuted {
@@ -133,6 +160,15 @@ namespace BoardAutoTesting.Properties {
         }
         
         /// <summary>
+        ///   查找类似 未选择波特率 的本地化字符串。
+        /// </summary>
+        internal static string NoBaudRate {
+            get {
+                return ResourceManager.GetString("NoBaudRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 串口不存在 的本地化字符串。
         /// </summary>
         internal static string NoPort {
@@ -169,11 +205,11 @@ namespace BoardAutoTesting.Properties {
         }
         
         /// <summary>
-        ///   查找类似 当前机台不存在任何串口，请连接串口！ 的本地化字符串。
+        ///   查找类似 Result 的本地化字符串。
         /// </summary>
-        internal static string PromoteNoPort {
+        internal static string Section {
             get {
-                return ResourceManager.GetString("PromoteNoPort", resourceCulture);
+                return ResourceManager.GetString("Section", resourceCulture);
             }
         }
         

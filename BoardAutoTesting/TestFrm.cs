@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
@@ -21,6 +23,7 @@ using BoardAutoTesting.Service;
 using BoardAutoTesting.Status;
 using BoardAutoTesting.WipTracking;
 using Commons;
+using CraftControl;
 using DevComponents.DotNetBar;
 using DataReceivedEventArgs = Commons.DataReceivedEventArgs;
 
@@ -31,6 +34,7 @@ namespace BoardAutoTesting
         private SerialPortUtil _serialPort = new SerialPortUtil();
         private string _strLastEsn;
         private string _strComRfid;
+        private static bool _stopFlag;
         private bool _bCanIn = true;
         //SFIS
         private tCheckDataTestAteSoapClient _ate = new tCheckDataTestAteSoapClient();
@@ -54,6 +58,7 @@ namespace BoardAutoTesting
             InitCodeSoft();
             InitLog();
             InitSerialPort();
+            InitIni();
 
             txtBarcode.Enabled = false;
             btnStartServer.Enabled = true;
@@ -68,6 +73,26 @@ namespace BoardAutoTesting
 
             ClientConnection.Ate = _ate;
             ClientConnection.SysModel = _model;
+
+            Thread t = new Thread(ChangeState) {IsBackground = true};
+            t.Start();
+        }
+
+        private static void InitIni()
+        {
+            INIFileUtil iniFile = new INIFileUtil(
+                string.Format(@"{0}\result.ini", Application.StartupPath));
+            string lastTime = iniFile.IniReadValue(Resources.Section, "Time");
+            if (lastTime != "" && 
+                DateTime.Parse(lastTime).DayOfYear == DateTime.Now.DayOfYear) return;
+
+            iniFile.IniWriteValue(Resources.Section, "Time", 
+                DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            List<LineInfo> lineInfos = LineBll.GetModels();
+            foreach (var line in lineInfos)
+            {
+                iniFile.IniWriteValue(Resources.Section, line.CraftId, "0/0");
+            }
         }
 
         private void InitSerialPort()
@@ -264,8 +289,19 @@ namespace BoardAutoTesting
             {
                 if (cbxPortName.Items.Count <= 0)
                 {
-                    MessageBox.Show(Resources.PromoteNoPort, Resources.NoPort,
-                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageUtil.ShowError(Resources.NoPort);
+                    return;
+                }
+
+                if (cbxPortName.SelectedItem == null)
+                {
+                    MessageUtil.ShowError(Resources.NoPort);
+                    return;
+                }
+
+                if (cbxBaudRate.SelectedItem == null)
+                {
+                    MessageUtil.ShowError(Resources.NoBaudRate);
                     return;
                 }
 
@@ -351,9 +387,6 @@ namespace BoardAutoTesting
         {
             if (_server != null)
                 _server.DoCleaning();
-
-            if (_csHelper != null)
-                _csHelper.QuitCodeSoft();
         }
 
         private void btnStopServer_Click(object sender, EventArgs e)
@@ -492,6 +525,10 @@ namespace BoardAutoTesting
 
         private void TestFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (_csHelper != null)
+                _csHelper.QuitCodeSoft();
+
+            _stopFlag = true;
             Logger.Glog.Info("服务器关闭");
             Logger.Glog.Stop();
             Application.Exit();
@@ -501,6 +538,83 @@ namespace BoardAutoTesting
         {
             SettingFrm setting = new SettingFrm();
             setting.ShowDialog();
+        }
+
+        private void ChangeState()
+        {
+            while (!_stopFlag)
+            {
+                List<LineInfo> lines = LineBll.GetModels();
+                foreach (var line in lines)
+                {
+                    int craftNum = Convert.ToInt32(line.CraftId.Remove(0, 5)) - 1;
+
+                    UserCraft craft = (UserCraft) groupPanel1.Controls["craft" + craftNum];
+                    SplitContainer split = (SplitContainer) craft.Controls["splitContainer1"];
+
+                    ButtonX btnLine = (ButtonX) split.Panel2.Controls["btnLine"];
+                    btnLine.BackColor = line.LineEsn != ""
+                        ? Color.Red
+                        : Color.ForestGreen;
+
+                    ButtonX btnCraft = (ButtonX) split.Panel1.Controls["btnCraft"];
+                    btnCraft.BackColor = line.CraftEsn != ""
+                        ? Color.Red
+                        : Color.ForestGreen;
+
+                    INIFileUtil iniFile = new INIFileUtil(
+                        string.Format(@"{0}\result.ini", Application.StartupPath));
+                    string result = iniFile.IniReadValue(Resources.Section, line.CraftId);
+
+                    try
+                    {
+                        if (craftNum < 7)
+                        {
+                            if (_stopFlag) return;
+                            Invoke((EventHandler)delegate
+                            {
+                                string showResult = Resources._2_4G + "\r\n" + 
+                                                    "Pass/Fail" + "\r\n" + result;
+                                btnCraft.Text = showResult;
+                            });
+                        }
+                        else if (craftNum < 13)
+                        {
+                            if (_stopFlag) return;
+                            Invoke((EventHandler)delegate
+                            {
+                                string showResult = Resources._5_8G + "\r\n" +
+                                                    "Pass/Fail" + "\r\n" + result;
+                                btnCraft.Text = showResult;
+                            });
+                        }
+                        else
+                        {
+                            if (_stopFlag) return;
+                            Invoke((EventHandler)delegate
+                            {
+                                string showResult = Resources._Liu + "\r\n" +
+                                                    "Pass/Fail" + "\r\n" + result;
+                                btnCraft.Text = showResult;
+                            });
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        //如果出现了意外就重启刷新线程
+                        if (!_stopFlag)
+                        {
+                            Thread t = new Thread(ChangeState) {IsBackground = true};
+                            t.Start();
+                        }
+                        else
+                            return;
+                    }
+
+                }
+
+                Thread.Sleep(2000);
+            }
         }
     }
 }

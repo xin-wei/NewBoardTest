@@ -93,6 +93,7 @@
     <Compile Include="Commons\CString.cs" />
     <Compile Include="Commons\DataTableHelper.cs" />
     <Compile Include="Commons\HardwareInfoHelper.cs" />
+    <Compile Include="Commons\INIFileUtil.cs" />
     <Compile Include="Commons\MessageUtil.cs" />
     <Compile Include="Commons\RegistryHelper.cs" />
     <Compile Include="Commons\ReleaseData.cs" />
@@ -280,6 +281,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CraftControl\CraftControl.csproj">
+      <Project>{B9C5C651-A33F-48EA-A557-4A42BD71246D}</Project>
+      <Name>CraftControl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

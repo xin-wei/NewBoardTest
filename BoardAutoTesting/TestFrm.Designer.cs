@@ -75,11 +75,28 @@ namespace BoardAutoTesting
             this.toolStripLabel10 = new System.Windows.Forms.ToolStripLabel();
             this.lblWorkOrder = new System.Windows.Forms.ToolStripLabel();
             this.groupPanel1 = new DevComponents.DotNetBar.Controls.GroupPanel();
+            this.craft16 = new CraftControl.UserCraft();
+            this.craft15 = new CraftControl.UserCraft();
+            this.craft14 = new CraftControl.UserCraft();
+            this.craft13 = new CraftControl.UserCraft();
+            this.craft12 = new CraftControl.UserCraft();
+            this.craft11 = new CraftControl.UserCraft();
+            this.craft10 = new CraftControl.UserCraft();
+            this.craft9 = new CraftControl.UserCraft();
+            this.craft8 = new CraftControl.UserCraft();
+            this.craft7 = new CraftControl.UserCraft();
+            this.craft6 = new CraftControl.UserCraft();
+            this.craft5 = new CraftControl.UserCraft();
+            this.craft4 = new CraftControl.UserCraft();
+            this.craft3 = new CraftControl.UserCraft();
+            this.craft2 = new CraftControl.UserCraft();
+            this.craft1 = new CraftControl.UserCraft();
             this.sysInfoSource = new System.Windows.Forms.BindingSource(this.components);
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             this.ribbonPanel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.groupPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sysInfoSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -565,6 +582,22 @@ namespace BoardAutoTesting
             // 
             this.groupPanel1.CanvasColor = System.Drawing.SystemColors.Control;
             this.groupPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
+            this.groupPanel1.Controls.Add(this.craft16);
+            this.groupPanel1.Controls.Add(this.craft15);
+            this.groupPanel1.Controls.Add(this.craft14);
+            this.groupPanel1.Controls.Add(this.craft13);
+            this.groupPanel1.Controls.Add(this.craft12);
+            this.groupPanel1.Controls.Add(this.craft11);
+            this.groupPanel1.Controls.Add(this.craft10);
+            this.groupPanel1.Controls.Add(this.craft9);
+            this.groupPanel1.Controls.Add(this.craft8);
+            this.groupPanel1.Controls.Add(this.craft7);
+            this.groupPanel1.Controls.Add(this.craft6);
+            this.groupPanel1.Controls.Add(this.craft5);
+            this.groupPanel1.Controls.Add(this.craft4);
+            this.groupPanel1.Controls.Add(this.craft3);
+            this.groupPanel1.Controls.Add(this.craft2);
+            this.groupPanel1.Controls.Add(this.craft1);
             this.groupPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupPanel1.Location = new System.Drawing.Point(5, 193);
             this.groupPanel1.Name = "groupPanel1";
@@ -600,14 +633,161 @@ namespace BoardAutoTesting
             this.groupPanel1.TabIndex = 20;
             this.groupPanel1.Text = "生产看板";
             // 
+            // craft16
+            // 
+            this.craft16.BackColor = System.Drawing.Color.Transparent;
+            this.craft16.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft16.Location = new System.Drawing.Point(939, 404);
+            this.craft16.Name = "craft16";
+            this.craft16.Size = new System.Drawing.Size(196, 196);
+            this.craft16.TabIndex = 0;
+            // 
+            // craft15
+            // 
+            this.craft15.BackColor = System.Drawing.Color.Transparent;
+            this.craft15.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft15.Location = new System.Drawing.Point(711, 404);
+            this.craft15.Name = "craft15";
+            this.craft15.Size = new System.Drawing.Size(196, 196);
+            this.craft15.TabIndex = 0;
+            // 
+            // craft14
+            // 
+            this.craft14.BackColor = System.Drawing.Color.Transparent;
+            this.craft14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft14.Location = new System.Drawing.Point(483, 404);
+            this.craft14.Name = "craft14";
+            this.craft14.Size = new System.Drawing.Size(196, 196);
+            this.craft14.TabIndex = 0;
+            // 
+            // craft13
+            // 
+            this.craft13.BackColor = System.Drawing.Color.Transparent;
+            this.craft13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft13.Location = new System.Drawing.Point(255, 404);
+            this.craft13.Name = "craft13";
+            this.craft13.Size = new System.Drawing.Size(196, 196);
+            this.craft13.TabIndex = 0;
+            // 
+            // craft12
+            // 
+            this.craft12.BackColor = System.Drawing.Color.Transparent;
+            this.craft12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft12.Location = new System.Drawing.Point(1167, 202);
+            this.craft12.Name = "craft12";
+            this.craft12.Size = new System.Drawing.Size(196, 196);
+            this.craft12.TabIndex = 0;
+            // 
+            // craft11
+            // 
+            this.craft11.BackColor = System.Drawing.Color.Transparent;
+            this.craft11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft11.Location = new System.Drawing.Point(939, 202);
+            this.craft11.Name = "craft11";
+            this.craft11.Size = new System.Drawing.Size(196, 196);
+            this.craft11.TabIndex = 0;
+            // 
+            // craft10
+            // 
+            this.craft10.BackColor = System.Drawing.Color.Transparent;
+            this.craft10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft10.Location = new System.Drawing.Point(711, 202);
+            this.craft10.Name = "craft10";
+            this.craft10.Size = new System.Drawing.Size(196, 196);
+            this.craft10.TabIndex = 0;
+            // 
+            // craft9
+            // 
+            this.craft9.BackColor = System.Drawing.Color.Transparent;
+            this.craft9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft9.Location = new System.Drawing.Point(483, 202);
+            this.craft9.Name = "craft9";
+            this.craft9.Size = new System.Drawing.Size(196, 196);
+            this.craft9.TabIndex = 0;
+            // 
+            // craft8
+            // 
+            this.craft8.BackColor = System.Drawing.Color.Transparent;
+            this.craft8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft8.Location = new System.Drawing.Point(255, 202);
+            this.craft8.Name = "craft8";
+            this.craft8.Size = new System.Drawing.Size(196, 196);
+            this.craft8.TabIndex = 0;
+            // 
+            // craft7
+            // 
+            this.craft7.BackColor = System.Drawing.Color.Transparent;
+            this.craft7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft7.Location = new System.Drawing.Point(27, 202);
+            this.craft7.Name = "craft7";
+            this.craft7.Size = new System.Drawing.Size(196, 196);
+            this.craft7.TabIndex = 0;
+            // 
+            // craft6
+            // 
+            this.craft6.BackColor = System.Drawing.Color.Transparent;
+            this.craft6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft6.Location = new System.Drawing.Point(1167, 0);
+            this.craft6.Name = "craft6";
+            this.craft6.Size = new System.Drawing.Size(196, 196);
+            this.craft6.TabIndex = 0;
+            // 
+            // craft5
+            // 
+            this.craft5.BackColor = System.Drawing.Color.Transparent;
+            this.craft5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft5.Location = new System.Drawing.Point(939, 0);
+            this.craft5.Name = "craft5";
+            this.craft5.Size = new System.Drawing.Size(196, 196);
+            this.craft5.TabIndex = 0;
+            // 
+            // craft4
+            // 
+            this.craft4.BackColor = System.Drawing.Color.Transparent;
+            this.craft4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft4.Location = new System.Drawing.Point(711, 0);
+            this.craft4.Name = "craft4";
+            this.craft4.Size = new System.Drawing.Size(196, 196);
+            this.craft4.TabIndex = 0;
+            // 
+            // craft3
+            // 
+            this.craft3.BackColor = System.Drawing.Color.Transparent;
+            this.craft3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft3.Location = new System.Drawing.Point(483, 0);
+            this.craft3.Name = "craft3";
+            this.craft3.Size = new System.Drawing.Size(196, 196);
+            this.craft3.TabIndex = 0;
+            // 
+            // craft2
+            // 
+            this.craft2.BackColor = System.Drawing.Color.Transparent;
+            this.craft2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft2.Location = new System.Drawing.Point(255, 0);
+            this.craft2.Name = "craft2";
+            this.craft2.Size = new System.Drawing.Size(196, 196);
+            this.craft2.TabIndex = 0;
+            // 
+            // craft1
+            // 
+            this.craft1.BackColor = System.Drawing.Color.Transparent;
+            this.craft1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.craft1.Location = new System.Drawing.Point(27, 0);
+            this.craft1.Name = "craft1";
+            this.craft1.Size = new System.Drawing.Size(196, 196);
+            this.craft1.TabIndex = 0;
+            // 
             // TestFrm
             // 
             this.ClientSize = new System.Drawing.Size(1404, 853);
             this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.ribbonControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "TestFrm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "板测自动化软件";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TestFrm_FormClosing);
             this.Load += new System.EventHandler(this.TestFrm_Load);
@@ -617,6 +797,7 @@ namespace BoardAutoTesting
             this.ribbonPanel2.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.groupPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.sysInfoSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -671,6 +852,22 @@ namespace BoardAutoTesting
         private System.Windows.Forms.ToolStripLabel lblWorkOrder;
         private DevComponents.DotNetBar.Controls.GroupPanel groupPanel1;
         private System.Windows.Forms.BindingSource sysInfoSource;
+        private CraftControl.UserCraft craft16;
+        private CraftControl.UserCraft craft15;
+        private CraftControl.UserCraft craft14;
+        private CraftControl.UserCraft craft13;
+        private CraftControl.UserCraft craft12;
+        private CraftControl.UserCraft craft11;
+        private CraftControl.UserCraft craft10;
+        private CraftControl.UserCraft craft9;
+        private CraftControl.UserCraft craft8;
+        private CraftControl.UserCraft craft7;
+        private CraftControl.UserCraft craft6;
+        private CraftControl.UserCraft craft5;
+        private CraftControl.UserCraft craft4;
+        private CraftControl.UserCraft craft3;
+        private CraftControl.UserCraft craft2;
+        private CraftControl.UserCraft craft1;
 
     }
 }

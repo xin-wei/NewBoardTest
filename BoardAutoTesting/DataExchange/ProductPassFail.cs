@@ -1,8 +1,12 @@
-﻿using BoardAutoTesting.BLL;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using BoardAutoTesting.BLL;
 using BoardAutoTesting.Log;
 using BoardAutoTesting.Model;
 using BoardAutoTesting.Properties;
 using BoardAutoTesting.Status;
+using Commons;
 
 namespace BoardAutoTesting.DataExchange
 {
@@ -200,6 +204,29 @@ namespace BoardAutoTesting.DataExchange
                     "ProductPassFail.OutPrepare.SureToUpdateModel",
                     Resources.UpdateError);
                 return true;
+            }
+
+            INIFileUtil iniFile = new INIFileUtil(
+                string.Format(@"{0}\result.ini", Application.StartupPath));
+            string lastTime = iniFile.IniReadValue(Resources.Section, "Time");
+            //应该是一定成立的
+            if (DateTime.Parse(lastTime).DayOfYear == DateTime.Now.DayOfYear)
+            {
+                List<LineInfo> lines = LineBll.GetModels();
+                foreach (var lineInfo in lines)
+                {
+                    string result = iniFile.IniReadValue(Resources.Section, lineInfo.CraftId);
+                    string[] results = result.Split('/');
+                    int pass = int.Parse(results[0]);
+                    int fail = int.Parse(results[1]);
+                    if (cmd.Contains("RESULT:PASS"))
+                        pass++;
+                    else
+                        fail++;
+
+                    string newResult = pass + "/" + fail;
+                    iniFile.IniWriteValue(Resources.Section, lineInfo.CraftId, newResult);
+                }
             }
 
             AteClient.SendMsg(CmdInfo.OutPut); //应答ATE
