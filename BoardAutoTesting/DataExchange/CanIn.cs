@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Windows.Forms;
 using BoardAutoTesting.BLL;
 using BoardAutoTesting.Log;
 using BoardAutoTesting.Model;
 using BoardAutoTesting.Properties;
 using BoardAutoTesting.Status;
+using Commons;
 
 namespace BoardAutoTesting.DataExchange
 {
@@ -59,13 +63,35 @@ namespace BoardAutoTesting.DataExchange
 
             if (line.IsOut)
             {
+                //翻天的时候更新记录
+                INIFileUtil iniFile = new INIFileUtil(
+                string.Format(@"{0}\result.ini", Application.StartupPath));
+                string lastTime = iniFile.IniReadValue(Resources.Section, "Time");
+                if (DateTime.Parse(lastTime).DayOfYear != DateTime.Now.DayOfYear)
+                {
+                    iniFile.IniWriteValue(Resources.Section, "Time",
+                    DateTime.Now.ToString(CultureInfo.InvariantCulture));
+                    List<LineInfo> lineInfos = LineBll.GetModels();
+                    foreach (var newLine in lineInfos)
+                    {
+                        iniFile.IniWriteValue(Resources.Section, newLine.CraftId, "0/0");
+                    }
+                }
+
+                string strLast = iniFile.IniReadValue(Resources.Section, line.CraftId);
+                string[] results = strLast.Split('/');
+                int pass = int.Parse(results[0]);
+                int fail = int.Parse(results[1]);
+
                 if (product.IsPass == ProductStatus.Pass.ToString()
                     && strResult == "OK")
                 {
+                    pass++;
                     WaitGetResponse(CmdInfo.ProductPass, TimeOut, CmdInfo.ProductGet);
                 }
                 else
                 {
+                    fail++;
                     WaitGetResponse(CmdInfo.ProductFail, TimeOut, CmdInfo.ProductGet);
                     ClientConnection.CsHelper.ClearVariables();
                     Dictionary<string, object> dicVariables = new Dictionary<string, object>
@@ -78,6 +104,8 @@ namespace BoardAutoTesting.DataExchange
                     ClientConnection.CsHelper.PrintLabel();
                 }
 
+                string strNew = pass + "/" + fail;
+                iniFile.IniWriteValue(Resources.Section, line.CraftId, strNew);
                 ProductInfo originProductInfo = new ProductInfo()
                 {
                     RFID = product.RFID,

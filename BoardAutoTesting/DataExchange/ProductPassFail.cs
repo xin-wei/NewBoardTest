@@ -212,21 +212,17 @@ namespace BoardAutoTesting.DataExchange
             //应该是一定成立的
             if (DateTime.Parse(lastTime).DayOfYear == DateTime.Now.DayOfYear)
             {
-                List<LineInfo> lines = LineBll.GetModels();
-                foreach (var lineInfo in lines)
-                {
-                    string result = iniFile.IniReadValue(Resources.Section, lineInfo.CraftId);
-                    string[] results = result.Split('/');
-                    int pass = int.Parse(results[0]);
-                    int fail = int.Parse(results[1]);
-                    if (cmd.Contains("RESULT:PASS"))
-                        pass++;
-                    else
-                        fail++;
+                string result = iniFile.IniReadValue(Resources.Section, line.CraftId);
+                string[] results = result.Split('/');
+                int pass = int.Parse(results[0]);
+                int fail = int.Parse(results[1]);
+                if (cmd.Contains("RESULT:PASS"))
+                    pass++;
+                else
+                    fail++;
 
-                    string newResult = pass + "/" + fail;
-                    iniFile.IniWriteValue(Resources.Section, lineInfo.CraftId, newResult);
-                }
+                string newResult = pass + "/" + fail;
+                iniFile.IniWriteValue(Resources.Section, line.CraftId, newResult);
             }
 
             AteClient.SendMsg(CmdInfo.OutPut); //应答ATE

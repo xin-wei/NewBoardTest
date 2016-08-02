@@ -83,13 +83,15 @@ namespace BoardAutoTesting
             INIFileUtil iniFile = new INIFileUtil(
                 string.Format(@"{0}\result.ini", Application.StartupPath));
             string lastTime = iniFile.IniReadValue(Resources.Section, "Time");
-            if (lastTime != "" && 
-                DateTime.Parse(lastTime).DayOfYear == DateTime.Now.DayOfYear) return;
+            List<LineInfo> infos = LineBll.GetModels();
+            if (infos == null) return;
 
-            iniFile.IniWriteValue(Resources.Section, "Time", 
+            if (lastTime != "" && DateTime.Parse(lastTime).DayOfYear == DateTime.Now.DayOfYear) return;
+
+            iniFile.IniWriteValue(Resources.Section, "Time",
                 DateTime.Now.ToString(CultureInfo.InvariantCulture));
-            List<LineInfo> lineInfos = LineBll.GetModels();
-            foreach (var line in lineInfos)
+                
+            foreach (var line in infos)
             {
                 iniFile.IniWriteValue(Resources.Section, line.CraftId, "0/0");
             }
@@ -547,60 +549,41 @@ namespace BoardAutoTesting
                 List<LineInfo> lines = LineBll.GetModels();
                 foreach (var line in lines)
                 {
-                    int craftNum = Convert.ToInt32(line.CraftId.Remove(0, 5)) - 1;
-
-                    UserCraft craft = (UserCraft) groupPanel1.Controls["craft" + craftNum];
-                    SplitContainer split = (SplitContainer) craft.Controls["splitContainer1"];
-
-                    ButtonX btnLine = (ButtonX) split.Panel2.Controls["btnLine"];
-                    btnLine.BackColor = line.LineEsn != ""
-                        ? Color.Red
-                        : Color.ForestGreen;
-
-                    ButtonX btnCraft = (ButtonX) split.Panel1.Controls["btnCraft"];
-                    btnCraft.BackColor = line.CraftEsn != ""
-                        ? Color.Red
-                        : Color.ForestGreen;
-
-                    INIFileUtil iniFile = new INIFileUtil(
-                        string.Format(@"{0}\result.ini", Application.StartupPath));
-                    string result = iniFile.IniReadValue(Resources.Section, line.CraftId);
-
                     try
                     {
-                        if (craftNum < 7)
+                        int craftNum = Convert.ToInt32(line.CraftId.Remove(0, 5));
+
+                        UserCraft craft = (UserCraft) groupPanel1.Controls["craft" + craftNum];
+                        SplitContainer split = (SplitContainer) craft.Controls["splitContainer1"];
+
+                        ButtonX btnLine = (ButtonX) split.Panel2.Controls["btnLine"];
+                        btnLine.BackColor = line.LineEsn != ""
+                            ? Color.Red
+                            : Color.ForestGreen;
+
+                        ButtonX btnCraft = (ButtonX) split.Panel1.Controls["btnCraft"];
+                        btnCraft.BackColor = line.CraftEsn != ""
+                            ? Color.Red
+                            : Color.ForestGreen;
+
+                        INIFileUtil iniFile = new INIFileUtil(
+                            string.Format(@"{0}\result.ini", Application.StartupPath));
+                        string result = iniFile.IniReadValue(Resources.Section, line.CraftId);
+
+
+                        if (_stopFlag) return;
+                        var line1 = line;
+                        Invoke((EventHandler) delegate
                         {
-                            if (_stopFlag) return;
-                            Invoke((EventHandler)delegate
-                            {
-                                string showResult = Resources._2_4G + "\r\n" + 
-                                                    "Pass/Fail" + "\r\n" + result;
-                                btnCraft.Text = showResult;
-                            });
-                        }
-                        else if (craftNum < 13)
-                        {
-                            if (_stopFlag) return;
-                            Invoke((EventHandler)delegate
-                            {
-                                string showResult = Resources._5_8G + "\r\n" +
-                                                    "Pass/Fail" + "\r\n" + result;
-                                btnCraft.Text = showResult;
-                            });
-                        }
-                        else
-                        {
-                            if (_stopFlag) return;
-                            Invoke((EventHandler)delegate
-                            {
-                                string showResult = Resources._Liu + "\r\n" +
-                                                    "Pass/Fail" + "\r\n" + result;
-                                btnCraft.Text = showResult;
-                            });
-                        }
+                            string showResult = line1.RouteName + "\r\n" +
+                                                "Pass/Fail" + "\r\n" + result;
+                            btnCraft.Text = showResult;
+                        });
+
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
+                        Logger.Glog.Info(e.Message);
                         //如果出现了意外就重启刷新线程
                         if (!_stopFlag)
                         {

@@ -133,9 +133,12 @@ namespace BoardAutoTesting.DAL
             string sql = string.Format("select * from {0} order by Craft_Idx desc", TableName);
             DataSet ds = MySqlHelper.GetDataSet(DbHelper.ConnectionStringProfile,
                 CommandType.Text, sql, null);
-            DataTable dt = ds.Tables[0];
-            DataRow dr = dt.Rows[0];
 
+            DataTable dt = ds.Tables[0];
+            if (dt.Rows.Count <= 0)
+                return null;
+
+            DataRow dr = dt.Rows[0];
             return ToModel(dr);
         }
 

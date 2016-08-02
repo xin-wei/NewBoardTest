@@ -125,7 +125,7 @@ namespace BoardAutoTesting
             this.txtCraftId.Name = "txtCraftId";
             this.txtCraftId.ReadOnly = true;
             this.txtCraftId.Size = new System.Drawing.Size(157, 25);
-            this.txtCraftId.TabIndex = 1;
+            this.txtCraftId.TabIndex = 8;
             // 
             // ipMcu
             // 
@@ -141,7 +141,7 @@ namespace BoardAutoTesting
             this.ipMcu.Name = "ipMcu";
             this.ipMcu.Size = new System.Drawing.Size(157, 25);
             this.ipMcu.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.ipMcu.TabIndex = 2;
+            this.ipMcu.TabIndex = 3;
             // 
             // ipAte
             // 
@@ -157,7 +157,7 @@ namespace BoardAutoTesting
             this.ipAte.Name = "ipAte";
             this.ipAte.Size = new System.Drawing.Size(157, 25);
             this.ipAte.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.ipAte.TabIndex = 2;
+            this.ipAte.TabIndex = 4;
             // 
             // btnNew
             // 
@@ -167,7 +167,7 @@ namespace BoardAutoTesting
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(99, 42);
             this.btnNew.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnNew.TabIndex = 3;
+            this.btnNew.TabIndex = 6;
             this.btnNew.Text = "ÐÂÔö";
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
@@ -179,7 +179,7 @@ namespace BoardAutoTesting
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(99, 42);
             this.btnClear.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnClear.TabIndex = 3;
+            this.btnClear.TabIndex = 7;
             this.btnClear.Text = "Çå¿Õ";
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
@@ -193,7 +193,7 @@ namespace BoardAutoTesting
             this.cbxLineId.Name = "cbxLineId";
             this.cbxLineId.Size = new System.Drawing.Size(157, 21);
             this.cbxLineId.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbxLineId.TabIndex = 4;
+            this.cbxLineId.TabIndex = 1;
             // 
             // cbxRouteId
             // 
@@ -205,7 +205,7 @@ namespace BoardAutoTesting
             this.cbxRouteId.Name = "cbxRouteId";
             this.cbxRouteId.Size = new System.Drawing.Size(157, 21);
             this.cbxRouteId.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbxRouteId.TabIndex = 4;
+            this.cbxRouteId.TabIndex = 2;
             // 
             // labelX6
             // 
@@ -234,7 +234,7 @@ namespace BoardAutoTesting
             this.cbxPort.Name = "cbxPort";
             this.cbxPort.Size = new System.Drawing.Size(157, 21);
             this.cbxPort.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.cbxPort.TabIndex = 4;
+            this.cbxPort.TabIndex = 5;
             // 
             // Port0
             // 

@@ -61,10 +61,11 @@
             this.btnCraft.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnCraft.BackColor = System.Drawing.Color.Silver;
             this.btnCraft.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue;
-            this.btnCraft.Font = new System.Drawing.Font("宋体", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCraft.Location = new System.Drawing.Point(34, 32);
+            this.btnCraft.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCraft.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnCraft.Location = new System.Drawing.Point(0, 0);
             this.btnCraft.Name = "btnCraft";
-            this.btnCraft.Size = new System.Drawing.Size(128, 88);
+            this.btnCraft.Size = new System.Drawing.Size(196, 148);
             this.btnCraft.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCraft.TabIndex = 0;
             this.btnCraft.TextColor = System.Drawing.Color.Black;
