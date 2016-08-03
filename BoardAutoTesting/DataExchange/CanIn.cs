@@ -56,7 +56,7 @@ namespace BoardAutoTesting.DataExchange
             if (ClientConnection.SysModel.IsLogin)
             {
                 strResult = ClientConnection.Ate.Check_Route_ATE(product.ESN,
-                    product.RouteName, ClientConnection.SysModel.WoId);
+                    line.RouteName, ClientConnection.SysModel.WoId);
             }
 
             #region 最后一站特殊处理
@@ -97,8 +97,8 @@ namespace BoardAutoTesting.DataExchange
                     Dictionary<string, object> dicVariables = new Dictionary<string, object>
                     {
                         {"ESN", product.ESN},
-                        {"CRAFT", product.CraftID},
-                        {"EC", LineBll.GetRouteIpById(product.CraftID)}
+                        {"CRAFT", product.CraftId},
+                        {"EC", LineBll.GetRouteIpById(product.CraftId)}
                     };
                     ClientConnection.CsHelper.Fill_Label_Variables(dicVariables);
                     ClientConnection.CsHelper.PrintLabel();
@@ -111,7 +111,7 @@ namespace BoardAutoTesting.DataExchange
                     RFID = product.RFID,
                     ESN = "NA",
                     RouteName = "NA",
-                    CraftID = "NA",
+                    CraftId = "NA",
                     IsPass = ProductStatus.UnKnown.ToString(),
                     CurrentIp = "NA",
                     OldIp = "NA",
@@ -143,7 +143,7 @@ namespace BoardAutoTesting.DataExchange
             if (line.RouteName != product.RouteName)
             {
                 product.RouteName = line.RouteName;
-                product.CraftID = "NA";
+                product.CraftId = "NA";
                 product.ActionName = ProductAction.OnLine.ToString();
             }
 
@@ -153,7 +153,7 @@ namespace BoardAutoTesting.DataExchange
                 return;
             }
 
-            if (product.CraftID == "NA") //产品机台状态为空，分配机台
+            if (product.CraftId == "NA") //产品机台状态为空，分配机台
             {
                 string assignedCraft;
                 LineBll.WaitAndOccupyCraft(McuClient, line.RouteName,
@@ -168,13 +168,13 @@ namespace BoardAutoTesting.DataExchange
                     return;
                 }
 
-                product.CraftID = assignedCraft;
+                product.CraftId = assignedCraft;
             }
 
             if (McuClient.IsOpenDoor)
                 return;
 
-            if (line.CraftId == product.CraftID && !line.IsRepair)
+            if (line.CraftId == product.CraftId && !line.IsRepair)
             {
                 InStation(product);
             }

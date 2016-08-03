@@ -3,6 +3,7 @@ using BoardAutoTesting.BLL;
 using BoardAutoTesting.Log;
 using BoardAutoTesting.Model;
 using BoardAutoTesting.Properties;
+using BoardAutoTesting.Status;
 
 namespace BoardAutoTesting.DataExchange
 {
@@ -24,8 +25,8 @@ namespace BoardAutoTesting.DataExchange
                 return;
             }
 
-            LineInfo info1 = LineBll.GetModelByIpPort(AteClient.ClientIp, port);
-            if (info1 == null)
+            LineInfo line = LineBll.GetModelByIpPort(AteClient.ClientIp, port);
+            if (line == null)
             {
                 //应该是不可能出现的情况
                 AteClient.SendMsg(AteClient.ClientIp);
@@ -35,33 +36,27 @@ namespace BoardAutoTesting.DataExchange
                 return;
             }
 
-            if (info1.CraftEsn == "")
+            ProductInfo product1 = ProductBll.GetProductInfoByIpStatus(line.McuIp,
+                ProductAction.Testing);
+            if (product1 == null)
             {
                 AteClient.SendMsg(AteClient.ClientIp);
                 return;
             }
 
-            Thread.Sleep(400);
-            LineInfo info2 = LineBll.GetModelByIpPort(AteClient.ClientIp, port);
-            if (info2 == null)
-            {
-                AteClient.SendMsg(AteClient.ClientIp);
-                Logger.Glog.Info(AteClient.ClientIp,
-                    "TestMac.ExecuteCommand.GetModelByIpPort",
-                    Resources.UnconfigedCraft);
-                return;
-            }
-
-            if (info2.CraftEsn == "")
+            Thread.Sleep(300);
+            ProductInfo product2 = ProductBll.GetProductInfoByIpStatus(line.McuIp,
+                ProductAction.Testing);
+            if (product2 == null)
             {
                 AteClient.SendMsg(AteClient.ClientIp);
                 return;
             }
 
-            AteClient.SendMsg(info2.CraftEsn);
+            AteClient.SendMsg(product2.ESN);
             Logger.Glog.Info(AteClient.ClientIp,
                 "TestMac.ExecuteCommand",
-                Resources.CommandExecuted + ":" + info2.CraftEsn);
+                Resources.CommandExecuted + ":" + product2.ESN);
         }
     }
 }

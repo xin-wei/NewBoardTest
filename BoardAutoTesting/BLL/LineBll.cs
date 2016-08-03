@@ -87,7 +87,6 @@ namespace BoardAutoTesting.BLL
             {
                 List<LineInfo> lstInfos = LineDal.GetModelByRouteEmptyCraft(route);
                 if (lstInfos == null || lstInfos.Count < 1) return "";
-                Debug.Assert(lstInfos.Count == 1);
                 return lstInfos[0].CraftId;
             }
             catch (Exception e)
@@ -112,19 +111,21 @@ namespace BoardAutoTesting.BLL
 
                     givenCraft = GetEmptyCraft(strRoute);
                     if (givenCraft == "")
+                    {
+                        Thread.Sleep(300);
                         continue;
+                    }
 
                     if (LineDal.UpdateCraftStatus(occupationEsn, strRoute) == 1)
                         break;
-
-                    Thread.Sleep(300);
                 }
 
                 Logger.Glog.Info(client.ClientIp, "LineBll.WaitAndOccupyCraft", givenCraft);
             }
             catch (Exception e)
             {
-                Logger.Glog.Info(client.ClientIp, "LineBll.WaitAndOccupyCraft", e.Message);
+                Logger.Glog.Info(client.ClientIp,
+                    "LineBll.WaitAndOccupyCraft.Exception", e.Message);
             }
         }
 
@@ -154,7 +155,8 @@ namespace BoardAutoTesting.BLL
             }
             catch (Exception e)
             {
-                Logger.Glog.Info(client.ClientIp, "LineBll.WaitAndOccupyLine", e.Message);
+                Logger.Glog.Info(client.ClientIp,
+                    "LineBll.WaitAndOccupyLine.Exception", e.Message);
             }
         }
 

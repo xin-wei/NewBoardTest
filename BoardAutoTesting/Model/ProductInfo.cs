@@ -8,7 +8,7 @@ namespace BoardAutoTesting.Model
         public string ESN { get; set; }
         public string IsPass { get; set; }
         public string RouteName { get; set; }
-        public string CraftID { get; set; }
+        public string CraftId { get; set; }
         public string CurrentIp { get; set; }
         public string OldIp { get; set; }
         public string ActionName { get; set; }

@@ -38,7 +38,7 @@ namespace BoardAutoTesting.Test
                 ESN = "123",
                 IsPass = "Fail",
                 RouteName = "2.4",
-                CraftID = "1",
+                CraftId = "1",
                 CurrentIp = ".18",
                 OldIp = "",
                 ActionName = "3",

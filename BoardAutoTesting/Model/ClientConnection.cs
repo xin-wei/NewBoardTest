@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -19,10 +20,16 @@ namespace BoardAutoTesting.Model
         private bool _doesClose;
         private IAction _action;
         private string _rfid = "NA";
+        private List<string> _lstRevCommands = new List<string>(); 
 
         #endregion
 
         #region Property
+
+        public List<string> RevCommands
+        {
+            get { return _lstRevCommands; }
+        }
 
         public string ClientIp
         {
@@ -65,7 +72,14 @@ namespace BoardAutoTesting.Model
             string command = cmd.Replace("*", "").Replace("#", "");
             if (command.Contains(":IN?"))
                 command = command.Remove(0, 8);
+
+            //没执行的指令放到list缓存里
+            if (_lstRevCommands.Contains(cmd))
+                return null;
+
+            _lstRevCommands.Add(cmd);
             IAction action;
+
             switch (command)
             {
                 case ":IN?":
@@ -183,10 +197,13 @@ namespace BoardAutoTesting.Model
             {
                 _action = CommandFactory(cmd);
                 if (_action != null)
+                {
                     _action.ExecuteCommand(cmd);
+                    _lstRevCommands.Remove(cmd);//指令执行完就删掉
+                }
                 else
-                    Logger.Glog.Info(ClientIp, "ClientConnection.Response",
-                        "无法解析的命令，工厂创建命令失败");
+                    Logger.Glog.Info(ClientIp, "ClientConnection.Response.CommandFactory",
+                        "指令无法解析或重复发送");
             }
             else //其他情况直接给全局变量赋值，相当于对消息进行分发
             {

@@ -144,7 +144,7 @@ namespace BoardAutoTesting
         {
             if (Login())
             {
-
+                DialogResult = DialogResult.Yes;
             }
         }
 

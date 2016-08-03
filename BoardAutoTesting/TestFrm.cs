@@ -192,10 +192,13 @@ namespace BoardAutoTesting
             string cmd = e.DataReceived;
             if (cmd.Contains(CmdInfo.CanIn))
             {
+                //防止还没扫到sn，单片机就发送rfid了
+                if (string.IsNullOrEmpty(_strLastEsn)) return;
+
                 string tempRfid = cmd.Replace("*", "").Replace("#", "").Replace(":IN?", "").Trim();
                 _serialPort.WriteData(CmdInfo.GoInGet);
                 if (_strComRfid == tempRfid) return;
-                _strComRfid = tempRfid;
+                _strComRfid = tempRfid.Substring(0, 8);
 
                 Thread t = new Thread(() =>
                 {
@@ -217,7 +220,7 @@ namespace BoardAutoTesting
                             ESN = _strLastEsn,
                             IsPass = ProductStatus.UnKnown.ToString(),
                             RouteName = "NA",
-                            CraftID = "NA",
+                            CraftId = "NA",
                             CurrentIp = "NA",
                             OldIp = "NA",
                             ActionName = ProductAction.OnLine.ToString(),
@@ -230,7 +233,7 @@ namespace BoardAutoTesting
                         product.ESN = _strLastEsn;
                         product.IsPass = ProductStatus.UnKnown.ToString();
                         product.RouteName = "NA";
-                        product.CraftID = "NA";
+                        product.CraftId = "NA";
                         product.CurrentIp = "NA";
                         product.OldIp = "NA";
                         product.ActionName = ProductAction.OnLine.ToString();
@@ -454,7 +457,6 @@ namespace BoardAutoTesting
             }
             else
             {
-                InitSystemInfo();
                 InitMainForm();
             }
         }
@@ -558,12 +560,12 @@ namespace BoardAutoTesting
 
                         ButtonX btnLine = (ButtonX) split.Panel2.Controls["btnLine"];
                         btnLine.BackColor = line.LineEsn != ""
-                            ? Color.Red
+                            ? Color.DarkGoldenrod
                             : Color.ForestGreen;
 
                         ButtonX btnCraft = (ButtonX) split.Panel1.Controls["btnCraft"];
                         btnCraft.BackColor = line.CraftEsn != ""
-                            ? Color.Red
+                            ? Color.DarkGoldenrod
                             : Color.ForestGreen;
 
                         INIFileUtil iniFile = new INIFileUtil(
@@ -596,7 +598,7 @@ namespace BoardAutoTesting
 
                 }
 
-                Thread.Sleep(2000);
+                Thread.Sleep(4000);
             }
         }
     }

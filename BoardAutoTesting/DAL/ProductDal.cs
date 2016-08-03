@@ -11,7 +11,6 @@ namespace BoardAutoTesting.DAL
     public class ProductDal
     {
         private const string TableName = "centercontrol.tb_product_info";
-        private static readonly IAdminProvider Dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
 
         private static IDictionary<string, object> GetModelDic(ProductInfo product)
         {
@@ -20,7 +19,7 @@ namespace BoardAutoTesting.DAL
             mst.Add("ESN", product.ESN);
             mst.Add("Is_Pass", product.IsPass);
             mst.Add("Route_Name", product.RouteName);
-            mst.Add("Craft_Idx", product.CraftID);
+            mst.Add("Craft_Idx", product.CraftId);
             mst.Add("Current_IP", product.CurrentIp);
             mst.Add("Old_IP", product.OldIp);
             mst.Add("Action_Name", product.ActionName);
@@ -37,7 +36,7 @@ namespace BoardAutoTesting.DAL
                 ESN = dr["ESN"].ToString(),
                 IsPass = dr["Is_Pass"].ToString(),
                 RouteName = dr["Route_Name"].ToString(),
-                CraftID = dr["Craft_Idx"].ToString(),
+                CraftId = dr["Craft_Idx"].ToString(),
                 CurrentIp = dr["Current_IP"].ToString(),
                 OldIp = dr["Old_IP"].ToString(),
                 ActionName = dr["Action_Name"].ToString(),
@@ -49,16 +48,18 @@ namespace BoardAutoTesting.DAL
 
         public static void InsertModel(ProductInfo product)
         {
+            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
             IDictionary<string, object> mst = GetModelDic(product);
-            Dp.AddData(TableName, mst);
+            dp.AddData(TableName, mst);
         }
 
         public static ProductInfo GetModelByIpStatus(string ip, ProductAction action)
         {
+            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
             string filter = string.Format("Current_IP = '{0}' and Action_Name = '{1}'",
                 ip, action);
             int count;
-            DataSet ds = Dp.GetData(TableName, "*", filter, null, null, "", out count);
+            DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
                 return null;
 
@@ -70,9 +71,10 @@ namespace BoardAutoTesting.DAL
 
         public static ProductInfo GetModelByRfid(string id)
         {
+            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
             string filter = string.Format("RFID = '{0}'", id);
             int count;
-            DataSet ds = Dp.GetData(TableName, "*", filter, null, null, "", out count);
+            DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
                 return null;
 
@@ -84,10 +86,11 @@ namespace BoardAutoTesting.DAL
 
         public static ProductInfo GetModelByCraftStatus(string id, ProductAction action)
         {
+            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
             string filter = string.Format("Craft_Idx = '{0}' and Action_Name = '{1}'",
                 id, action);
             int count;
-            DataSet ds = Dp.GetData(TableName, "*", filter, null, null, "", out count);
+            DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
                 return null;
 
@@ -99,9 +102,10 @@ namespace BoardAutoTesting.DAL
 
         public static List<ProductInfo> GetModels()
         {
+            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
             List<ProductInfo> lstInfos = new List<ProductInfo>();
             int count;
-            DataSet ds = Dp.GetData(TableName, "*", null, out count);
+            DataSet ds = dp.GetData(TableName, "*", null, out count);
             if (count <= 0) 
                 return lstInfos;
 
@@ -117,10 +121,11 @@ namespace BoardAutoTesting.DAL
 
         public static void DeleteModel(ProductInfo product)
         {
+            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
             IDictionary<string, object> mst = new Dictionary<string, object>();
             mst.Add("RFID", product.RFID);
 
-            Dp.DeleteData(TableName, mst);
+            dp.DeleteData(TableName, mst);
         }
 
         public static int UpdateModel(ProductInfo product)

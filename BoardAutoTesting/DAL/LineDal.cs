@@ -11,8 +11,6 @@ namespace BoardAutoTesting.DAL
     public class LineDal
     {
         private const string TableName = "centercontrol.tb_line_info";
-        private static readonly IAdminProvider Dp = 
-            (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
 
         private static IDictionary<string, object> GetModelDic(LineInfo line)
         {
@@ -40,11 +38,11 @@ namespace BoardAutoTesting.DAL
                 LineIdx = dr["Line_Idx"].ToString(),
                 McuIp = dr["Mcu_Ip"].ToString(),
                 AteIp = dr["Ate_Ip"].ToString(),
-                IsRepair = (bool)dr["Is_Repair"],
-                IsOut = (bool)dr["Is_Out"],
+                IsRepair = (bool) dr["Is_Repair"],
+                IsOut = (bool) dr["Is_Out"],
                 LineEsn = dr["Line_ESN"].ToString(),
                 CraftEsn = dr["Craft_ESN"].ToString(),
-                PortId = dr["Port_Id"].ToString(),
+                PortId = dr["Port_Id"].ToString()
             };
 
             return info;
@@ -52,12 +50,16 @@ namespace BoardAutoTesting.DAL
 
         public static void InsertModel(LineInfo line)
         {
+            IAdminProvider dp =
+                (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             IDictionary<string, object> mst = GetModelDic(line);
-            Dp.AddData(TableName, mst);
+            dp.AddData(TableName, mst);
         }
 
         public static List<LineInfo> GetModelByRouteEmptyCraft(string route)
         {
+            IAdminProvider dp =
+                (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             List<LineInfo> lstInfos = new List<LineInfo>();
             string filter = string.Format("Route_Name = '{0}' and Craft_ESN = '{1}' and Is_Repair = '0'", route, "");
             IList<OrderKey> lstOrder = new List<OrderKey>();
@@ -69,7 +71,7 @@ namespace BoardAutoTesting.DAL
             lstOrder.Add(order);
 
             int count;
-            DataSet ds = Dp.GetData(TableName, "*", filter, null, lstOrder, "", out count);
+            DataSet ds = dp.GetData(TableName, "*", filter, null, lstOrder, "", out count);
             if (count <= 0)
                 return null;
 
@@ -91,6 +93,8 @@ namespace BoardAutoTesting.DAL
         /// <returns>线体Model</returns>
         public static LineInfo GetModelByIpPort(string ip, string port)
         {
+            IAdminProvider dp =
+                (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             string filter;
             if (port == "NA")
             {
@@ -103,7 +107,7 @@ namespace BoardAutoTesting.DAL
             }
 
             int count;
-            DataSet ds = Dp.GetData(TableName, "*", filter, null, null, "", out count);
+            DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
                 return null;
 
@@ -115,10 +119,12 @@ namespace BoardAutoTesting.DAL
 
         public static LineInfo GetModelById(string id)
         {
+            IAdminProvider dp =
+                (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             string filter = string.Format("Craft_Idx = '{0}'", id);
 
             int count;
-            DataSet ds = Dp.GetData(TableName, "*", filter, null, null, "", out count);
+            DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
                 return null;
 
@@ -144,9 +150,11 @@ namespace BoardAutoTesting.DAL
 
         public static List<LineInfo> GetModels()
         {
+            IAdminProvider dp =
+                (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             List<LineInfo> lstInfos = new List<LineInfo>();
             int count;
-            DataSet ds = Dp.GetData(TableName, "*", null, out count);
+            DataSet ds = dp.GetData(TableName, "*", null, out count);
             if (count <= 0) return lstInfos;
 
             DataTable dt = ds.Tables[0];
@@ -161,10 +169,12 @@ namespace BoardAutoTesting.DAL
 
         public static void DeleteModel(LineInfo line)
         {
+            IAdminProvider dp =
+                (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             IDictionary<string, object> mst = new Dictionary<string, object>();
             mst.Add("Craft_Idx", line.CraftId);
 
-            Dp.DeleteData(TableName, mst);
+            dp.DeleteData(TableName, mst);
         }
 
         /// <summary>
@@ -181,7 +191,7 @@ namespace BoardAutoTesting.DAL
             sql = sql.Remove(sql.LastIndexOf(','));
             sql += string.Format(" where {0} = '{1}'", condition, mst[condition]);
 
-            return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile, 
+            return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
                 CommandType.Text, sql, null);
         }
 
@@ -200,16 +210,6 @@ namespace BoardAutoTesting.DAL
             return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
                 CommandType.Text, sql, null);
         }
-
-        /*public static int AteUpdateLineStatus(string ip, string esn)
-        {
-            string sql =
-                string.Format(
-                    "update {0} s set Line_ESN = '{1}' where s.Ate_Ip in (select t.Ate_Ip from (select Line_ESN, Ate_Ip from {0}) t where t.Line_ESN = '' and t.Ate_Ip = '{2}')",
-                    TableName, esn, ip);
-            return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
-                CommandType.Text, sql, null);
-        }*/
 
         /// <summary>
         /// 使用类似存储过程查询并占用机台，防止多线程抢占资源时冲突
