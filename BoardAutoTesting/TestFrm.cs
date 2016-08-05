@@ -53,7 +53,7 @@ namespace BoardAutoTesting
         private void TestFrm_Load(object sender, EventArgs e)
         {
             InitShopFloor();
-            InitSystemInfo();
+            CreateDefaultModel();
             InitMainForm();
             InitCodeSoft();
             InitLog();
@@ -453,10 +453,12 @@ namespace BoardAutoTesting
                 if (login.ShowDialog() == DialogResult.Yes)
                 {
                     InitMainForm();
+                    InitSystemInfo();
                 }
             }
             else
             {
+                CreateDefaultModel();
                 InitMainForm();
             }
         }
@@ -497,22 +499,30 @@ namespace BoardAutoTesting
             btnLogin.Text = _model.IsLogin ? "用户注销" : "用户登入";
         }
 
+        /// <summary>
+        /// 每次登录的时候创建默认的SystemInfo对象，因为每天的工单不同，必须重新登录
+        /// </summary>
+        private void CreateDefaultModel()
+        {
+            _model = new SystemInfo
+            {
+                IsLogin = false,
+                LineId = "-",
+                UserId = "-",
+                UserName = "-",
+                PartName = "-",
+                PartNumber = "-",
+                WoId = "-",
+                UserPwd = ""
+            };
+        }
+
         private void InitSystemInfo()
         {
             string path = Application.StartupPath + @"\config.bin";
             if (!File.Exists(path))
             {
-                _model = new SystemInfo
-                {
-                    IsLogin = false,
-                    LineId = "-",
-                    UserId = "-",
-                    UserName = "-",
-                    PartName = "-",
-                    PartNumber = "-",
-                    WoId = "-",
-                    UserPwd = ""
-                };
+                CreateDefaultModel();
             }
             else
             {
@@ -553,6 +563,9 @@ namespace BoardAutoTesting
                 {
                     try
                     {
+                        if (line.IsOut)
+                            continue;
+
                         int craftNum = Convert.ToInt32(line.CraftId.Remove(0, 5));
 
                         UserCraft craft = (UserCraft) groupPanel1.Controls["craft" + craftNum];

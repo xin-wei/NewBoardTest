@@ -133,8 +133,6 @@ namespace BoardAutoTesting.DataExchange
 
             #endregion
 
-            if (McuClient.Rfid == product.RFID)
-                return;
             McuClient.Rfid = product.RFID;
 
             if (product.IsPass == ProductStatus.Fail.ToString() || strResult != "OK")

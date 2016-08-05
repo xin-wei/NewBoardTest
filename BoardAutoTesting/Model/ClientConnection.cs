@@ -20,7 +20,7 @@ namespace BoardAutoTesting.Model
         private bool _doesClose;
         private IAction _action;
         private string _rfid = "NA";
-        private List<string> _lstRevCommands = new List<string>(); 
+        private readonly List<string> _lstRevCommands = new List<string>(); 
 
         #endregion
 
