@@ -11,7 +11,7 @@ using Commons;
 
 namespace BoardAutoTesting.DataExchange
 {
-    public class CanIn : BaseCommand, IAction 
+    public class CanIn : BaseCommand, IAction
     {
         public CanIn(ClientConnection client)
         {
@@ -65,12 +65,12 @@ namespace BoardAutoTesting.DataExchange
             {
                 //翻天的时候更新记录
                 INIFileUtil iniFile = new INIFileUtil(
-                string.Format(@"{0}\result.ini", Application.StartupPath));
+                    string.Format(@"{0}\result.ini", Application.StartupPath));
                 string lastTime = iniFile.IniReadValue(Resources.Section, "Time");
                 if (DateTime.Parse(lastTime).DayOfYear != DateTime.Now.DayOfYear)
                 {
                     iniFile.IniWriteValue(Resources.Section, "Time",
-                    DateTime.Now.ToString(CultureInfo.InvariantCulture));
+                        DateTime.Now.ToString(CultureInfo.InvariantCulture));
                     List<LineInfo> lineInfos = LineBll.GetModels();
                     foreach (var newLine in lineInfos)
                     {
@@ -127,7 +127,7 @@ namespace BoardAutoTesting.DataExchange
                 }
 
                 Logger.Glog.Info(McuClient.ClientIp, "CanIn.UpdateModel",
-                        Resources.Finish);
+                    Resources.Finish);
                 return;
             }
 
@@ -135,8 +135,20 @@ namespace BoardAutoTesting.DataExchange
 
             McuClient.Rfid = product.RFID;
 
-            if (product.IsPass == ProductStatus.Fail.ToString() || strResult != "OK")
+            if (product.IsPass == ProductStatus.Fail.ToString())
+            {
+                NextStation(product);
                 return;
+            }
+
+            if (strResult != "OK" && !AllRoutes.LstRoutes.Contains(strResult))
+            {
+                Logger.Glog.Info(McuClient.ClientIp,
+                    "CanIn.ExecuteCommand.AllRoutes",
+                    "产品不属于任何途程");
+                McuClient.SendMsg(CmdInfo.Beep);
+                return;
+            }
 
             if (line.RouteName != product.RouteName)
             {
@@ -161,7 +173,7 @@ namespace BoardAutoTesting.DataExchange
                 {
                     //出现异常的概率很小，即使出现了造成卡板，板子拿掉就行
                     Logger.Glog.Info(McuClient.ClientIp,
-                        "CanIn.ExecuteCommand.WaitAndOccupyCraft", 
+                        "CanIn.ExecuteCommand.WaitAndOccupyCraft",
                         "没有分配到机台怎么可能进来，估计抛异常了");
                     return;
                 }
@@ -221,28 +233,41 @@ namespace BoardAutoTesting.DataExchange
             }
             McuClient.SendMsg(CmdInfo.GoInOk);
 
+            if (!EmptyLineStatus())
+                return;
+
+            RedLedOnOrOff(false);
+        }
+
+        /// <summary>
+        /// 更新线体
+        /// </summary>
+        /// <returns>线体状态是否更新成功</returns>
+        private bool EmptyLineStatus()
+        {
             LineInfo line = LineBll.GetModelByIpPort(McuClient.ClientIp, "NA");
             if (line == null)
             {
                 //应该是不可能出现的问题
                 Logger.Glog.Info(McuClient.ClientIp,
-                    "CanIn.InStation.GetModelByIpPort",
+                    "CanIn.EmptyLineStatus.GetModelByIpPort",
                     Resources.UnconfigedCraft);
-                return;
+                return false;
             }
             if (line.LineEsn == "")
-                return;
-
-            line.LineEsn = "";
-            if (!LineBll.SureToUpdateModel(line, "Mcu_Ip"))
             {
-                Logger.Glog.Info(McuClient.ClientIp, "CanIn.InStation.SureToUpdateModel",
-                    Resources.UpdateError);
+                Logger.Glog.Info(McuClient.ClientIp,
+                    "CanIn.EmptyLineStatus.GetModelByIpPort",
+                    "没更新怎么就清空线体了，是个问题");
+                return true;
             }
 
-            RedLedOnOrOff(false);
-            Logger.Glog.Info(McuClient.ClientIp,
-                "CanIn.InStation.SureToUpdateModel", "进站完成");
+            line.LineEsn = "";
+            if (LineBll.SureToUpdateModel(line, "Mcu_Ip")) return true;
+
+            Logger.Glog.Info(McuClient.ClientIp, "CanIn.EmptyLineStatus.SureToUpdateModel",
+                Resources.UpdateError);
+            return false;
         }
 
         private void NextStation(ProductInfo product)
@@ -282,29 +307,10 @@ namespace BoardAutoTesting.DataExchange
             }
             McuClient.SendMsg(CmdInfo.GoNextOk);
 
-            LineInfo line = LineBll.GetModelByIpPort(McuClient.ClientIp, "NA");
-            if (line == null)
-            {
-                //应该是不可能出现的问题
-                Logger.Glog.Info(McuClient.ClientIp,
-                    "CanIn.NextStation.GetModelByIpPort",
-                    Resources.UnconfigedCraft);
-                return;
-            }
-            if (line.LineEsn == "")
+            if (!EmptyLineStatus())
                 return;
 
-            line.LineEsn = "";
-            if (!LineBll.SureToUpdateModel(line, "Mcu_Ip"))
-            {
-                //应该是不可能发生的
-                Logger.Glog.Info(McuClient.ClientIp,
-                    "CanIn.NextStation.SureToUpdateModel",
-                    Resources.UpdateError);
-            }
-
-            Logger.Glog.Info(McuClient.ClientIp,
-                "CanIn.NextStation.SureToUpdateModel", "过站完成");
+            RedLedOnOrOff(false);
         }
 
     }

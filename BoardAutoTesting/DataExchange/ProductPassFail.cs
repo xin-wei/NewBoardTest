@@ -49,9 +49,6 @@ namespace BoardAutoTesting.DataExchange
 
             OutFinished(line);
 
-            Logger.Glog.Info(McuClient.ClientIp,
-                "ProductPassFail.OutFinished.SureToUpdateModel",
-                Resources.CommandExecuted);
             RedLedOnOrOff(false);
         }
 

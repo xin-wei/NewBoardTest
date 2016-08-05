@@ -225,11 +225,12 @@
             // Route_Name
             // 
             this.Route_Name.DataPropertyName = "RouteName";
-            this.Route_Name.FillWeight = 140F;
+            this.Route_Name.FillWeight = 180F;
             this.Route_Name.HeaderText = "站位";
             this.Route_Name.Name = "Route_Name";
             this.Route_Name.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Route_Name.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Route_Name.Width = 180;
             // 
             // MCU_IP
             // 

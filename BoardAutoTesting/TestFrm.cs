@@ -58,7 +58,8 @@ namespace BoardAutoTesting
             InitCodeSoft();
             InitLog();
             InitSerialPort();
-            InitIni();
+            InitCountIni();
+            InitRoutes();
 
             txtBarcode.Enabled = false;
             btnStartServer.Enabled = true;
@@ -78,7 +79,7 @@ namespace BoardAutoTesting
             t.Start();
         }
 
-        private static void InitIni()
+        private static void InitCountIni()
         {
             INIFileUtil iniFile = new INIFileUtil(
                 string.Format(@"{0}\result.ini", Application.StartupPath));
@@ -95,6 +96,19 @@ namespace BoardAutoTesting
             {
                 iniFile.IniWriteValue(Resources.Section, line.CraftId, "0/0");
             }
+        }
+
+        private static void InitRoutes()
+        {
+            List<LineInfo> lstLines = LineBll.GetModels();
+            if (lstLines == null)
+            {
+                MessageUtil.ShowError(Resources.UnconfigedCraft);
+                Application.Exit();
+                return;
+            }
+
+            AllRoutes.LstRoutes = lstLines.Select(line => line.RouteName).ToList();
         }
 
         private void InitSerialPort()

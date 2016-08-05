@@ -24,7 +24,7 @@ namespace BoardAutoTesting.DataExchange
             string port;
             if (!GetPortResult(cmd, out port))
             {
-                Logger.Glog.Info(AteClient.ClientIp, 
+                Logger.Glog.Info(AteClient.ClientIp,
                     "ReTest.ExecuteCommand.GetPortResult",
                     Resources.WrongCommand);
                 return;
@@ -33,7 +33,7 @@ namespace BoardAutoTesting.DataExchange
             LineInfo line = LineBll.GetModelByIpPort(AteClient.ClientIp, port);
             if (line == null) //应该是不可能出现的情况
             {
-                Logger.Glog.Info(AteClient.ClientIp, 
+                Logger.Glog.Info(AteClient.ClientIp,
                     "ReTest.ExecuteCommand.GetModelByIpPort",
                     Resources.UnconfigedCraft);
                 return;
@@ -77,8 +77,6 @@ namespace BoardAutoTesting.DataExchange
 
             McuClient.SendMsg(CmdInfo.GoRetestOk);
             RedLedOnOrOff(false);
-            Logger.Glog.Info(McuClient.ClientIp,
-                "ReTest.ExecuteCommand", Resources.CommandExecuted);
         }
 
 

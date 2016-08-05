@@ -81,8 +81,8 @@ namespace BoardAutoTesting.DataExchange
             port = cmd.Substring(cmd.Length - 1, 1);
 #endif
 
-            return cmd.Contains("RESULT:PASS") || cmd.Contains("RESULT:FAIL") 
-                || cmd.Contains("RESULT:RETEST") || cmd.Contains("TEST:MAC");
+            return cmd.Contains("RESULT:PASS") || cmd.Contains("RESULT:FAIL")
+                   || cmd.Contains("RESULT:RETEST") || cmd.Contains("TEST:MAC");
         }
 
         /// <summary>

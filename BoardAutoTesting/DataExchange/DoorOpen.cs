@@ -22,8 +22,8 @@ namespace BoardAutoTesting.DataExchange
             {
                 //应该是不可能出现的情况
                 Logger.Glog.Info(McuClient.ClientIp,
-                "DoorOpen.ExecuteCommand.UpdateLine",
-                Resources.UpdateError);
+                    "DoorOpen.ExecuteCommand.UpdateLine",
+                    Resources.UpdateError);
                 return;
             }
 
@@ -31,8 +31,8 @@ namespace BoardAutoTesting.DataExchange
             {
                 //应该是不可能出现的情况
                 Logger.Glog.Info(McuClient.ClientIp,
-                "DoorOpen.ExecuteCommand.UpdateOnLineProduct",
-                Resources.UpdateError);
+                    "DoorOpen.ExecuteCommand.UpdateOnLineProduct",
+                    Resources.UpdateError);
                 return;
             }
 
@@ -40,13 +40,15 @@ namespace BoardAutoTesting.DataExchange
             {
                 //应该是不可能出现的情况
                 Logger.Glog.Info(McuClient.ClientIp,
-                "DoorOpen.ExecuteCommand.UpdateTestingProduct",
-                Resources.UpdateError);
+                    "DoorOpen.ExecuteCommand.UpdateTestingProduct",
+                    Resources.UpdateError);
                 return;
             }
 
+            RedLedOnOrOff(true);
             Logger.Glog.Info(McuClient.ClientIp,
-                "DoorOpen.ExecuteCommand", Resources.CommandExecuted);
+                "DoorOpen.ExecuteCommand",
+                Resources.CommandExecuted);
         }
 
         private bool UpdateOnLineProduct(string craft)

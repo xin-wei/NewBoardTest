@@ -48,14 +48,14 @@ namespace BoardAutoTesting.DAL
 
         public static void InsertModel(ProductInfo product)
         {
-            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
+            IAdminProvider dp = (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             IDictionary<string, object> mst = GetModelDic(product);
             dp.AddData(TableName, mst);
         }
 
         public static ProductInfo GetModelByIpStatus(string ip, ProductAction action)
         {
-            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
+            IAdminProvider dp = (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             string filter = string.Format("Current_IP = '{0}' and Action_Name = '{1}'",
                 ip, action);
             int count;
@@ -71,7 +71,7 @@ namespace BoardAutoTesting.DAL
 
         public static ProductInfo GetModelByRfid(string id)
         {
-            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
+            IAdminProvider dp = (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             string filter = string.Format("RFID = '{0}'", id);
             int count;
             DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
@@ -86,7 +86,7 @@ namespace BoardAutoTesting.DAL
 
         public static ProductInfo GetModelByCraftStatus(string id, ProductAction action)
         {
-            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
+            IAdminProvider dp = (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             string filter = string.Format("Craft_Idx = '{0}' and Action_Name = '{1}'",
                 id, action);
             int count;
@@ -102,11 +102,11 @@ namespace BoardAutoTesting.DAL
 
         public static List<ProductInfo> GetModels()
         {
-            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
+            IAdminProvider dp = (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             List<ProductInfo> lstInfos = new List<ProductInfo>();
             int count;
             DataSet ds = dp.GetData(TableName, "*", null, out count);
-            if (count <= 0) 
+            if (count <= 0)
                 return lstInfos;
 
             DataTable dt = ds.Tables[0];
@@ -121,7 +121,7 @@ namespace BoardAutoTesting.DAL
 
         public static void DeleteModel(ProductInfo product)
         {
-            IAdminProvider dp = (IAdminProvider)DpFactory.Create(typeof(IAdminProvider), DpFactory.ADMIN);
+            IAdminProvider dp = (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             IDictionary<string, object> mst = new Dictionary<string, object>();
             mst.Add("RFID", product.RFID);
 
@@ -131,7 +131,7 @@ namespace BoardAutoTesting.DAL
         public static int UpdateModel(ProductInfo product)
         {
             IDictionary<string, object> mst = GetModelDic(product);
-            string sql = mst.Keys.Aggregate("update " + TableName + " set ", 
+            string sql = mst.Keys.Aggregate("update " + TableName + " set ",
                 (current, key) => current + (key + " = '" + mst[key] + "',"));
             sql = sql.Remove(sql.LastIndexOf(','));
             sql += string.Format(" where RFID = '{0}'", product.RFID);

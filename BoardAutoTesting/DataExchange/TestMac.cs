@@ -31,7 +31,7 @@ namespace BoardAutoTesting.DataExchange
                 //应该是不可能出现的情况
                 AteClient.SendMsg(AteClient.ClientIp);
                 Logger.Glog.Info(AteClient.ClientIp,
-                    "TestMac.ExecuteCommand.GetModelByIpPort", 
+                    "TestMac.ExecuteCommand.GetModelByIpPort",
                     Resources.UnconfigedCraft);
                 return;
             }

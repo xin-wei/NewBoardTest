@@ -3,6 +3,14 @@
     public class CmdInfo
     {
         /// <summary>
+        /// 遇到不属于任何途程的产品，蜂鸣器报警
+        /// </summary>
+        public static string Beep
+        {
+            get { return "*BEEP#"; }
+        }
+
+        /// <summary>
         /// *Door:Open#
         /// </summary>
         public static string DoorOpen

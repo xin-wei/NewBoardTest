@@ -35,8 +35,8 @@ namespace BoardAutoTesting.DataExchange
                 return;
             }
 
-            Logger.Glog.Info(McuClient.ClientIp,
-                "DoorClose.ExecuteCommand", Resources.CommandExecuted);
+            RedLedOnOrOff(false);
+
         }
     }
 }
