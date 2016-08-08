@@ -15,6 +15,8 @@ namespace BoardAutoTesting.DAL
     public class LineDal
     {
         private const string TableName = "centercontrol.tb_line_info";
+		private const string StrConn =
+            "Database = centercontrol; Data Source = 127.0.0.1; User Id = root; Password = ; Port = 3306";
 
         private static IDictionary<string, object> GetModelDic(LineInfo line)
         {
@@ -199,7 +201,7 @@ namespace BoardAutoTesting.DAL
             sql = sql.Remove(sql.LastIndexOf(','));
             sql += string.Format(" where {0} = '{1}'", condition, mst[condition]);
 
-            return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
+            return MySqlHelper.ExecuteNonQuery(StrConn,
                 CommandType.Text, sql, null);
         }
 
@@ -215,7 +217,7 @@ namespace BoardAutoTesting.DAL
                 string.Format(
                     "update {0} s set Line_ESN = '{1}' where s.Mcu_Ip in (select t.Mcu_Ip from (select Line_ESN, Mcu_Ip from {0} for update) t where t.Line_ESN = '' and t.Mcu_Ip = '{2}' for update)",
                     TableName, esn, ip);
-            return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
+            return MySqlHelper.ExecuteNonQuery(StrConn,
                 CommandType.Text, sql, null);
         }
 
@@ -244,8 +246,8 @@ namespace BoardAutoTesting.DAL
                 Value = ""
             };
 
-            int i = MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
-                CommandType.StoredProcedure, "testdb.getCraft", param1, param2, param3);
+            int i = MySqlHelper.ExecuteNonQuery(StrConn,
+                CommandType.StoredProcedure, "getCraft", param1, param2, param3);
             ip = param3.Value.ToString();
             return i;
         }

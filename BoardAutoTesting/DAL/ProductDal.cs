@@ -11,6 +11,8 @@ namespace BoardAutoTesting.DAL
     public class ProductDal
     {
         private const string TableName = "centercontrol.tb_product_info";
+        private const string StrConn =
+            "Database = centercontrol; Data Source = 127.0.0.1; User Id = root; Password = ; Port = 3306";
 
         private static IDictionary<string, object> GetModelDic(ProductInfo product)
         {
@@ -146,7 +148,7 @@ namespace BoardAutoTesting.DAL
             sql = sql.Remove(sql.LastIndexOf(','));
             sql += string.Format(" where RFID = '{0}'", product.RFID);
 
-            return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile, CommandType.Text,
+            return MySqlHelper.ExecuteNonQuery(StrConn, CommandType.Text,
                 sql, null);
         }
 
