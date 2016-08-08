@@ -32,6 +32,7 @@ namespace BoardAutoTesting
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginFrm));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cbxLines = new System.Windows.Forms.ComboBox();
+            this.systemInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.txtPwd = new System.Windows.Forms.TextBox();
             this.txtUserId = new System.Windows.Forms.TextBox();
@@ -41,7 +42,6 @@ namespace BoardAutoTesting
             this.btnLogin = new System.Windows.Forms.Button();
             this.txtWorkOrder = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.systemInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.systemInfoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -59,11 +59,17 @@ namespace BoardAutoTesting
             // cbxLines
             // 
             this.cbxLines.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.systemInfoBindingSource, "LineId", true));
+            this.cbxLines.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.systemInfoBindingSource, "LineId", true));
             this.cbxLines.FormattingEnabled = true;
             this.cbxLines.Location = new System.Drawing.Point(200, 109);
             this.cbxLines.Name = "cbxLines";
             this.cbxLines.Size = new System.Drawing.Size(163, 23);
             this.cbxLines.TabIndex = 22;
+            this.cbxLines.SelectedIndexChanged += new System.EventHandler(this.cbxLines_SelectedIndexChanged);
+            // 
+            // systemInfoBindingSource
+            // 
+            this.systemInfoBindingSource.DataSource = typeof(BoardAutoTesting.Model.SystemInfo);
             // 
             // label6
             // 
@@ -86,7 +92,7 @@ namespace BoardAutoTesting
             // 
             // txtUserId
             // 
-            this.txtUserId.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.systemInfoBindingSource, "UserName", true));
+            this.txtUserId.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.systemInfoBindingSource, "UserId", true));
             this.txtUserId.Location = new System.Drawing.Point(200, 29);
             this.txtUserId.Name = "txtUserId";
             this.txtUserId.Size = new System.Drawing.Size(163, 25);
@@ -148,10 +154,6 @@ namespace BoardAutoTesting
             this.label5.Size = new System.Drawing.Size(68, 15);
             this.label5.TabIndex = 19;
             this.label5.Text = "¹¤  µ¥£º";
-            // 
-            // systemInfoBindingSource
-            // 
-            this.systemInfoBindingSource.DataSource = typeof(BoardAutoTesting.Model.SystemInfo);
             // 
             // LoginFrm
             // 

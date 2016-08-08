@@ -33,7 +33,10 @@ namespace BoardAutoTesting.Model
 
         public string ClientIp
         {
-            get { return ((IPEndPoint) _socket.RemoteEndPoint).Address.ToString(); }
+            get
+            {
+                return _socket != null ? ((IPEndPoint) _socket.RemoteEndPoint).Address.ToString() : "";
+            }
         }
 
         public string Rfid
@@ -196,14 +199,16 @@ namespace BoardAutoTesting.Model
                 cmd.Contains(CmdInfo.DoorClose))
             {
                 _action = CommandFactory(cmd);
-                if (_action != null)
-                {
-                    _action.ExecuteCommand(cmd);
-                    _lstRevCommands.Remove(cmd);//指令执行完就删掉
-                }
-                else
-                    Logger.Glog.Info(ClientIp, "ClientConnection.Response.CommandFactory",
-                        "指令无法解析或重复发送");
+                if (_action == null) return;
+
+                _action.ExecuteCommand(cmd);
+                _lstRevCommands.Remove(cmd);//指令执行完就删掉
+            }
+            else if (cmd.Contains(CmdInfo.NextBusy) || cmd.Contains(CmdInfo.InBusy) ||
+                cmd.Contains(CmdInfo.OutBusy) || cmd.Contains(CmdInfo.OutIdle) || 
+                cmd.Contains(CmdInfo.RepException))
+            {
+                Logger.Glog.Info(ClientIp, "ClientConnection.Response", cmd);
             }
             else //其他情况直接给全局变量赋值，相当于对消息进行分发
             {

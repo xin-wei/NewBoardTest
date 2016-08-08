@@ -53,20 +53,25 @@ namespace BoardAutoTesting.DAL
             dp.AddData(TableName, mst);
         }
 
-        public static ProductInfo GetModelByIpStatus(string ip, ProductAction action)
+        public static List<ProductInfo> GetModelByIpStatus(string ip, ProductAction action)
         {
             IAdminProvider dp = (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             string filter = string.Format("Current_IP = '{0}' and Action_Name = '{1}'",
                 ip, action);
             int count;
             DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
-            if (count != 1)
+            if (count <= 0)
                 return null;
 
+            List<ProductInfo> lstInfos = new List<ProductInfo>();
             DataTable dt = ds.Tables[0];
-            DataRow dr = dt.Rows[0];
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataRow dr = dt.Rows[i];
+                lstInfos.Add(ToModel(dr));
+            }
 
-            return ToModel(dr);
+            return lstInfos;
         }
 
         public static ProductInfo GetModelByRfid(string id)
@@ -84,20 +89,25 @@ namespace BoardAutoTesting.DAL
             return ToModel(dr);
         }
 
-        public static ProductInfo GetModelByCraftStatus(string id, ProductAction action)
+        public static List<ProductInfo> GetModelByCraftStatus(string id, ProductAction action)
         {
             IAdminProvider dp = (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             string filter = string.Format("Craft_Idx = '{0}' and Action_Name = '{1}'",
                 id, action);
             int count;
             DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
-            if (count != 1)
+            if (count <= 0)
                 return null;
 
+            List<ProductInfo> lstInfos = new List<ProductInfo>();
             DataTable dt = ds.Tables[0];
-            DataRow dr = dt.Rows[0];
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataRow dr = dt.Rows[i];
+                lstInfos.Add(ToModel(dr));
+            }
 
-            return ToModel(dr);
+            return lstInfos;
         }
 
         public static List<ProductInfo> GetModels()

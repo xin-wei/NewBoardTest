@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using BoardAutoTesting.DAL;
 using BoardAutoTesting.Model;
@@ -14,9 +15,19 @@ namespace BoardAutoTesting.BLL
             ProductDal.InsertModel(product);
         }
 
-        public static ProductInfo GetProductInfoByIpStatus(string ip, ProductAction action)
+        public static ProductInfo GetModelByIpStatus(string ip, ProductAction action)
         {
-            return ProductDal.GetModelByIpStatus(ip, action);
+            List<ProductInfo> lstProducts = ProductDal.GetModelByIpStatus(ip, action);
+            if (lstProducts == null)
+                return null;
+
+            if (lstProducts.Count == 1)
+                return lstProducts[0];
+
+            return (from t in lstProducts
+                    let line = LineBll.GetModelByIpPort(t.CurrentIp, "NA")
+                    where line.CraftEsn == t.ESN
+                    select t).FirstOrDefault();
         }
 
         public static ProductInfo GetModelByRfid(string id)
@@ -56,9 +67,26 @@ namespace BoardAutoTesting.BLL
             return false;
         }
 
+        /// <summary>
+        /// 根据机台状态获取产品信息
+        /// 为了防止数据库中垃圾信息的干扰，对查询到的信息做了核对
+        /// </summary>
+        /// <param name="id">机台id</param>
+        /// <param name="action">产品动作</param>
+        /// <returns>查询到的产品信息</returns>
         public static ProductInfo GetModelByCraftStatus(string id, ProductAction action)
         {
-            return ProductDal.GetModelByCraftStatus(id, action);
+            List<ProductInfo> lstProducts = ProductDal.GetModelByCraftStatus(id, action);
+            if (lstProducts == null)
+                return null;
+
+            if (lstProducts.Count == 1)
+                return lstProducts[0];
+
+            return (from t in lstProducts 
+                    let line = LineBll.GetModelByIpPort(t.CurrentIp, "NA") 
+                    where line.CraftEsn == t.ESN 
+                    select t).FirstOrDefault();
         }
     }
 }

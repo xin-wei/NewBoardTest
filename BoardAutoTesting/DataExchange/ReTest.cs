@@ -39,7 +39,7 @@ namespace BoardAutoTesting.DataExchange
                 return;
             }
 
-            ProductInfo product = ProductBll.GetProductInfoByIpStatus(line.McuIp,
+            ProductInfo product = ProductBll.GetModelByIpStatus(line.McuIp,
                 ProductAction.Testing);
             if (product == null)
             {

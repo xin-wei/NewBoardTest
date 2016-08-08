@@ -15,7 +15,9 @@ namespace BoardAutoTesting.DataExchange
 
         public void ExecuteCommand(string command)
         {
+            McuClient.IsOpenDoor = false;
             McuClient.SendMsg(CmdInfo.CloseGet);
+
             LineInfo line = LineBll.GetModelByIpPort(McuClient.ClientIp, command);
             if (line == null)
             {

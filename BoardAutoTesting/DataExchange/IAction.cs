@@ -14,7 +14,7 @@ namespace BoardAutoTesting.DataExchange
     public class BaseCommand
     {
         protected const int SendInterval = 3000;
-        protected const int ResendTimes = 5;
+        protected const int ResendTimes = 10;
         protected readonly int TimeOut = SendInterval*ResendTimes;
         protected ClientConnection AteClient;
         protected ClientConnection McuClient;
@@ -82,7 +82,7 @@ namespace BoardAutoTesting.DataExchange
 #endif
 
             return cmd.Contains("RESULT:PASS") || cmd.Contains("RESULT:FAIL")
-                   || cmd.Contains("RESULT:RETEST") || cmd.Contains("TEST:MAC");
+                   || cmd.Contains("RESULT:RETEST") || cmd.Contains("TEST:MAC?");
         }
 
         /// <summary>

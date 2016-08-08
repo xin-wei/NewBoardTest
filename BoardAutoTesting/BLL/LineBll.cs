@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using BoardAutoTesting.DAL;
 using BoardAutoTesting.Log;
 using BoardAutoTesting.Model;
+using BoardAutoTesting.Properties;
 
 namespace BoardAutoTesting.BLL
 {
@@ -66,67 +66,56 @@ namespace BoardAutoTesting.BLL
 
             while (endTick - startTick < 3000)
             {
-                if (UpdateModel(line, condition) == 1)
-                    return true;
+                try
+                {
+                    if (UpdateModel(line, condition) == 1)
+                        return true;
 
-                Thread.Sleep(300);
-                endTick = Environment.TickCount;
+                    Thread.Sleep(300);
+                    endTick = Environment.TickCount;
+                }
+                catch (Exception e)
+                {
+                    Logger.Glog.Info(line.McuIp, "LineBll.SureToUpdateModel.Exception", 
+                        e.Message);
+                }
             }
 
             return false;
         }
 
-        /// <summary>
-        /// 根据途程名称检测该途程上有没有空机台
-        /// </summary>
-        /// <param name="route">指定途程</param>
-        /// <returns>分配的机台Id</returns>
-        private static string GetEmptyCraft(string route)
-        {
-            try
-            {
-                List<LineInfo> lstInfos = LineDal.GetModelByRouteEmptyCraft(route);
-                if (lstInfos == null || lstInfos.Count < 1) return "";
-                return lstInfos[0].CraftId;
-            }
-            catch (Exception e)
-            {
-                Logger.Glog.Info(e.Message);
-                return "";
-            }
-        }
-
-        public static void WaitAndOccupyCraft(ClientConnection client, 
+        public static void WaitAndOccupyCraft(ClientConnection client,
             string strRoute, string occupationEsn, out string givenCraft)
         {
-            givenCraft = "";
-            Logger.Glog.Info(client.ClientIp, "WaitAndOccupyCraft" + occupationEsn,
-                "开始抢夺机台");
-            try
+            while (true)
             {
-                while (true)
+                try
                 {
-                    if (client.IsOpenDoor)
-                        break;
-
-                    givenCraft = GetEmptyCraft(strRoute);
-                    if (givenCraft == "")
+                    string ip;
+                    if (LineDal.UpdateCraftStatus(occupationEsn, strRoute, out ip) == 1)
                     {
-                        Thread.Sleep(300);
-                        continue;
+                        LineInfo line = GetModelByIpPort(ip, "NA");
+                        if (line == null)
+                        {
+                            //应该是不可能出现的问题
+                            Logger.Glog.Info(client.ClientIp,
+                                "LineBll.WaitAndOccupyCraft.GetModelByIpPort",
+                                Resources.UnconfigedCraft);
+                            continue;
+                        }
+                        givenCraft = line.CraftId;
+                        break;
                     }
 
-                    if (LineDal.UpdateCraftStatus(occupationEsn, strRoute) == 1)
-                        break;
+                    Thread.Sleep(300);
                 }
+                catch (Exception e)
+                {
+                    Logger.Glog.Info(client.ClientIp,
+                        "LineBll.WaitAndOccupyCraft.Exception", e.Message);
+                }
+            }
 
-                Logger.Glog.Info(client.ClientIp, "LineBll.WaitAndOccupyCraft", givenCraft);
-            }
-            catch (Exception e)
-            {
-                Logger.Glog.Info(client.ClientIp,
-                    "LineBll.WaitAndOccupyCraft.Exception", e.Message);
-            }
         }
 
         /// <summary>
@@ -136,11 +125,9 @@ namespace BoardAutoTesting.BLL
         /// <param name="occupationEsn">抢到线体的板子</param>
         public static void WaitAndOccupyLine(ClientConnection client, string occupationEsn)
         {
-            Logger.Glog.Info(client.ClientIp, "WaitAndOccupyLine:" + occupationEsn, 
-                "单片机开始抢夺线体");
-            try
+            while (true)
             {
-                while (true)
+                try
                 {
                     if (client.IsOpenDoor)
                         break;
@@ -150,13 +137,11 @@ namespace BoardAutoTesting.BLL
 
                     Thread.Sleep(300);
                 }
-
-                Logger.Glog.Info(client.ClientIp, "WaitAndOccupyLine:" + occupationEsn, "OK");
-            }
-            catch (Exception e)
-            {
-                Logger.Glog.Info(client.ClientIp,
-                    "LineBll.WaitAndOccupyLine.Exception", e.Message);
+                catch (Exception e)
+                {
+                    Logger.Glog.Info(client.ClientIp,
+                        "LineBll.WaitAndOccupyLine.Exception", e.Message);
+                }
             }
         }
 

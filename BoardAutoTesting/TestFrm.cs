@@ -73,7 +73,7 @@ namespace BoardAutoTesting
             txtPort.Text = Resources.Port;
 
             ClientConnection.Ate = _ate;
-            ClientConnection.SysModel = _model;
+            
 
             Thread t = new Thread(ChangeState) {IsBackground = true};
             t.Start();
@@ -206,27 +206,53 @@ namespace BoardAutoTesting
             string cmd = e.DataReceived;
             if (cmd.Contains(CmdInfo.CanIn))
             {
-                //防止还没扫到sn，单片机就发送rfid了
-                if (string.IsNullOrEmpty(_strLastEsn)) return;
-
                 string tempRfid = cmd.Replace("*", "").Replace("#", "").Replace(":IN?", "").Trim();
-                _serialPort.WriteData(CmdInfo.GoInGet);
+                if (tempRfid.Length != 8) return;
                 if (_strComRfid == tempRfid) return;
-                _strComRfid = tempRfid.Substring(0, 8);
+                _strComRfid = tempRfid;
 
+                //超时没扫到就报错
+                int startTick = Environment.TickCount;
+                int endTick = Environment.TickCount;
+                while (string.IsNullOrEmpty(_strLastEsn))
+                {
+                    if (endTick - startTick <= 3000) continue;
+
+                    OperationControl.ShowStatus(lblStatus, 
+                        OperationControl.TypeList.Error, "NO ESN");
+
+                    _strComRfid = "";
+                    return;
+                }
+                _serialPort.WriteData(CmdInfo.GoInGet);
+                
                 Thread t = new Thread(() =>
                 {
-                    OperationControl.ShowStatus(lblStatus, 
+                    OperationControl.ShowStatus(lblStatus,
                         OperationControl.TypeList.Running, "Running");
 
-                    if (string.IsNullOrEmpty(_strLastEsn))
+                    if (string.IsNullOrEmpty(_strLastEsn) || 
+                        string.IsNullOrEmpty(_strComRfid))
                     {
+                        Logger.Glog.Info("怎么可能没有条码或RFID！");
                         NextEnd(_strLastEsn);
                         return;
                     }
 
                     ProductInfo product = ProductBll.GetModelByRfid(_strComRfid);
-                    if (product == null)
+                    if (product != null)
+                    {
+                        product.ESN = _strLastEsn;
+                        product.IsPass = ProductStatus.UnKnown.ToString();
+                        product.RouteName = "NA";
+                        product.CraftId = "NA";
+                        product.CurrentIp = "NA";
+                        product.OldIp = "NA";
+                        product.ActionName = ProductAction.OnLine.ToString();
+                        product.ATEIp = "NA";
+                        ProductBll.SureToUpdateModel(product);
+                    }
+                    else
                     {
                         ProductInfo newProduct = new ProductInfo
                         {
@@ -242,22 +268,6 @@ namespace BoardAutoTesting
                         };
                         ProductBll.InsertModel(newProduct);
                     }
-                    else
-                    {
-                        product.ESN = _strLastEsn;
-                        product.IsPass = ProductStatus.UnKnown.ToString();
-                        product.RouteName = "NA";
-                        product.CraftId = "NA";
-                        product.CurrentIp = "NA";
-                        product.OldIp = "NA";
-                        product.ActionName = ProductAction.OnLine.ToString();
-                        product.ATEIp = "NA";
-                        if (!ProductBll.SureToUpdateModel(product)) return;
-                        //应该是不可能出现的
-                        MessageUtil.ShowError("产品数据更新失败");
-                        OperationControl.ShowStatus(lblStatus,
-                            OperationControl.TypeList.Error, "Update Error");
-                    }
 
                     while (!_bCanIn)
                     {
@@ -269,7 +279,7 @@ namespace BoardAutoTesting
 
                     NextEnd(_strLastEsn);
 
-                }) {IsBackground = true};
+                }) { IsBackground = true };
                 t.Start();
             }
 
@@ -291,12 +301,15 @@ namespace BoardAutoTesting
             _bCanIn = true;
         }
 
+
         private void NextEnd(string sn)
         {
             if (!string.IsNullOrEmpty(sn))
-                OperationControl.ShowStatus(lblStatus, OperationControl.TypeList.Incoming, sn);
+                OperationControl.ShowStatus(lblStatus, 
+                    OperationControl.TypeList.Incoming, sn);
             else
-                OperationControl.ShowStatus(lblStatus, OperationControl.TypeList.Error, "NO ESN");
+                OperationControl.ShowStatus(lblStatus, 
+                    OperationControl.TypeList.Error, "NO ESN");
 
             _strLastEsn = "";
             _strComRfid = "";
@@ -399,7 +412,6 @@ namespace BoardAutoTesting
                 }
             }
             _strLastEsn = strEsn;
-            _strComRfid = string.Empty;
         }
 
         private void CloseServer()
@@ -466,8 +478,9 @@ namespace BoardAutoTesting
                 LoginFrm login = new LoginFrm();
                 if (login.ShowDialog() == DialogResult.Yes)
                 {
-                    InitMainForm();
                     InitSystemInfo();
+                    InitMainForm();
+                    ClientConnection.SysModel = _model;
                 }
             }
             else
@@ -609,6 +622,7 @@ namespace BoardAutoTesting
                             btnCraft.Text = showResult;
                         });
 
+                        Application.DoEvents();
                     }
                     catch (Exception e)
                     {
@@ -625,7 +639,7 @@ namespace BoardAutoTesting
 
                 }
 
-                Thread.Sleep(4000);
+                Thread.Sleep(3000);
             }
         }
     }

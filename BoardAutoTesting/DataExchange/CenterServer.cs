@@ -54,16 +54,16 @@ namespace BoardAutoTesting.DataExchange
                 {
                     Socket cSocket = _sockWatchPort.Accept();
                     ClientConnection conn = new ClientConnection(cSocket);
-                    string msg = string.Format("客户端：{0}连接成功...",
-                        ((IPEndPoint)cSocket.RemoteEndPoint).Address);
-                    Logger.Glog.Info(msg);
-                    DictConnections.Add(
-                        ((IPEndPoint)cSocket.RemoteEndPoint).Address.ToString(), conn);
+                    string ip = ((IPEndPoint)cSocket.RemoteEndPoint).Address.ToString();
+
+                    if (DictConnections.ContainsKey(ip))
+                        DictConnections[ip] = conn;
+                    else
+                        DictConnections.Add(ip, conn);
                 }
                 catch (Exception e)
                 {
                     Logger.Glog.Info("WatchPort():" + e.Message);
-                    break;
                 }
             }
         }

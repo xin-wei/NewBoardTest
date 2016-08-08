@@ -60,6 +60,7 @@ namespace BoardAutoTesting
             }
 
             txtUserId.Focus();
+            cbxLines_SelectedIndexChanged(sender, EventArgs.Empty);
         }
 
         private void GetConfig(string path)
@@ -173,6 +174,11 @@ namespace BoardAutoTesting
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private void cbxLines_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //do nothing here, just to solve the unselected bug.
         }
     }
 }

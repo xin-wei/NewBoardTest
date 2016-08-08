@@ -61,7 +61,7 @@ namespace BoardAutoTesting.DataExchange
                 Logger.Glog.Info(McuClient.ClientIp,
                     "DoorOpen.UpdateOnLineProduct.GetProductInfoByIpStatus",
                     Resources.NoTestingProduct);
-                return true;
+                return false;
             }
 
             product.IsPass = ProductStatus.Fail.ToString();
@@ -71,7 +71,7 @@ namespace BoardAutoTesting.DataExchange
 
         private bool UpdateTestingProduct()
         {
-            ProductInfo product = ProductBll.GetProductInfoByIpStatus(
+            ProductInfo product = ProductBll.GetModelByIpStatus(
                 McuClient.ClientIp, ProductAction.Testing);
             if (product == null)
             {
@@ -79,7 +79,7 @@ namespace BoardAutoTesting.DataExchange
                 Logger.Glog.Info(McuClient.ClientIp,
                     "DoorOpen.UpdateTestingProduct.GetProductInfoByIpStatus",
                     Resources.NoTestingProduct);
-                return true;
+                return false;
             }
 
             product.IsPass = ProductStatus.Fail.ToString();

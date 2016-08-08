@@ -3,6 +3,46 @@
     public class CmdInfo
     {
         /// <summary>
+        /// *IN:busy#，有板子在测试
+        /// </summary>
+        public static string InBusy
+        {
+            get { return "*IN:busy#"; }
+        }
+
+        /// <summary>
+        /// *OUT:busy#，线体非空
+        /// </summary>
+        public static string OutBusy
+        {
+            get { return "*OUT:busy#"; }
+        }
+
+        /// <summary>
+        /// *OUT:idle#，没有板子在测试
+        /// </summary>
+        public static string OutIdle
+        {
+            get { return "*OUT:idle#"; }
+        }
+
+        /// <summary>
+        /// *NEXT:busy#，线体非空
+        /// </summary>
+        public static string NextBusy
+        {
+            get { return "*NEXT:busy#"; }
+        }
+
+        /// <summary>
+        /// *REP:exception#，没有板子在测试
+        /// </summary>
+        public static string RepException
+        {
+            get { return "*REP:exception#"; }
+        }
+
+        /// <summary>
         /// 遇到不属于任何途程的产品，蜂鸣器报警
         /// </summary>
         public static string Beep

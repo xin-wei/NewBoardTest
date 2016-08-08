@@ -36,7 +36,7 @@ namespace BoardAutoTesting.DataExchange
                 return;
             }
 
-            ProductInfo product1 = ProductBll.GetProductInfoByIpStatus(line.McuIp,
+            ProductInfo product1 = ProductBll.GetModelByIpStatus(line.McuIp,
                 ProductAction.Testing);
             if (product1 == null)
             {
@@ -45,7 +45,7 @@ namespace BoardAutoTesting.DataExchange
             }
 
             Thread.Sleep(300);
-            ProductInfo product2 = ProductBll.GetProductInfoByIpStatus(line.McuIp,
+            ProductInfo product2 = ProductBll.GetModelByIpStatus(line.McuIp,
                 ProductAction.Testing);
             if (product2 == null)
             {
@@ -53,10 +53,8 @@ namespace BoardAutoTesting.DataExchange
                 return;
             }
 
-            AteClient.SendMsg(product2.ESN);
-            Logger.Glog.Info(AteClient.ClientIp,
-                "TestMac.ExecuteCommand",
-                Resources.CommandExecuted + ":" + product2.ESN);
+            string sendSn = string.Format("SN:{0}", product2.ESN);
+            AteClient.SendMsg(sendSn);
         }
     }
 }

@@ -9,10 +9,11 @@ namespace BoardAutoTesting.Test
     public class ProductBllTest
     {
         [Test]
-        public void GetProductInfoByIpStatus_Get_ReturnsModel()
+        public void GetModelByIpStatus_Get_ReturnsModel()
         {
-            ProductInfo info  = ProductBll.GetProductInfoByIpStatus(".18", ProductAction.Testing);
-            Assert.NotNull(info);
+            ProductInfo info = ProductBll.GetModelByIpStatus("170.1.2.205",
+                ProductAction.Testing);
+            Assert.AreEqual("8CAB8EFA2730", info.ESN);
         }
 
         [Test]
@@ -32,21 +33,21 @@ namespace BoardAutoTesting.Test
         [Test]
         public void UpdateModel_Success_ChangeValue()
         {
-            ProductInfo info = new ProductInfo
-            {
-                RFID = "123",
-                ESN = "123",
-                IsPass = "Fail",
-                RouteName = "2.4",
-                CraftId = "1",
-                CurrentIp = ".18",
-                OldIp = "",
-                ActionName = "3",
-                ATEIp = ".11"
-            };
+            ProductInfo product = ProductBll.GetModelByIpStatus("170.1.2.205",
+                ProductAction.OnLine);
+            product.IsPass = ProductStatus.Fail.ToString();
+            product.ActionName = ProductAction.EndTest.ToString();
 
-            bool result = ProductBll.SureToUpdateModel(info);
+            bool result = ProductBll.SureToUpdateModel(product);
             Assert.True(result);
+        }
+
+        [Test]
+        public void GetModelByCraftStatus_Success_ReturnsModel()
+        {
+            ProductInfo product = ProductBll.GetModelByCraftStatus("Craft00005",
+                ProductAction.Testing);
+            Assert.AreEqual("8CAB8EFA2730", product.ESN);
         }
     }
 }

@@ -53,7 +53,7 @@ namespace BoardAutoTesting.DataExchange
 
             //检测途程
             string strResult = "OK";
-            if (ClientConnection.SysModel.IsLogin)
+            if (ClientConnection.SysModel != null && ClientConnection.SysModel.IsLogin)
             {
                 strResult = ClientConnection.Ate.Check_Route_ATE(product.ESN,
                     line.RouteName, ClientConnection.SysModel.WoId);
@@ -83,8 +83,7 @@ namespace BoardAutoTesting.DataExchange
                 int pass = int.Parse(results[0]);
                 int fail = int.Parse(results[1]);
 
-                if (product.IsPass == ProductStatus.Pass.ToString()
-                    && strResult == "OK")
+                if (product.IsPass == ProductStatus.Pass.ToString() && strResult == "OK")
                 {
                     pass++;
                     WaitGetResponse(CmdInfo.ProductPass, TimeOut, CmdInfo.ProductGet);
@@ -106,7 +105,7 @@ namespace BoardAutoTesting.DataExchange
 
                 string strNew = pass + "/" + fail;
                 iniFile.IniWriteValue(Resources.Section, line.CraftId, strNew);
-                ProductInfo originProductInfo = new ProductInfo()
+                ProductInfo originProductInfo = new ProductInfo
                 {
                     RFID = product.RFID,
                     ESN = "NA",
@@ -126,8 +125,6 @@ namespace BoardAutoTesting.DataExchange
                         Resources.UpdateError);
                 }
 
-                Logger.Glog.Info(McuClient.ClientIp, "CanIn.UpdateModel",
-                    Resources.Finish);
                 return;
             }
 
@@ -147,6 +144,12 @@ namespace BoardAutoTesting.DataExchange
                     "CanIn.ExecuteCommand.AllRoutes",
                     "产品不属于任何途程");
                 McuClient.SendMsg(CmdInfo.Beep);
+                return;
+            }
+
+            if (strResult != "OK" && AllRoutes.LstRoutes.Contains(strResult))
+            {
+                NextStation(product);
                 return;
             }
 
@@ -174,7 +177,7 @@ namespace BoardAutoTesting.DataExchange
                     //出现异常的概率很小，即使出现了造成卡板，板子拿掉就行
                     Logger.Glog.Info(McuClient.ClientIp,
                         "CanIn.ExecuteCommand.WaitAndOccupyCraft",
-                        "没有分配到机台怎么可能进来，估计抛异常了");
+                        "没有分配到机台怎么可能进来");
                     return;
                 }
 

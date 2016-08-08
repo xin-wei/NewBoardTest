@@ -1,0 +1,34 @@
+--新建分配机台的存储过程
+use testdb;
+delimiter $$
+create procedure getCraft(IN esn varchar(50), IN strRoute varchar(50), INOUT strIp varchar(50))
+begin
+select max(t.Craft_Idx) max(t.Mcu_Ip) into strIp from(select * from testdb.tb_line_info for update) t where t.Route_Name = strRoute and t.Is_Repair = 0 and t.Craft_ESN = '' for update;
+update testdb.tb_line_info s set Craft_ESN = esn where s.Mcu_Ip = strIp;
+end$$
+
+delimiter ;
+call getCraft('hehe', 'PCBA_WiFiTestMain', @ip);
+
+drop procedure if exists getCraft;
+
+delimiter $$
+create procedure p(IN strCraft varchar(50))
+begin
+select * from tb_line_info where Craft_Idx = strCraft;
+end$$
+
+delimiter $$
+create procedure getTotal(IN a INT, IN b INT, OUT c INT)
+begin
+set c = a + b;
+end$$
+
+delimiter ;
+set @a=10;
+set @b=20;
+set @c=30;
+call getTotal(@a, @b, @c);
+
+mysql.exe -hlocalhost -p3306 -uroot -p
+use testdb;

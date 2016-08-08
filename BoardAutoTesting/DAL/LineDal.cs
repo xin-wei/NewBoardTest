@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using BoardAutoTesting.Log;
 using BoardAutoTesting.Model;
+using BoardAutoTesting.Properties;
 using DataAccess;
 using GenericProvider;
+using MySql.Data.MySqlClient;
+using MySqlHelper = DataAccess.MySqlHelper;
 
 namespace BoardAutoTesting.DAL
 {
@@ -109,7 +113,11 @@ namespace BoardAutoTesting.DAL
             int count;
             DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
             if (count != 1)
+            {
+                Logger.Glog.Info(ip, "LineDal.GetModelByIpPort",
+                    Resources.UnconfigedCraft + ":" + count);
                 return null;
+            }
 
             DataTable dt = ds.Tables[0];
             DataRow dr = dt.Rows[0];
@@ -187,7 +195,7 @@ namespace BoardAutoTesting.DAL
         {
             IDictionary<string, object> mst = GetModelDic(line);
             string sql = mst.Keys.Aggregate("update " + TableName + " set ",
-                (current, key) => current + (key + " = '" + mst[key] + "',"));
+                (current, key) => current + (key + " = '" + mst[key]) + "',");
             sql = sql.Remove(sql.LastIndexOf(','));
             sql += string.Format(" where {0} = '{1}'", condition, mst[condition]);
 
@@ -205,7 +213,7 @@ namespace BoardAutoTesting.DAL
         {
             string sql =
                 string.Format(
-                    "update {0} s set Line_ESN = '{1}' where s.Mcu_Ip in (select t.Mcu_Ip from (select Line_ESN, Mcu_Ip from {0}) t where t.Line_ESN = '' and t.Mcu_Ip = '{2}')",
+                    "update {0} s set Line_ESN = '{1}' where s.Mcu_Ip in (select t.Mcu_Ip from (select Line_ESN, Mcu_Ip from {0} for update) t where t.Line_ESN = '' and t.Mcu_Ip = '{2}' for update)",
                     TableName, esn, ip);
             return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
                 CommandType.Text, sql, null);
@@ -216,15 +224,30 @@ namespace BoardAutoTesting.DAL
         /// </summary>
         /// <param name="esn">占用机台的ESN</param>
         /// <param name="strRoute">待查询的途程名</param>
+        /// <param name="ip">查询到的ip</param>
         /// <returns>返回受影响的行数</returns>
-        public static int UpdateCraftStatus(string esn, string strRoute)
+        public static int UpdateCraftStatus(string esn, string strRoute, out string ip)
         {
-            string sql =
-                string.Format(
-                    "update {0} s set Craft_ESN = '{1}' where s.Mcu_Ip in (select t.Mcu_Ip from (select Route_Name, Is_Repair, Craft_ESN, Mcu_Ip from {0}) t where t.Route_Name = '{2}' and t.Is_Repair = 0 and t.Craft_ESN = '' order by Craft_Idx desc)",
-                    TableName, esn, strRoute);
-            return MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
-                CommandType.Text, sql, null);
+            MySqlParameter param1 = new MySqlParameter("@esn", MySqlDbType.Text)
+            {
+                Direction = ParameterDirection.Input,
+                Value = esn
+            };
+            MySqlParameter param2 = new MySqlParameter("@strRoute", MySqlDbType.Text)
+            {
+                Direction = ParameterDirection.Input,
+                Value = strRoute
+            };
+            MySqlParameter param3 = new MySqlParameter("@strIp", MySqlDbType.Text)
+            {
+                Direction = ParameterDirection.InputOutput,
+                Value = ""
+            };
+
+            int i = MySqlHelper.ExecuteNonQuery(DbHelper.ConnectionStringProfile,
+                CommandType.StoredProcedure, "testdb.getCraft", param1, param2, param3);
+            ip = param3.Value.ToString();
+            return i;
         }
     }
 }
