@@ -25,8 +25,6 @@ namespace BoardAutoTesting.DataExchange
             if (!result)
                 return;
 
-            McuClient.SendMsg(CmdInfo.GoInGet);
-
             ProductInfo product = ProductBll.GetModelByRfid(rfid);
             if (product == null)
             {
@@ -58,6 +56,19 @@ namespace BoardAutoTesting.DataExchange
                 strResult = ClientConnection.Ate.Check_Route_ATE(product.ESN,
                     line.RouteName, ClientConnection.SysModel.WoId);
             }
+
+            if (strResult != "OK" && !AllRoutes.LstRoutes.Contains(strResult))
+            {
+                Logger.Glog.Info(McuClient.ClientIp,
+                    "CanIn.ExecuteCommand.AllRoutes",
+                    "产品不属于任何途程，怎么可能进来？");
+                RedLedOnOrOff(true);
+                return;
+            }
+            RedLedOnOrOff(false);
+
+            //不用急着回复，反正一条指令没执行完，其他指令也不会响应
+            McuClient.SendMsg(CmdInfo.GoInGet);
 
             #region 最后一站特殊处理
 
@@ -135,15 +146,6 @@ namespace BoardAutoTesting.DataExchange
             if (product.IsPass == ProductStatus.Fail.ToString())
             {
                 NextStation(product);
-                return;
-            }
-
-            if (strResult != "OK" && !AllRoutes.LstRoutes.Contains(strResult))
-            {
-                Logger.Glog.Info(McuClient.ClientIp,
-                    "CanIn.ExecuteCommand.AllRoutes",
-                    "产品不属于任何途程");
-                McuClient.SendMsg(CmdInfo.Beep);
                 return;
             }
 

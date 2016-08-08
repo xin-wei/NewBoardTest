@@ -216,7 +216,11 @@ namespace BoardAutoTesting
                 int endTick = Environment.TickCount;
                 while (string.IsNullOrEmpty(_strLastEsn))
                 {
-                    if (endTick - startTick <= 3000) continue;
+                    if (endTick - startTick <= 3000)
+                    {
+                        endTick = Environment.TickCount;
+                        continue;
+                    }
 
                     OperationControl.ShowStatus(lblStatus, 
                         OperationControl.TypeList.Error, "NO ESN");
@@ -410,6 +414,16 @@ namespace BoardAutoTesting
                     MessageUtil.ShowError("ESN IS ERROR : 当前ESN为维修板");
                     return;
                 }
+
+                //检测途程
+                string strResult = ClientConnection.Ate.Check_Route_ATE(strEsn,
+                    "NA", ClientConnection.SysModel.WoId);
+                if (!AllRoutes.LstRoutes.Contains(strResult))
+                {
+                    _serialPort.WriteData(CmdInfo.ProductFail);
+                    return;
+                }
+
             }
             _strLastEsn = strEsn;
         }
@@ -598,6 +612,8 @@ namespace BoardAutoTesting
                         UserCraft craft = (UserCraft) groupPanel1.Controls["craft" + craftNum];
                         SplitContainer split = (SplitContainer) craft.Controls["splitContainer1"];
 
+                        Application.DoEvents();
+
                         ButtonX btnLine = (ButtonX) split.Panel2.Controls["btnLine"];
                         btnLine.BackColor = line.LineEsn != ""
                             ? Color.DarkGoldenrod
@@ -608,10 +624,11 @@ namespace BoardAutoTesting
                             ? Color.DarkGoldenrod
                             : Color.ForestGreen;
 
+                        Application.DoEvents();
+
                         INIFileUtil iniFile = new INIFileUtil(
                             string.Format(@"{0}\result.ini", Application.StartupPath));
                         string result = iniFile.IniReadValue(Resources.Section, line.CraftId);
-
 
                         if (_stopFlag) return;
                         var line1 = line;
