@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using BoardAutoTesting.Log;
 using BoardAutoTesting.Model;
-using BoardAutoTesting.Properties;
-using DataAccess;
 using GenericProvider;
 using MySql.Data.MySqlClient;
 using MySqlHelper = DataAccess.MySqlHelper;
@@ -15,8 +12,6 @@ namespace BoardAutoTesting.DAL
     public class LineDal
     {
         private const string TableName = "centercontrol.tb_line_info";
-		private const string StrConn =
-            "Database = centercontrol; Data Source = 127.0.0.1; User Id = root; Password = ; Port = 3306";
 
         private static IDictionary<string, object> GetModelDic(LineInfo line)
         {
@@ -99,8 +94,6 @@ namespace BoardAutoTesting.DAL
         /// <returns>线体Model</returns>
         public static LineInfo GetModelByIpPort(string ip, string port)
         {
-            IAdminProvider dp =
-                (IAdminProvider) DpFactory.Create(typeof (IAdminProvider), DpFactory.ADMIN);
             string filter;
             if (port == "NA")
             {
@@ -112,14 +105,10 @@ namespace BoardAutoTesting.DAL
                     ip, port);
             }
 
-            int count;
-            DataSet ds = dp.GetData(TableName, "*", filter, null, null, "", out count);
-            if (count != 1)
-            {
-                Logger.Glog.Info(ip, "LineDal.GetModelByIpPort",
-                    Resources.UnconfigedCraft + ":" + count);
-                return null;
-            }
+            string sql = string.Format("select * from {0} where {1}",
+                TableName, filter);
+
+            DataSet ds = SqlHelper.GetDataSet(SqlHelper.StrConn, CommandType.Text, sql, null);
 
             DataTable dt = ds.Tables[0];
             DataRow dr = dt.Rows[0];
@@ -147,7 +136,7 @@ namespace BoardAutoTesting.DAL
         public static LineInfo GetMaxModel()
         {
             string sql = string.Format("select * from {0} order by Craft_Idx desc", TableName);
-            DataSet ds = MySqlHelper.GetDataSet(DbHelper.ConnectionStringProfile,
+            DataSet ds = SqlHelper.GetDataSet(SqlHelper.StrConn,
                 CommandType.Text, sql, null);
 
             DataTable dt = ds.Tables[0];
@@ -201,7 +190,7 @@ namespace BoardAutoTesting.DAL
             sql = sql.Remove(sql.LastIndexOf(','));
             sql += string.Format(" where {0} = '{1}'", condition, mst[condition]);
 
-            return MySqlHelper.ExecuteNonQuery(StrConn,
+            return MySqlHelper.ExecuteNonQuery(SqlHelper.StrConn,
                 CommandType.Text, sql, null);
         }
 
@@ -217,7 +206,7 @@ namespace BoardAutoTesting.DAL
                 string.Format(
                     "update {0} s set Line_ESN = '{1}' where s.Mcu_Ip in (select t.Mcu_Ip from (select Line_ESN, Mcu_Ip from {0} for update) t where t.Line_ESN = '' and t.Mcu_Ip = '{2}' for update)",
                     TableName, esn, ip);
-            return MySqlHelper.ExecuteNonQuery(StrConn,
+            return MySqlHelper.ExecuteNonQuery(SqlHelper.StrConn,
                 CommandType.Text, sql, null);
         }
 
@@ -246,7 +235,7 @@ namespace BoardAutoTesting.DAL
                 Value = ""
             };
 
-            int i = MySqlHelper.ExecuteNonQuery(StrConn,
+            int i = MySqlHelper.ExecuteNonQuery(SqlHelper.StrConn,
                 CommandType.StoredProcedure, "getCraft", param1, param2, param3);
             ip = param3.Value.ToString();
             return i;

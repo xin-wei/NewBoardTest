@@ -119,7 +119,7 @@ namespace BoardAutoTesting
             this.ribbonControl1.Margin = new System.Windows.Forms.Padding(4);
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 4);
-            this.ribbonControl1.Size = new System.Drawing.Size(1290, 192);
+            this.ribbonControl1.Size = new System.Drawing.Size(1384, 192);
             this.ribbonControl1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonControl1.SystemText.MaximizeRibbonText = "&Maximize the Ribbon";
             this.ribbonControl1.SystemText.MinimizeRibbonText = "Mi&nimize the Ribbon";
@@ -147,11 +147,11 @@ namespace BoardAutoTesting
             this.ribbonPanel1.Controls.Add(this.ribbonBar1);
             this.ribbonPanel1.Controls.Add(this.ribbonBar2);
             this.ribbonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ribbonPanel1.Location = new System.Drawing.Point(0, 56);
+            this.ribbonPanel1.Location = new System.Drawing.Point(0, 59);
             this.ribbonPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.ribbonPanel1.Name = "ribbonPanel1";
             this.ribbonPanel1.Padding = new System.Windows.Forms.Padding(4, 0, 4, 4);
-            this.ribbonPanel1.Size = new System.Drawing.Size(1290, 132);
+            this.ribbonPanel1.Size = new System.Drawing.Size(1384, 129);
             // 
             // 
             // 
@@ -186,7 +186,7 @@ namespace BoardAutoTesting
             this.ribbonBar3.Location = new System.Drawing.Point(805, 0);
             this.ribbonBar3.Margin = new System.Windows.Forms.Padding(4);
             this.ribbonBar3.Name = "ribbonBar3";
-            this.ribbonBar3.Size = new System.Drawing.Size(811, 128);
+            this.ribbonBar3.Size = new System.Drawing.Size(811, 125);
             this.ribbonBar3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBar3.TabIndex = 3;
             this.ribbonBar3.Text = "上托盘";
@@ -241,7 +241,7 @@ namespace BoardAutoTesting
             this.ribbonBar1.Location = new System.Drawing.Point(192, 0);
             this.ribbonBar1.Margin = new System.Windows.Forms.Padding(4);
             this.ribbonBar1.Name = "ribbonBar1";
-            this.ribbonBar1.Size = new System.Drawing.Size(613, 128);
+            this.ribbonBar1.Size = new System.Drawing.Size(613, 125);
             this.ribbonBar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBar1.TabIndex = 2;
             // 
@@ -277,12 +277,11 @@ namespace BoardAutoTesting
             // 
             this.lblUser.Name = "lblUser";
             this.lblUser.Text = "操作员：FX004206-陈汝豪";
-            this.lblUser.Width = 300;
+            this.lblUser.Width = 250;
             // 
             // btnLogin
             // 
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.PopupWidth = 300;
             this.btnLogin.SubItemsExpandWidth = 50;
             this.btnLogin.Text = "用户登录";
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
@@ -306,7 +305,7 @@ namespace BoardAutoTesting
             this.ribbonBar2.Location = new System.Drawing.Point(4, 0);
             this.ribbonBar2.Margin = new System.Windows.Forms.Padding(4);
             this.ribbonBar2.Name = "ribbonBar2";
-            this.ribbonBar2.Size = new System.Drawing.Size(188, 128);
+            this.ribbonBar2.Size = new System.Drawing.Size(188, 125);
             this.ribbonBar2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBar2.TabIndex = 1;
             // 
@@ -413,119 +412,119 @@ namespace BoardAutoTesting
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(128, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(159, 25);
             this.toolStripLabel1.Text = "提供方：工程技术中心";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(56, 22);
+            this.toolStripLabel2.Size = new System.Drawing.Size(69, 25);
             this.toolStripLabel2.Text = "串口号：";
             // 
             // cbxPortName
             // 
             this.cbxPortName.Name = "cbxPortName";
-            this.cbxPortName.Size = new System.Drawing.Size(121, 25);
+            this.cbxPortName.Size = new System.Drawing.Size(121, 28);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 28);
             // 
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(56, 22);
+            this.toolStripLabel3.Size = new System.Drawing.Size(69, 25);
             this.toolStripLabel3.Text = "波特率：";
             // 
             // cbxBaudRate
             // 
             this.cbxBaudRate.Name = "cbxBaudRate";
-            this.cbxBaudRate.Size = new System.Drawing.Size(121, 25);
+            this.cbxBaudRate.Size = new System.Drawing.Size(121, 28);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 28);
             // 
             // btnConnect
             // 
             this.btnConnect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.btnConnect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(36, 22);
+            this.btnConnect.Size = new System.Drawing.Size(43, 25);
             this.btnConnect.Text = "连接";
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 28);
             // 
             // toolStripLabel4
             // 
             this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(31, 22);
+            this.toolStripLabel4.Size = new System.Drawing.Size(37, 25);
             this.toolStripLabel4.Text = "IP：";
             // 
             // txtIp
             // 
             this.txtIp.Name = "txtIp";
-            this.txtIp.Size = new System.Drawing.Size(130, 25);
+            this.txtIp.Size = new System.Drawing.Size(130, 28);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 28);
             // 
             // toolStripLabel5
             // 
             this.toolStripLabel5.Name = "toolStripLabel5";
-            this.toolStripLabel5.Size = new System.Drawing.Size(56, 22);
+            this.toolStripLabel5.Size = new System.Drawing.Size(69, 25);
             this.toolStripLabel5.Text = "端口号：";
             // 
             // txtPort
             // 
             this.txtPort.Name = "txtPort";
-            this.txtPort.Size = new System.Drawing.Size(60, 25);
+            this.txtPort.Size = new System.Drawing.Size(60, 28);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 28);
             // 
             // toolStripLabel6
             // 
             this.toolStripLabel6.Name = "toolStripLabel6";
-            this.toolStripLabel6.Size = new System.Drawing.Size(44, 22);
+            this.toolStripLabel6.Size = new System.Drawing.Size(54, 25);
             this.toolStripLabel6.Text = "机型：";
             // 
             // lblCraft
             // 
             this.lblCraft.Name = "lblCraft";
-            this.lblCraft.Size = new System.Drawing.Size(13, 22);
+            this.lblCraft.Size = new System.Drawing.Size(16, 25);
             this.lblCraft.Text = "_";
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 28);
             // 
             // toolStripLabel8
             // 
             this.toolStripLabel8.Name = "toolStripLabel8";
-            this.toolStripLabel8.Size = new System.Drawing.Size(44, 22);
+            this.toolStripLabel8.Size = new System.Drawing.Size(54, 25);
             this.toolStripLabel8.Text = "线体：";
             // 
             // lblLine
             // 
             this.lblLine.Name = "lblLine";
-            this.lblLine.Size = new System.Drawing.Size(13, 22);
+            this.lblLine.Size = new System.Drawing.Size(16, 25);
             this.lblLine.Text = "_";
             // 
             // toolStrip1
@@ -556,28 +555,28 @@ namespace BoardAutoTesting
             this.toolStripSeparator8,
             this.toolStripLabel10,
             this.lblWorkOrder});
-            this.toolStrip1.Location = new System.Drawing.Point(5, 826);
+            this.toolStrip1.Location = new System.Drawing.Point(5, 788);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1290, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1384, 28);
             this.toolStrip1.TabIndex = 19;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 28);
             // 
             // toolStripLabel10
             // 
             this.toolStripLabel10.Name = "toolStripLabel10";
-            this.toolStripLabel10.Size = new System.Drawing.Size(44, 22);
+            this.toolStripLabel10.Size = new System.Drawing.Size(54, 25);
             this.toolStripLabel10.Text = "工单：";
             // 
             // lblWorkOrder
             // 
             this.lblWorkOrder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.lblWorkOrder.Name = "lblWorkOrder";
-            this.lblWorkOrder.Size = new System.Drawing.Size(13, 22);
+            this.lblWorkOrder.Size = new System.Drawing.Size(16, 25);
             this.lblWorkOrder.Text = "_";
             // 
             // groupPanel1
@@ -603,7 +602,7 @@ namespace BoardAutoTesting
             this.groupPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupPanel1.Location = new System.Drawing.Point(5, 193);
             this.groupPanel1.Name = "groupPanel1";
-            this.groupPanel1.Size = new System.Drawing.Size(1290, 633);
+            this.groupPanel1.Size = new System.Drawing.Size(1384, 595);
             // 
             // 
             // 
@@ -640,7 +639,7 @@ namespace BoardAutoTesting
             this.craft16.BackColor = System.Drawing.Color.Transparent;
             this.craft16.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft16.Location = new System.Drawing.Point(939, 404);
-            this.craft16.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft16.Margin = new System.Windows.Forms.Padding(2);
             this.craft16.Name = "craft16";
             this.craft16.Size = new System.Drawing.Size(196, 196);
             this.craft16.TabIndex = 0;
@@ -650,7 +649,7 @@ namespace BoardAutoTesting
             this.craft15.BackColor = System.Drawing.Color.Transparent;
             this.craft15.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft15.Location = new System.Drawing.Point(711, 404);
-            this.craft15.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft15.Margin = new System.Windows.Forms.Padding(2);
             this.craft15.Name = "craft15";
             this.craft15.Size = new System.Drawing.Size(196, 196);
             this.craft15.TabIndex = 0;
@@ -660,7 +659,7 @@ namespace BoardAutoTesting
             this.craft14.BackColor = System.Drawing.Color.Transparent;
             this.craft14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft14.Location = new System.Drawing.Point(483, 404);
-            this.craft14.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft14.Margin = new System.Windows.Forms.Padding(2);
             this.craft14.Name = "craft14";
             this.craft14.Size = new System.Drawing.Size(196, 196);
             this.craft14.TabIndex = 0;
@@ -670,7 +669,7 @@ namespace BoardAutoTesting
             this.craft13.BackColor = System.Drawing.Color.Transparent;
             this.craft13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft13.Location = new System.Drawing.Point(255, 404);
-            this.craft13.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft13.Margin = new System.Windows.Forms.Padding(2);
             this.craft13.Name = "craft13";
             this.craft13.Size = new System.Drawing.Size(196, 196);
             this.craft13.TabIndex = 0;
@@ -680,7 +679,7 @@ namespace BoardAutoTesting
             this.craft12.BackColor = System.Drawing.Color.Transparent;
             this.craft12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft12.Location = new System.Drawing.Point(1167, 202);
-            this.craft12.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft12.Margin = new System.Windows.Forms.Padding(2);
             this.craft12.Name = "craft12";
             this.craft12.Size = new System.Drawing.Size(196, 196);
             this.craft12.TabIndex = 0;
@@ -690,7 +689,7 @@ namespace BoardAutoTesting
             this.craft11.BackColor = System.Drawing.Color.Transparent;
             this.craft11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft11.Location = new System.Drawing.Point(939, 202);
-            this.craft11.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft11.Margin = new System.Windows.Forms.Padding(2);
             this.craft11.Name = "craft11";
             this.craft11.Size = new System.Drawing.Size(196, 196);
             this.craft11.TabIndex = 0;
@@ -700,7 +699,7 @@ namespace BoardAutoTesting
             this.craft10.BackColor = System.Drawing.Color.Transparent;
             this.craft10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft10.Location = new System.Drawing.Point(711, 202);
-            this.craft10.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft10.Margin = new System.Windows.Forms.Padding(2);
             this.craft10.Name = "craft10";
             this.craft10.Size = new System.Drawing.Size(196, 196);
             this.craft10.TabIndex = 0;
@@ -710,7 +709,7 @@ namespace BoardAutoTesting
             this.craft9.BackColor = System.Drawing.Color.Transparent;
             this.craft9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft9.Location = new System.Drawing.Point(483, 202);
-            this.craft9.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft9.Margin = new System.Windows.Forms.Padding(2);
             this.craft9.Name = "craft9";
             this.craft9.Size = new System.Drawing.Size(196, 196);
             this.craft9.TabIndex = 0;
@@ -720,7 +719,7 @@ namespace BoardAutoTesting
             this.craft8.BackColor = System.Drawing.Color.Transparent;
             this.craft8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft8.Location = new System.Drawing.Point(255, 202);
-            this.craft8.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft8.Margin = new System.Windows.Forms.Padding(2);
             this.craft8.Name = "craft8";
             this.craft8.Size = new System.Drawing.Size(196, 196);
             this.craft8.TabIndex = 0;
@@ -730,7 +729,7 @@ namespace BoardAutoTesting
             this.craft7.BackColor = System.Drawing.Color.Transparent;
             this.craft7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft7.Location = new System.Drawing.Point(27, 202);
-            this.craft7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft7.Margin = new System.Windows.Forms.Padding(2);
             this.craft7.Name = "craft7";
             this.craft7.Size = new System.Drawing.Size(196, 196);
             this.craft7.TabIndex = 0;
@@ -740,7 +739,7 @@ namespace BoardAutoTesting
             this.craft6.BackColor = System.Drawing.Color.Transparent;
             this.craft6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft6.Location = new System.Drawing.Point(1167, 0);
-            this.craft6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft6.Margin = new System.Windows.Forms.Padding(2);
             this.craft6.Name = "craft6";
             this.craft6.Size = new System.Drawing.Size(196, 196);
             this.craft6.TabIndex = 0;
@@ -750,7 +749,7 @@ namespace BoardAutoTesting
             this.craft5.BackColor = System.Drawing.Color.Transparent;
             this.craft5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft5.Location = new System.Drawing.Point(939, 0);
-            this.craft5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft5.Margin = new System.Windows.Forms.Padding(2);
             this.craft5.Name = "craft5";
             this.craft5.Size = new System.Drawing.Size(196, 196);
             this.craft5.TabIndex = 0;
@@ -760,7 +759,7 @@ namespace BoardAutoTesting
             this.craft4.BackColor = System.Drawing.Color.Transparent;
             this.craft4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft4.Location = new System.Drawing.Point(711, 0);
-            this.craft4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft4.Margin = new System.Windows.Forms.Padding(2);
             this.craft4.Name = "craft4";
             this.craft4.Size = new System.Drawing.Size(196, 196);
             this.craft4.TabIndex = 0;
@@ -770,7 +769,7 @@ namespace BoardAutoTesting
             this.craft3.BackColor = System.Drawing.Color.Transparent;
             this.craft3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft3.Location = new System.Drawing.Point(483, 0);
-            this.craft3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft3.Margin = new System.Windows.Forms.Padding(2);
             this.craft3.Name = "craft3";
             this.craft3.Size = new System.Drawing.Size(196, 196);
             this.craft3.TabIndex = 0;
@@ -780,7 +779,7 @@ namespace BoardAutoTesting
             this.craft2.BackColor = System.Drawing.Color.Transparent;
             this.craft2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft2.Location = new System.Drawing.Point(255, 0);
-            this.craft2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft2.Margin = new System.Windows.Forms.Padding(2);
             this.craft2.Name = "craft2";
             this.craft2.Size = new System.Drawing.Size(196, 196);
             this.craft2.TabIndex = 0;
@@ -790,14 +789,14 @@ namespace BoardAutoTesting
             this.craft1.BackColor = System.Drawing.Color.Transparent;
             this.craft1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.craft1.Location = new System.Drawing.Point(27, 0);
-            this.craft1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.craft1.Margin = new System.Windows.Forms.Padding(2);
             this.craft1.Name = "craft1";
             this.craft1.Size = new System.Drawing.Size(196, 196);
             this.craft1.TabIndex = 0;
             // 
             // TestFrm
             // 
-            this.ClientSize = new System.Drawing.Size(1300, 853);
+            this.ClientSize = new System.Drawing.Size(1394, 818);
             this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.ribbonControl1);

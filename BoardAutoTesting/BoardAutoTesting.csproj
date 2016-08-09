@@ -105,6 +105,7 @@
     <Compile Include="Commons\XmlConvertor.cs" />
     <Compile Include="DAL\ProductDal.cs" />
     <Compile Include="DAL\LineDal.cs" />
+    <Compile Include="DAL\SqlHelper.cs" />
     <Compile Include="DataExchange\CanIn.cs" />
     <Compile Include="DataExchange\CenterServer.cs" />
     <Compile Include="DataExchange\DoorClose.cs" />
