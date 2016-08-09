@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Final_Control.ico</ApplicationIcon>
+    <ApplicationIcon>PHICOMM_64X64.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -294,6 +294,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Final_Control.ico" />
+    <Content Include="PHICOMM_64X64.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

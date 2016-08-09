@@ -119,7 +119,7 @@ namespace BoardAutoTesting
             this.ribbonControl1.Margin = new System.Windows.Forms.Padding(4);
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 4);
-            this.ribbonControl1.Size = new System.Drawing.Size(1384, 192);
+            this.ribbonControl1.Size = new System.Drawing.Size(1378, 192);
             this.ribbonControl1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonControl1.SystemText.MaximizeRibbonText = "&Maximize the Ribbon";
             this.ribbonControl1.SystemText.MinimizeRibbonText = "Mi&nimize the Ribbon";
@@ -151,7 +151,7 @@ namespace BoardAutoTesting
             this.ribbonPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.ribbonPanel1.Name = "ribbonPanel1";
             this.ribbonPanel1.Padding = new System.Windows.Forms.Padding(4, 0, 4, 4);
-            this.ribbonPanel1.Size = new System.Drawing.Size(1384, 129);
+            this.ribbonPanel1.Size = new System.Drawing.Size(1378, 129);
             // 
             // 
             // 
@@ -555,9 +555,9 @@ namespace BoardAutoTesting
             this.toolStripSeparator8,
             this.toolStripLabel10,
             this.lblWorkOrder});
-            this.toolStrip1.Location = new System.Drawing.Point(5, 788);
+            this.toolStrip1.Location = new System.Drawing.Point(5, 835);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1384, 28);
+            this.toolStrip1.Size = new System.Drawing.Size(1378, 28);
             this.toolStrip1.TabIndex = 19;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -602,7 +602,7 @@ namespace BoardAutoTesting
             this.groupPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupPanel1.Location = new System.Drawing.Point(5, 193);
             this.groupPanel1.Name = "groupPanel1";
-            this.groupPanel1.Size = new System.Drawing.Size(1384, 595);
+            this.groupPanel1.Size = new System.Drawing.Size(1378, 642);
             // 
             // 
             // 
@@ -796,7 +796,7 @@ namespace BoardAutoTesting
             // 
             // TestFrm
             // 
-            this.ClientSize = new System.Drawing.Size(1394, 818);
+            this.ClientSize = new System.Drawing.Size(1388, 865);
             this.Controls.Add(this.groupPanel1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.ribbonControl1);
