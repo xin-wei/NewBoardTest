@@ -41,6 +41,11 @@ namespace BoardAutoTesting.Test
             Assert.AreEqual("d", line.CraftEsn);
         }
 
+        [Test] public void GetModelByIpPort_Empty_ReturnsNull()
+        {
+            LineInfo line = LineBll.GetModelByIpPort("", "NA");
+            Assert.IsNull(line);
+        }
 
     }
 }

@@ -151,6 +151,9 @@ namespace BoardAutoTesting.DataExchange
 
             if (strResult != "OK" && AllRoutes.LstRoutes.Contains(strResult))
             {
+                Logger.Glog.Info(McuClient.ClientIp,
+                    "CanIn.ExecuteCommand.AllRoutes",
+                    "不属于当前站，过");
                 NextStation(product);
                 return;
             }
@@ -191,6 +194,9 @@ namespace BoardAutoTesting.DataExchange
 
             if (line.CraftId == product.CraftId && !line.IsRepair)
             {
+                Logger.Glog.Info(McuClient.ClientIp,
+                    "CanIn.ExecuteCommand",
+                    product.RFID + "准备进站：" + product.CraftId);
                 InStation(product);
             }
             else

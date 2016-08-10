@@ -396,21 +396,25 @@ namespace BoardAutoTesting
 
                 if (dtTracking.Rows.Count <= 0)
                 {
+                    _serialPort.WriteData(CmdInfo.ProductFail);
                     MessageUtil.ShowError("ESN IS ERROR : 未找到当前ESN的信息");
                     return;
                 }
                 if (dtTracking.Rows.Count > 1)
                 {
+                    _serialPort.WriteData(CmdInfo.ProductFail);
                     MessageUtil.ShowError("ESN IS ERROR : ESN的信息存在多条");
                     return;
                 }
                 if (dtTracking.Rows[0]["WOID"].ToString() != _model.WoId)
                 {
+                    _serialPort.WriteData(CmdInfo.ProductFail);
                     MessageUtil.ShowError("ESN IS ERROR : 不属于当前工单");
                     return;
                 }
                 if (dtTracking.Rows[0]["ERRFLAG"].ToString() == "1")
                 {
+                    _serialPort.WriteData(CmdInfo.ProductFail);
                     MessageUtil.ShowError("ESN IS ERROR : 当前ESN为维修板");
                     return;
                 }
@@ -425,6 +429,7 @@ namespace BoardAutoTesting
                 }
 
             }
+
             _strLastEsn = strEsn;
         }
 

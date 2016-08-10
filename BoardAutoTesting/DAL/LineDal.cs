@@ -111,6 +111,9 @@ namespace BoardAutoTesting.DAL
             DataSet ds = SqlHelper.GetDataSet(SqlHelper.StrConn, CommandType.Text, sql, null);
 
             DataTable dt = ds.Tables[0];
+            if (dt.Rows.Count <= 0)
+                return null;
+
             DataRow dr = dt.Rows[0];
 
             return ToModel(dr);

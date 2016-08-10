@@ -3,12 +3,13 @@ use centercontrol;
 delimiter $$
 create procedure getCraft(IN esn varchar(50), IN strRoute varchar(50), INOUT strIp varchar(50))
 begin
-select max(t.Mcu_Ip) into strIp from(select * from testdb.tb_line_info for update) t where t.Route_Name = strRoute and t.Is_Repair = 0 and t.Craft_ESN = '' for update;
-update testdb.tb_line_info s set Craft_ESN = esn where s.Mcu_Ip = strIp;
+select max(t.Mcu_Ip) into strIp from(select * from centercontrol.tb_line_info for update) t where t.Route_Name = strRoute and t.Is_Repair = 0 and t.Craft_ESN = '' for update;
+update centercontrol.tb_line_info s set Craft_ESN = esn where s.Mcu_Ip = strIp;
 end$$
 
 delimiter ;
 call getCraft('hehe', 'PCBA_WiFiTestMain', @ip);
+select @ip;
 
 drop procedure if exists getCraft;
 

@@ -91,11 +91,15 @@ namespace BoardAutoTesting.BLL
             {
                 try
                 {
+                    givenCraft = "";
+                    if (client.IsOpenDoor)
+                        return;
+
                     string ip;
                     if (LineDal.UpdateCraftStatus(occupationEsn, strRoute, out ip) == 1)
                     {
                         LineInfo line = GetModelByIpPort(ip, "NA");
-                        if (line == null)
+                        if (line == null || line.CraftEsn != occupationEsn)
                         {
                             //应该是不可能出现的问题
                             Logger.Glog.Info(client.ClientIp,
@@ -104,6 +108,8 @@ namespace BoardAutoTesting.BLL
                             continue;
                         }
                         givenCraft = line.CraftId;
+                        Logger.Glog.Info(client.ClientIp,
+                                "LineBll.WaitAndOccupyCraft", givenCraft);
                         break;
                     }
 

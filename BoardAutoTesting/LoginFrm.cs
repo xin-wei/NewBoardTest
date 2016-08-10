@@ -8,7 +8,6 @@ using System.ServiceModel;
 using System.Windows.Forms;
 using BoardAutoTesting.Model;
 using BoardAutoTesting.Service;
-using BoardAutoTesting.Status;
 using BoardAutoTesting.UserInfo;
 using Commons;
 using DevComponents.DotNetBar;
@@ -31,8 +30,6 @@ namespace BoardAutoTesting
         {
             _startUp = Application.StartupPath;
             _configPath = _startUp + @"\config.bin";
-
-            GetConfig(_configPath);
 
             BasicHttpBinding binding = new BasicHttpBinding
             {
@@ -59,8 +56,8 @@ namespace BoardAutoTesting
                 cbxLines.Items.Add(item);
             }
 
+            GetConfig(_configPath);
             txtUserId.Focus();
-            cbxLines_SelectedIndexChanged(sender, EventArgs.Empty);
         }
 
         private void GetConfig(string path)

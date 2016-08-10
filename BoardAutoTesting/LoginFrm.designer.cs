@@ -65,7 +65,6 @@ namespace BoardAutoTesting
             this.cbxLines.Name = "cbxLines";
             this.cbxLines.Size = new System.Drawing.Size(163, 23);
             this.cbxLines.TabIndex = 22;
-            this.cbxLines.SelectedIndexChanged += new System.EventHandler(this.cbxLines_SelectedIndexChanged);
             // 
             // systemInfoBindingSource
             // 

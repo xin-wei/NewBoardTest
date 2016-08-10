@@ -105,7 +105,10 @@ namespace BoardAutoTesting.DataExchange
                     break;
 
                 if (McuClient.FirstCommand == expectedCmd)
+                {
+                    McuClient.FirstCommand = "";
                     return true;
+                }
 
                 Thread.Sleep(SendInterval);
                 endTick = Environment.TickCount;
@@ -130,7 +133,10 @@ namespace BoardAutoTesting.DataExchange
                     break;
 
                 if (McuClient.SecondCommand == expectedCmd)
+                {
+                    McuClient.SecondCommand = "";
                     return true;
+                }
 
                 Thread.Sleep(20);
                 endTick = Environment.TickCount;

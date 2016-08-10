@@ -199,7 +199,7 @@ namespace BoardAutoTesting.Model
                 cmd.Contains(CmdInfo.DoorClose))
             {
                 _action = CommandFactory(cmd);
-                if (_action == null) return;
+                if (_action == null || _doesClose) return;
 
                 _action.ExecuteCommand(cmd);
                 _lstRevCommands.Remove(cmd);//指令执行完就删掉

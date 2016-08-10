@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using BoardAutoTesting.BLL;
 using BoardAutoTesting.Log;
@@ -44,10 +43,10 @@ namespace BoardAutoTesting.DataExchange
                 return;
             }
 
-            LineInfo line;
-            if (!OutExecuting(product, port, out line)) return;
+            if (!OutExecuting(product, port)) return;
 
-            OutFinished(line);
+            if (!OutFinished()) return;
+
             RedLedOnOrOff(false);
         }
 
@@ -134,11 +133,9 @@ namespace BoardAutoTesting.DataExchange
         /// </summary>
         /// <param name="product"></param>
         /// <param name="port"></param>
-        /// <param name="line"></param>
         /// <returns></returns>
-        private bool OutExecuting(ProductInfo product, string port, out LineInfo line)
+        private bool OutExecuting(ProductInfo product, string port)
         {
-            line = null;
             LineBll.WaitAndOccupyLine(McuClient, product.ESN);
             if (McuClient.IsOpenDoor)
                 return false;
@@ -164,7 +161,7 @@ namespace BoardAutoTesting.DataExchange
             }
             McuClient.SendMsg(CmdInfo.GoOutOk); //应答单片机
 
-            line = LineBll.GetModelByIpPort(AteClient.ClientIp, port);
+            LineInfo line = LineBll.GetModelByIpPort(AteClient.ClientIp, port);
             if (line == null)
             {
                 //应该是不可能出现的问题
@@ -195,8 +192,7 @@ namespace BoardAutoTesting.DataExchange
         /// <summary>
         /// 过站动作：等待nextok--清空线体信息--关闭LED
         /// </summary>
-        /// <param name="line"></param>
-        private void OutFinished(LineInfo line)
+        private bool OutFinished()
         {
             if (!WaitOkResponse(int.MaxValue, CmdInfo.GoNextOk))
             {
@@ -204,17 +200,18 @@ namespace BoardAutoTesting.DataExchange
                     "ProductPassFail.OutFinished.WaitOkResponse",
                     Resources.NoResponse);
                 RedLedOnOrOff(true);
-                return;
+                return false;
             }
             McuClient.SendMsg(CmdInfo.GoNextOk);
 
+            LineInfo line = LineBll.GetModelByIpPort(McuClient.ClientIp, "NA");
             if (line.LineEsn == "")
             {
                 //应该是不可能出现的问题
                 Logger.Glog.Info(McuClient.ClientIp,
                     "ProductPassFail.OutFinished.GetModelByIpPort",
                     "我都没更新你怎么就清空线体了，是个问题");
-                return;
+                return true;
             }
             line.LineEsn = "";
             if (!LineBll.SureToUpdateModel(line, "Mcu_Ip"))
@@ -222,8 +219,10 @@ namespace BoardAutoTesting.DataExchange
                 Logger.Glog.Info(McuClient.ClientIp, 
                     "ProductPassFail.OutFinished.SureToUpdateModel",
                     Resources.UpdateError);
+                return false;
             }
-            
+
+            return true;
         }
         
     }
