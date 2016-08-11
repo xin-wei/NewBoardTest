@@ -57,7 +57,7 @@ namespace BoardAutoTesting.DataExchange
                 return;
             }
 
-            if (!WaitGetResponse(CmdInfo.GoRetest, TimeOut, CmdInfo.GoRetestGet))
+            if (!WaitGetResponse(CmdInfo.GoRetest, CmdInfo.GoRetestGet))
             {
                 Logger.Glog.Info(McuClient.ClientIp,
                     "ReTest.ExecuteCommand.WaitGetResponse",

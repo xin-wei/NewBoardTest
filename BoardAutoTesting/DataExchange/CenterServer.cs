@@ -66,6 +66,7 @@ namespace BoardAutoTesting.DataExchange
                     Logger.Glog.Info("WatchPort():" + e.Message);
                 }
             }
+            // ReSharper disable once FunctionNeverReturns
         }
 
         private void ClearConnection()

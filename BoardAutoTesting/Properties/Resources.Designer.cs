@@ -142,6 +142,15 @@ namespace BoardAutoTesting.Properties {
         }
         
         /// <summary>
+        ///   查找类似 请先登录ShopFloor 的本地化字符串。
+        /// </summary>
+        internal static string InLogin {
+            get {
+                return ResourceManager.GetString("InLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 无效IP 的本地化字符串。
         /// </summary>
         internal static string InvalidIp {
@@ -165,6 +174,15 @@ namespace BoardAutoTesting.Properties {
         internal static string NoBaudRate {
             get {
                 return ResourceManager.GetString("NoBaudRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 没有在线产品 的本地化字符串。
+        /// </summary>
+        internal static string NoOnLineProduct {
+            get {
+                return ResourceManager.GetString("NoOnLineProduct", resourceCulture);
             }
         }
         

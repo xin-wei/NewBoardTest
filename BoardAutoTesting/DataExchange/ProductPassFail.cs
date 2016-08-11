@@ -140,7 +140,7 @@ namespace BoardAutoTesting.DataExchange
             if (McuClient.IsOpenDoor)
                 return false;
 
-            if (!WaitGetResponse(CmdInfo.GoOut, TimeOut, CmdInfo.GoOutGet))
+            if (!WaitGetResponse(CmdInfo.GoOut, CmdInfo.GoOutGet))
             {
                 Logger.Glog.Info(McuClient.ClientIp,
                     "ProductPassFail.OutExecuting.WaitGetResponse",

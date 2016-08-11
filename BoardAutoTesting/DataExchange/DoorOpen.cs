@@ -45,7 +45,6 @@ namespace BoardAutoTesting.DataExchange
                 return;
             }
 
-            RedLedOnOrOff(true);
             Logger.Glog.Info(McuClient.ClientIp,
                 "DoorOpen.ExecuteCommand",
                 Resources.CommandExecuted);
@@ -57,11 +56,10 @@ namespace BoardAutoTesting.DataExchange
                 craft, ProductAction.OnLine);
             if (product == null)
             {
-                //应该是不可能出现的情况
                 Logger.Glog.Info(McuClient.ClientIp,
                     "DoorOpen.UpdateOnLineProduct.GetProductInfoByIpStatus",
-                    Resources.NoTestingProduct);
-                return false;
+                    Resources.NoOnLineProduct);
+                return true;
             }
 
             product.IsPass = ProductStatus.Fail.ToString();
@@ -75,11 +73,10 @@ namespace BoardAutoTesting.DataExchange
                 McuClient.ClientIp, ProductAction.Testing);
             if (product == null)
             {
-                //应该是不可能出现的情况
                 Logger.Glog.Info(McuClient.ClientIp,
                     "DoorOpen.UpdateTestingProduct.GetProductInfoByIpStatus",
                     Resources.NoTestingProduct);
-                return false;
+                return true;
             }
 
             product.IsPass = ProductStatus.Fail.ToString();

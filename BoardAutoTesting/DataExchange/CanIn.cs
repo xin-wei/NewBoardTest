@@ -97,12 +97,12 @@ namespace BoardAutoTesting.DataExchange
                 if (product.IsPass == ProductStatus.Pass.ToString() && strResult == "OK")
                 {
                     pass++;
-                    WaitGetResponse(CmdInfo.ProductPass, TimeOut, CmdInfo.ProductGet);
+                    WaitGetResponse(CmdInfo.ProductPass, CmdInfo.ProductGet);
                 }
                 else
                 {
                     fail++;
-                    WaitGetResponse(CmdInfo.ProductFail, TimeOut, CmdInfo.ProductGet);
+                    WaitGetResponse(CmdInfo.ProductFail, CmdInfo.ProductGet);
                     ClientConnection.CsHelper.ClearVariables();
                     Dictionary<string, object> dicVariables = new Dictionary<string, object>
                     {
@@ -196,7 +196,7 @@ namespace BoardAutoTesting.DataExchange
             {
                 Logger.Glog.Info(McuClient.ClientIp,
                     "CanIn.ExecuteCommand",
-                    product.RFID + "准备进站：" + product.CraftId);
+                    product.ESN + "，准备进站：" + product.CraftId);
                 InStation(product);
             }
             else
@@ -225,7 +225,7 @@ namespace BoardAutoTesting.DataExchange
                 return;
             }
 
-            if (!WaitGetResponse(CmdInfo.GoIn, TimeOut, CmdInfo.GoInGet))
+            if (!WaitGetResponse(CmdInfo.GoIn, CmdInfo.GoInGet))
             {
                 Logger.Glog.Info(McuClient.ClientIp,
                     "CanIn.InStation.WaitGetResponse",
@@ -299,7 +299,7 @@ namespace BoardAutoTesting.DataExchange
                 return;
             }
 
-            if (!WaitGetResponse(CmdInfo.GoNext, TimeOut, CmdInfo.GoNextGet))
+            if (!WaitGetResponse(CmdInfo.GoNext, CmdInfo.GoNextGet))
             {
                 Logger.Glog.Info(McuClient.ClientIp,
                     "CanIn.NextStation.WaitGetResponse",

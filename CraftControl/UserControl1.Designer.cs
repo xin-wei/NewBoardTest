@@ -62,7 +62,7 @@
             this.btnCraft.BackColor = System.Drawing.Color.Silver;
             this.btnCraft.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue;
             this.btnCraft.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCraft.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnCraft.Font = new System.Drawing.Font("微软雅黑", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnCraft.Location = new System.Drawing.Point(0, 0);
             this.btnCraft.Name = "btnCraft";
             this.btnCraft.Size = new System.Drawing.Size(196, 148);
@@ -76,11 +76,13 @@
             this.btnLine.BackColor = System.Drawing.Color.Silver;
             this.btnLine.ColorTable = DevComponents.DotNetBar.eButtonColor.Blue;
             this.btnLine.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnLine.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnLine.Location = new System.Drawing.Point(0, 0);
             this.btnLine.Name = "btnLine";
             this.btnLine.Size = new System.Drawing.Size(196, 44);
             this.btnLine.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnLine.TabIndex = 0;
+            this.btnLine.TextColor = System.Drawing.Color.Maroon;
             // 
             // UserCraft
             // 

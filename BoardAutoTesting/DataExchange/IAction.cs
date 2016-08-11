@@ -15,7 +15,7 @@ namespace BoardAutoTesting.DataExchange
     {
         protected const int SendInterval = 3000;
         protected const int ResendTimes = 10;
-        protected readonly int TimeOut = SendInterval*ResendTimes;
+        protected readonly int TimeOut = ResendTimes*SendInterval;
         protected ClientConnection AteClient;
         protected ClientConnection McuClient;
 
@@ -89,29 +89,30 @@ namespace BoardAutoTesting.DataExchange
         /// 等待单片机回复收到应答指令
         /// </summary>
         /// <param name="sendCmd">中控发送的指令</param>
-        /// <param name="timeout">应答超时时间</param>
         /// <param name="expectedCmd">期待收到的指令</param>
         /// <returns>是否收到应答</returns>
-        protected bool WaitGetResponse(string sendCmd, int timeout, string expectedCmd)
+        protected bool WaitGetResponse(string sendCmd, string expectedCmd)
         {
-            int startTick = Environment.TickCount;
-            int endTick = Environment.TickCount;
-            while (endTick - startTick < timeout)
+            for (int i = 0; i < ResendTimes; i++)
             {
                 McuClient.SendMsg(sendCmd);
 
-                Thread.Sleep(100);
-                if (McuClient.IsOpenDoor)
-                    break;
-
-                if (McuClient.FirstCommand == expectedCmd)
+                int startTick = Environment.TickCount;
+                int endTick = Environment.TickCount;
+                while (endTick - startTick < SendInterval)
                 {
-                    McuClient.FirstCommand = "";
-                    return true;
-                }
+                    if (McuClient.IsOpenDoor)
+                        break;
 
-                Thread.Sleep(SendInterval);
-                endTick = Environment.TickCount;
+                    if (McuClient.FirstCommand == expectedCmd)
+                    {
+                        McuClient.FirstCommand = "";
+                        return true;
+                    }
+
+                    Thread.Sleep(10);
+                    endTick = Environment.TickCount;
+                }
             }
 
             return false;
@@ -138,7 +139,7 @@ namespace BoardAutoTesting.DataExchange
                     return true;
                 }
 
-                Thread.Sleep(20);
+                Thread.Sleep(10);
                 endTick = Environment.TickCount;
             }
 

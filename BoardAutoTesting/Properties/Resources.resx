@@ -120,6 +120,9 @@
   <data name="ConfigError" xml:space="preserve">
     <value>配置错误</value>
   </data>
+  <data name="InLogin" xml:space="preserve">
+    <value>请先登录ShopFloor</value>
+  </data>
   <data name="InvalidIp" xml:space="preserve">
     <value>无效IP</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="NoTestingProduct" xml:space="preserve">
     <value>没有测试中的产品</value>
+  </data>
+  <data name="NoOnLineProduct" xml:space="preserve">
+    <value>没有在线产品</value>
   </data>
   <data name="NoResponse" xml:space="preserve">
     <value>应答超时</value>

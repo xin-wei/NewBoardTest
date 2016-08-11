@@ -35,6 +35,7 @@ namespace BoardAutoTesting
         private string _strLastEsn;
         private string _strComRfid;
         private static bool _stopFlag;
+        private bool _stopBeep;
         private bool _bCanIn = true;
         //SFIS
         private tCheckDataTestAteSoapClient _ate = new tCheckDataTestAteSoapClient();
@@ -44,6 +45,8 @@ namespace BoardAutoTesting
         private SystemInfo _model;
         private readonly CenterServer _server = new CenterServer();
         private readonly CodeSoftHelper _csHelper = new CodeSoftHelper();
+
+        private const int BeepInverval = 1000;
 
         public TestFrm()
         {
@@ -180,17 +183,21 @@ namespace BoardAutoTesting
 
         private void btnStartServer_Click(object sender, EventArgs e)
         {
+            if (!_model.IsLogin)
+            {
+                MessageUtil.ShowWarning(Resources.InLogin);
+                return;
+            }
+
             string address = txtIp.Text;
             string port = txtPort.Text;
             if (address == "" || port == "")
-                MessageBox.Show(Resources.IpPortError, Resources.ConfigError,
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageUtil.ShowWarning(Resources.IpPortError);
 
             IPAddress ipAddress;
             bool bValidIp = IPAddress.TryParse(address, out ipAddress);
             if (!bValidIp)
-                MessageBox.Show(Resources.IpPortError, Resources.InvalidIp,
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageUtil.ShowWarning(Resources.InvalidIp);
 
             _server.WatchConnection(address, int.Parse(port));
 
@@ -300,6 +307,12 @@ namespace BoardAutoTesting
                 return;
             }
 
+            if (cmd.Contains(CmdInfo.ProductGet))
+            {
+                _stopBeep = true;
+                return;
+            }
+
             if (!cmd.Contains(CmdInfo.GoNextOk)) return;
             _serialPort.WriteData(CmdInfo.GoNextOk);
             _bCanIn = true;
@@ -396,25 +409,25 @@ namespace BoardAutoTesting
 
                 if (dtTracking.Rows.Count <= 0)
                 {
-                    _serialPort.WriteData(CmdInfo.ProductFail);
+                    Beep();
                     MessageUtil.ShowError("ESN IS ERROR : 未找到当前ESN的信息");
                     return;
                 }
                 if (dtTracking.Rows.Count > 1)
                 {
-                    _serialPort.WriteData(CmdInfo.ProductFail);
+                    Beep();
                     MessageUtil.ShowError("ESN IS ERROR : ESN的信息存在多条");
                     return;
                 }
                 if (dtTracking.Rows[0]["WOID"].ToString() != _model.WoId)
                 {
-                    _serialPort.WriteData(CmdInfo.ProductFail);
+                    Beep();
                     MessageUtil.ShowError("ESN IS ERROR : 不属于当前工单");
                     return;
                 }
                 if (dtTracking.Rows[0]["ERRFLAG"].ToString() == "1")
                 {
-                    _serialPort.WriteData(CmdInfo.ProductFail);
+                    Beep();
                     MessageUtil.ShowError("ESN IS ERROR : 当前ESN为维修板");
                     return;
                 }
@@ -424,13 +437,39 @@ namespace BoardAutoTesting
                     "NA", ClientConnection.SysModel.WoId);
                 if (!AllRoutes.LstRoutes.Contains(strResult))
                 {
-                    _serialPort.WriteData(CmdInfo.ProductFail);
+                    Beep();
+                    MessageUtil.ShowError("ESN IS ERROR : 不属于当前站位");
                     return;
                 }
 
             }
 
             _strLastEsn = strEsn;
+        }
+
+        /// <summary>
+        /// 蜂鸣，单片机反馈*PRO:GET#后停止发送FAIL指令
+        /// 三次还收不到就不管了，直接弹窗提醒
+        /// </summary>
+        private void Beep()
+        {
+            _serialPort.WriteData(CmdInfo.ProductFail);
+            for (int i = 0; i < 3; i++)
+            {
+                int startTick = Environment.TickCount;
+                int endTick = Environment.TickCount;
+                while (endTick - startTick < BeepInverval)
+                {
+                    if (_stopBeep)
+                    {
+                        _stopBeep = false;
+                        return;
+                    }
+
+                    Thread.Sleep(10);
+                    endTick = Environment.TickCount;
+                }
+            }
         }
 
         private void CloseServer()
@@ -628,6 +667,8 @@ namespace BoardAutoTesting
                         btnCraft.BackColor = line.CraftEsn != ""
                             ? Color.DarkGoldenrod
                             : Color.ForestGreen;
+                        if (line.IsRepair)
+                            btnCraft.BackColor = Color.Red;
 
                         Application.DoEvents();
 
@@ -642,6 +683,7 @@ namespace BoardAutoTesting
                             string showResult = line1.RouteName + "\r\n" +
                                                 "Pass/Fail" + "\r\n" + result;
                             btnCraft.Text = showResult;
+                            btnLine.Text = line1.CraftId;
                         });
 
                         Application.DoEvents();
